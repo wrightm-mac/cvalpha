@@ -62,5 +62,5 @@ $.fn.extend({
 
 
 $(function() {
-
+  startLoginBox();
 });

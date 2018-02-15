@@ -32,40 +32,28 @@
 
 ----------------------------------------------------------------------------- */
 
-const sha = require('./hash/sha');
 
+function startLoginBox() {
+$("#loginBubble").click(function() {
+    let $loginBox = $("#loginBox");
+    if ($loginBox.hidden()) {
+        $loginBox.fadeIn();
+        $("#loginBoxButtons div").button();
+        $("#loginOk").click(function() {
 
-module.exports = {
-    site: {
-        id: {
-            name: "cvalpha.com",
-            version: 0.3,
-            get hash() {
-                let hasher = new sha("SHA-1", "TEXT");
-                hasher.update(`${this.name}+${this.version}`);
+            let email = $("#loginEmail").val();
+            let password = $("#loginPassword").val();
 
-                return hasher.getHash("HEX");
-            }
-        },
-        title: "cv alpha",
-        //image: "/images/LincolnCityBadge.png",
-        map: [{
-            name: "you",
-            path: "/index.html",
-            children: [
-                "/",
-                /stuff\/*/
-            ]
-        }, {
-            name: "them",
-            path: "/them.html"
-        }, {
-            name: "us",
-            path: "/us.html"
-        }, {
-            name: "Admin",
-            path: "/admin.html",
-            roles: ["admin"]
-        }]
+            console.log("login [email=%s][password=%s]", email, password);
+
+            $loginBox.fadeOut();
+        });
+        $("#loginCancel").click(function() {
+        $loginBox.fadeOut();
+        });
     }
-};
+    else {
+        $loginBox.fadeOut();
+    }
+    });
+}

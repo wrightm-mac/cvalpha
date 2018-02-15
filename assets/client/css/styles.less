@@ -138,7 +138,7 @@ a {
   text-align: center;
   vertical-align: middle;
 
-  z-index: 100001;
+  z-index: 1001;
 }
 
 #headerPicture {
@@ -152,7 +152,7 @@ a {
   padding-top: 25px;
   padding-left: 15px;
 
-  z-index: 100002;
+  z-index: 1002;
 }
 
 #headertext {
@@ -231,6 +231,120 @@ a {
 // ------------------------------------------------------------------------- //
 
 
+@loginBubbleDiameter: (@headerHeight - 20%);
+@loginBubbleOffset: ((@headerHeight - @loginBubbleDiameter) / 2.0);
+@loginBubbleFontSize: 18px;
+
+#loginBubble {
+  position: fixed;
+
+  top: @loginBubbleOffset;
+  right: @loginBubbleOffset;
+
+  width: @loginBubbleDiameter;
+  height: @loginBubbleDiameter;
+
+  background-color: @titlecolor;
+  color: @headercolor;
+
+  border-color: @headerbordercolor;
+  border-radius: 90px;
+  border-style: solid;
+  border-width: 2px;
+
+  text-align: center;
+  vertical-align: middle;
+
+  cursor: pointer;
+  
+  z-index: 9002;
+}
+
+#loginBubbleText {
+  position: relative;
+  top: ((@loginBubbleDiameter - @loginBubbleFontSize) / 2.0);
+
+  font-size: @loginBubbleFontSize;
+  font-weight: bold;
+  line-height: @loginBubbleFontSize;
+}
+
+#loginBox {
+  display: none;
+  position: fixed;
+
+  top: 5px;
+  right: 5px;
+
+  width: 210px;
+  height: 200px;
+
+  background-color: @headercolor;
+
+  border-color: @headerbordercolor;
+  border-radius: 10px;
+  border-style: solid;
+  border-width: 2px;
+
+  padding: 12px;
+  
+  z-index: 9003;
+}
+
+#loginBox input {
+  width: (100% - 5px);
+
+  font-size: 110%;
+
+  border-color: darkgrey;
+  border-style: solid;
+  border-width: 1px;
+
+  margin-top: 5px;
+  padding: 3px;
+
+  &::placeholder {
+    color: powderblue;
+  }
+}
+
+#loginBoxButtons {
+  width: 100%;
+
+  margin: 10px 0 0 0;
+}
+
+#loginBoxButtons div {
+  float: left;
+
+  background-color: @titlecolor;
+  color: @headercolor;
+  font-size: smaller;
+
+  width: 60px;
+  height: 18px;
+
+  margin: 0 3px 0 3px;
+
+  border-radius: 4px;
+
+  text-align: center;
+
+  &:first-child {
+    margin-left: 14px;
+  }
+}
+
+#loginRegistrationText {
+  font-size: x-small;
+  line-height: 1.1;
+  text-align: center;
+}
+
+
+// ------------------------------------------------------------------------- //
+
+
 #dialogModalBackdrop {
   position: fixed;
 
@@ -243,5 +357,5 @@ a {
   background-color: white;
   opacity: 0.75;
 
-  z-index: 110002;
+  z-index: 9001;
 }

@@ -5,7 +5,7 @@ include ./mixins/footer
 
 #html
   head
-    title  Abooly | #{nameFromPath(req.path, site.map)}
+    title  #{site.title} | #{nameFromPath(req.path, site.map)}
     script(src="/scripts/jquery-3.2.1.min.js")
     link(rel='stylesheet', href='/css/jquery-ui.min.css')
     script(src='/scripts/jquery-ui-1.12.1.min.js')

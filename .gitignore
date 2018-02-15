@@ -32,6 +32,7 @@ npm-debug.log
 # Project structure artifacts...
 /app.js
 /.vscode
+/dump
 /public
 /routes
 /temp

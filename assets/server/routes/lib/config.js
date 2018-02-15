@@ -38,7 +38,7 @@ const sha = require('./hash/sha');
 module.exports = {
     site: {
         id: {
-            name: "abooly-crumble.com",
+            name: "cvalpha.com",
             version: 0.3,
             get hash() {
                 let hasher = new sha("SHA-1", "TEXT");

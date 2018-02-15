@@ -50,6 +50,9 @@ const sha = require('./routes/lib/hash/sha');
 const index = require('./routes/index');
 const users = require('./routes/users');
 
+const apiLogin = require('./routes/api/login');
+const apiUsers = require('./routes/api/users');
+
 const app = express();
 
 
@@ -70,7 +73,7 @@ const sessionStore = {
 // The site's hash will be used as the unique-id for the
 // session token...
 const sitehash = config.site.id.hash
-console.log("site: [sha-1=%s]", sitehash);
+console.log("site: [site-hash=%s]", sitehash);
 
 // Make config and some libraries & functions available in view...
 helper.extend(app.locals, pug, config);
@@ -79,29 +82,43 @@ helper.extend(app.locals, pug, config);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-// Pass the request object to the view - this will make the
-// 'req' object (and all of its contents) visible as a local
-// to code in the pug view...
-app.use(function(req,res,next) {
-  res.locals.req = req;
-  next();
-});
-
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser(sitehash));
-//app.use(session(sessionStore));
+app.use(session(sessionStore));
 app.use(lessMiddleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+// Ensure that there is a valid session for the user...
+app.use(function(req,res,next) {
+  req.session.user = req.session.user || { isLoggedIn: false , roles: [] };
+
+  // TODO: Check for session expiry..!
+
+  next();
+});
+
+// Pass the request object to the view - this will make the
+// 'req' object (and all of its contents) visible as a local
+// to code in the pug view...
+app.use(function(req,res,next) {
+  res.locals.req = req;
+
+  next();
+});
+
 
 // The application's pages...
 app.use('/', index);
 app.use('/users', users);
 
 // The application's API handlers...
+app.use('/api/login', apiLogin);
+app.use('/api/users', apiUsers);
 
 
 // catch 404 and forward to error handler

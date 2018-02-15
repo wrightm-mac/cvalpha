@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-
+  
                             BSD 3-Clause License
 
                         Copyright (c) 2018, wrightm-mac
@@ -32,68 +32,33 @@
 
 ----------------------------------------------------------------------------- */
 
-var router = require('express').Router();
+const router = require('express').Router();
 
-var chalk = require('chalk');
-var helper = require('./lib/helper');
-var user = require('./api/models/user');
+const helper = require('../lib/helper');
 
+const user = require('./models/user');
 
-/**
-  Gets all users.
-*/
-router.get('/', function(req, res, next) {
-    console.log(chalk.yellow("get:/users"));
-
-    user.model.find(helper.responder(res));
-});
 
 /**
-  Gets an identified user.
-
-  :id - user's identifier.
-*/
-router.get('/:id', (req, res) => {
-    let self = this;
-
-    user.model.findById(req.params.id, helper.responder(res, (data) => {
-        if (!data) {
-            res.status(404);
-        }
-    }));
-});
-
-/**
-  Adds a new user.
+  Creates a logged-in session.
 */
 router.post('/', (req, res) => {
-    let newUser = new user.model({
-        name: req.body.name,
-        gender: req.body.gender,
-        roles: req.body.roles,
-        email: req.body.email
-    });
+    let email = req.body.email;
+    let password = req.body.password;
 
-    newUser.save(helper.responder(res));
-});
-/**
-  Updates an identified user.
+    // TODO: Create a new user-login & save it...
 
-  :id - user's identifier.
-*/
-router.put('/:id', (req, res) => {
-    req.body.updated_at = Date.now();
+    // TODO: Add the token to the session...
 
-    user.model.findByIdAndUpdate(req.params.id, req.body, helper.responder(res));
 });
 
 /**
-  Deletes an identified user.
-
-  :id - user's identifier.
+  Deletes a logged-in session.
 */
 router.delete('/:id', (req, res) => {
-    user.model.findByIdAndRemove(req.params.id, helper.responder(res));
+    let sessionId = req.session.token;
+
+    // TODO:    Lookup the session-token & then expire it..!
 });
 
 module.exports = router;

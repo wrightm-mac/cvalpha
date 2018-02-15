@@ -61,7 +61,29 @@ function nameFromPath(path, map) {
     return name;
 }
 
+function isMapItemVisible(session, item) {
+    // Should never happen...
+    if (! (session && session.user)) {
+        return;
+    }
+
+    // An item without any roles should always be visible...
+    if (! item.roles) {
+        return true;
+    }
+
+    for (let userRole of session.user.roles) {
+        for (let itemRole of item.roles) {
+            console.log("isMapItemVisible [user-role=%s][item-role=%s][result=%s]", userRole, itemRole, userRole === itemRole);
+            if (userRole === itemRole) {
+                return true;
+            }
+        }
+    }
+}
+
 module.exports = {
     nameFromPath: nameFromPath,
-    isMapLink: isMapLink
+    isMapLink: isMapLink,
+    isMapItemVisible: isMapItemVisible
 };

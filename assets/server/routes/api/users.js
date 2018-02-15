@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-
+  
                             BSD 3-Clause License
 
                         Copyright (c) 2018, wrightm-mac
@@ -32,19 +32,17 @@
 
 ----------------------------------------------------------------------------- */
 
-var router = require('express').Router();
+const router = require('express').Router();
 
-var chalk = require('chalk');
-var helper = require('./lib/helper');
-var user = require('./api/models/user');
+const helper = require('../lib/helper');
+
+const user = require('./models/user');
 
 
 /**
   Gets all users.
 */
 router.get('/', function(req, res, next) {
-    console.log(chalk.yellow("get:/users"));
-
     user.model.find(helper.responder(res));
 });
 
@@ -54,8 +52,6 @@ router.get('/', function(req, res, next) {
   :id - user's identifier.
 */
 router.get('/:id', (req, res) => {
-    let self = this;
-
     user.model.findById(req.params.id, helper.responder(res, (data) => {
         if (!data) {
             res.status(404);
@@ -67,15 +63,18 @@ router.get('/:id', (req, res) => {
   Adds a new user.
 */
 router.post('/', (req, res) => {
+    let passwordHash = req.body.password;
+
     let newUser = new user.model({
         name: req.body.name,
-        gender: req.body.gender,
-        roles: req.body.roles,
-        email: req.body.email
+        roles: ["user"],
+        email: req.body.email,
+        password: passwordHash
     });
 
     newUser.save(helper.responder(res));
 });
+
 /**
   Updates an identified user.
 

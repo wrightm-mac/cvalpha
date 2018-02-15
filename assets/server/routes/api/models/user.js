@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-
+  
                             BSD 3-Clause License
 
                         Copyright (c) 2018, wrightm-mac
@@ -32,68 +32,32 @@
 
 ----------------------------------------------------------------------------- */
 
-var router = require('express').Router();
-
-var chalk = require('chalk');
-var helper = require('./lib/helper');
-var user = require('./api/models/user');
+var mongoose = require("mongoose");
 
 
-/**
-  Gets all users.
-*/
-router.get('/', function(req, res, next) {
-    console.log(chalk.yellow("get:/users"));
+var UserSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true,
+        index: true,
+        trim: true
+    },
+    roles: [String],
+    email: {
+        type: String,
+        required: true,
+        index: true,
+        unique: true,
+        trim: true,
+        lowercase: true
+    },
+    password: {
+        type: String,
+        required: true
+    }
+}, { timestamps: true });
 
-    user.model.find(helper.responder(res));
-});
-
-/**
-  Gets an identified user.
-
-  :id - user's identifier.
-*/
-router.get('/:id', (req, res) => {
-    let self = this;
-
-    user.model.findById(req.params.id, helper.responder(res, (data) => {
-        if (!data) {
-            res.status(404);
-        }
-    }));
-});
-
-/**
-  Adds a new user.
-*/
-router.post('/', (req, res) => {
-    let newUser = new user.model({
-        name: req.body.name,
-        gender: req.body.gender,
-        roles: req.body.roles,
-        email: req.body.email
-    });
-
-    newUser.save(helper.responder(res));
-});
-/**
-  Updates an identified user.
-
-  :id - user's identifier.
-*/
-router.put('/:id', (req, res) => {
-    req.body.updated_at = Date.now();
-
-    user.model.findByIdAndUpdate(req.params.id, req.body, helper.responder(res));
-});
-
-/**
-  Deletes an identified user.
-
-  :id - user's identifier.
-*/
-router.delete('/:id', (req, res) => {
-    user.model.findByIdAndRemove(req.params.id, helper.responder(res));
-});
-
-module.exports = router;
+module.exports = {
+    schema: UserSchema,
+    model: mongoose.model("User", UserSchema)
+};

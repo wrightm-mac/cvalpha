@@ -62,6 +62,10 @@ module.exports = {
         }, {
             name: "Us",
             path: "/us.html"
+        }, {
+            name: "Admin",
+            path: "/admin.html",
+            roles: ["admin"]
         }]
     }
 };

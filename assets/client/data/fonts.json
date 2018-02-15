@@ -1,0 +1,18 @@
+[
+    { "name": "Times New Roman", "family": "Times", "type": "serif" },
+    { "name": "Georgia", "family": "Georgia", "type": "serif" },
+    { "name": "Palatino Linotype", "family": "Palatino", "type": "serif" },
+    { "name": "Book Antiqua", "family": "Palatino", "type": "serif" },
+
+    { "name": "Arial", "family": "Helvetica", "type": "sans-serif" },
+    { "name": "Arial Black", "family": "Gadget", "type": "sans-serif" },
+    { "name": "Comic Sans MS", "family": "Cursive", "type": "sans-serif" },
+    { "name": "Impact", "family": "Charcoal", "type": "sans-serif" },
+    { "name": "Lucida Sans Unicode", "family": "Lucida Grande", "type": "sans-serif" },
+    { "name": "Tahoma", "family": "Geneva", "type": "sans-serif" },
+    { "name": "Trebuchet MS", "family": "Helvetica", "type": "sans-serif" },
+    { "name": "Verdana", "family": "Geneva", "type": "sans-serif" },
+
+    { "name": "Courier New", "family": "Courier", "type": "monospace" },
+    { "name": "Lucida Console", "family": "Monaca", "type": "monospace" }
+]

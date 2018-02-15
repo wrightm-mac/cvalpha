@@ -1,0 +1,243 @@
+/* ----------------------------------------------------------------------------
+
+                            BSD 3-Clause License
+
+                        Copyright (c) 2018, wrightm-mac
+                            All rights reserved.
+
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following conditions are met:
+
+  * Redistributions of source code must retain the above copyright notice, this
+    list of conditions and the following disclaimer.
+
+  * Redistributions in binary form must reproduce the above copyright notice,
+    this list of conditions and the following disclaimer in the documentation
+    and/or other materials provided with the distribution.
+
+  * Neither the name of the copyright holder nor the names of its
+    contributors may be used to endorse or promote products derived from
+    this software without specific prior written permission.
+
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+  AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+  FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+  DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+  SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+  CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+----------------------------------------------------------------------------- */
+
+@import "theme.less";
+@import "jqueryui.less";
+@import "debug.less";
+
+
+// Main page layout...
+
+body {
+  width: (100% - 2px);
+  min-height: 800px;
+
+  background-color: @pagecolor;
+  color: @pencolor;
+
+  font-family: @fontFamily;
+	font-size: @fontSize;
+	font-style: @fontStyle;
+	font-weight: @fontWeight;
+
+  letter-spacing: 2.5px;
+  line-height: 170%;
+  text-align: justify;
+  text-transform: none;
+}
+
+#content {
+  min-height: 800px;
+  color: @pencolor;
+  padding: 4px 85px 20px 85px;
+}
+
+p {
+  margin-bottom: 45px;
+
+  &:hover {
+    //border-radius: @documentIconBorderRadius @documentIconBorderRadius @documentIconBorderRadius @documentIconBorderRadius;
+    //box-shadow: 10px 10px 15px 5px @documentIconShadowColor;
+  }
+}
+
+body p:first-child {
+  margin-top: (@headerHeight + 25px);
+}
+
+#content > p::first-letter {
+  font-size: 110%;
+  font-weight: bold;
+}
+
+a {
+  color: @linkcolor;
+  font-weight: bold;
+  text-decoration: none;
+  &:hover {
+    color: @pencolor + @linkcolor;
+    font-weight: bold;
+    text-decoration: none;
+  }
+}
+
+#content img {
+  opacity: @documentIconOpacity;
+  border-color: white;
+  border-radius: @documentIconBorderRadius @documentIconBorderRadius @documentIconBorderRadius @documentIconBorderRadius;
+  border-style: solid;
+  border-width: 9px;
+  //box-shadow: 10px 10px 15px 5px @documentIconShadowColor;
+  box-shadow: 10px 10px 80px 5px;
+  width: @documentIconWidth;
+  height: @documentIconHeight;
+}
+
+#content img:nth-child(even) {
+  float: left;
+  margin: 10px 20px 0 0;
+  transform: rotate(-@documentIconRotate);
+}
+
+#content img:nth-child(odd) {
+  float: right;
+  margin: 10px 0 0 20px;
+  transform: rotate(@documentIconRotate);
+}
+
+
+// ------------------------------------------------------------------------- //
+
+
+#header {
+  position: fixed;
+  opacity: @headerOpacity;
+
+  width: (100% - 2px);
+  height: @headerHeight;
+
+  background-color: @headercolor;
+
+  border-color: @headerbordercolor;
+  border-style: @headerborderstyle;
+  border-width: @headerborderwidth;
+  border-radius: @headerborderradius @headerborderradius 0 @headerborderradius;
+
+  text-align: center;
+  vertical-align: middle;
+
+  z-index: 100001;
+}
+
+#headerPicture {
+  float: left;
+  width: @headerPictureWidth;
+  height: @headerPictureHeight;
+
+  position: fixed;
+  left: @headerPictureLeft;
+  top: @headerPictureTop;
+  padding-top: 25px;
+  padding-left: 15px;
+
+  z-index: 100002;
+}
+
+#headertext {
+  color: @titlecolor;
+
+  font-size: @headerTextSize;
+  line-height: 1.2em;
+
+  text-align: center;
+}
+
+.headerNavLinkSelected, .headerNavLinkUnselected {
+  display: inline-block;
+
+  cursor: pointer;
+  font-size: @navButtonFontSize;
+  line-height: @navButtonFontSize;
+
+  width: @navButtonWidth;
+  height: @navButtonHeight;
+
+  margin: 4px 12px 0 12px;
+  padding: 6px 0 6px 0;
+
+  border-radius: @headerborderradius @headerborderradius 0 @headerborderradius;
+  border-style: @headerborderstyle;
+  border-width: @headerborderwidth;
+}
+
+.headerNavLinkSelected {
+  border-color: @titlecolor;
+  background-color: @titlecolor;
+  color: @headercolor;
+  cursor: default;
+  &:hover {
+    color: @headercolor;
+  }
+}
+
+.headerNavLinkUnselected {
+  background-color: @headercolor;
+  color: @titlecolor;
+}
+
+#footer {
+  width: 100%;
+  height: @footerHeight;
+
+  background-color: @footercolor;
+  color: @footertextcolor;
+  font-size: 80%;
+
+  margin: 30px 0 0 0;
+
+  border-top-color: @headerbordercolor;
+  border-top-style: @headerborderstyle;
+  border-top-width: @headerborderwidth;
+
+  text-align: center;
+  vertical-align: text-bottom;
+}
+
+
+#footer a {
+  color: @footerlinkcolor;
+  font-weight: bold;
+  text-decoration: none;
+  &:visited {
+  }
+}
+
+
+// ------------------------------------------------------------------------- //
+
+
+#dialogModalBackdrop {
+  position: fixed;
+
+  top: 0px;
+  left: 0px;
+
+  width: 100%;
+  height: 100%;
+
+  background-color: white;
+  opacity: 0.75;
+
+  z-index: 110002;
+}

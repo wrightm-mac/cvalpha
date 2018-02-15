@@ -1,0 +1,14 @@
+mixin header
+  div#header
+    div#headertext= site.title
+
+    div#headerNavigation
+      span
+        each item in site.map
+          - let isCurrentPage = isMapLink(req.path, item);
+          - let linkClass = isCurrentPage ? "headerNavLinkSelected" : "headerNavLinkUnselected";
+          - let linkPath = isCurrentPage ? undefined : item.path;
+          if (!item.hidden)
+            a(href=linkPath, class= linkClass, disabled= isCurrentPage) #{item.name}
+  if site.image
+    img#headerPicture(src=site.image)

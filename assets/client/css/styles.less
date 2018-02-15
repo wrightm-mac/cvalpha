@@ -40,7 +40,7 @@
 // Main page layout...
 
 body {
-  width: (100% - 2px);
+  width: (100% - 1px);
   min-height: 800px;
 
   background-color: @pagecolor;
@@ -60,7 +60,7 @@ body {
 #content {
   min-height: 800px;
   color: @pencolor;
-  padding: 4px 85px 20px 85px;
+  padding: 0 85px 20px 85px;
 }
 
 p {
@@ -124,7 +124,8 @@ a {
   position: fixed;
   opacity: @headerOpacity;
 
-  width: (100% - 2px);
+  top: 0px;
+  width: (100% - 1px);
   height: @headerHeight;
 
   background-color: @headercolor;
@@ -178,7 +179,7 @@ a {
 
   border-radius: @headerborderradius @headerborderradius 0 @headerborderradius;
   border-style: @headerborderstyle;
-  border-width: @headerborderwidth;
+  border-width: @navButtonBorderWidth;
 }
 
 .headerNavLinkSelected {

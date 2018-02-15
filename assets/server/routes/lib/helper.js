@@ -71,5 +71,10 @@ module.exports = {
 
             res.send(data);
         }
+    },
+
+    sendOk: function(res, data) {
+        res.status = 200;
+        res.send(data || {});
     }
 };

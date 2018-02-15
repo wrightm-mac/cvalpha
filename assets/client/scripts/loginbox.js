@@ -46,7 +46,23 @@ $("#loginBubble").click(function() {
 
             console.log("login [email=%s][password=%s]", email, password);
 
-            $loginBox.fadeOut();
+            $.ajax({
+                url: "/api/login",
+                method: "POST",
+                data: {
+                    email: email,
+                    password: password
+                }
+            })
+            .done((data, status) => {
+                console.log("login [response-data=%o][status=%o]", data, status);
+            })
+            .fail(error => {
+                console.error("login [response-error=%o]", error);
+            })
+            .always(() => {
+                $loginBox.fadeOut();
+            });
         });
         $("#loginCancel").click(function() {
         $loginBox.fadeOut();

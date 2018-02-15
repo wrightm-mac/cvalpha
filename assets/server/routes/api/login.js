@@ -46,10 +46,16 @@ router.post('/', (req, res) => {
     let email = req.body.email;
     let password = req.body.password;
 
+    console.log("/api/login [email=%s][password=%s]", email, password);
+
     // TODO: Create a new user-login & save it...
 
     // TODO: Add the token to the session...
 
+    helper.sendOk(res, {
+      hello: "world!",
+      message: "bazinga!"
+    });
 });
 
 /**

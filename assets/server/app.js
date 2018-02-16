@@ -47,6 +47,7 @@ const helper = require('./routes/lib/helper');
 const pug = require('./routes/lib/pug');
 const sha = require('./routes/lib/hash/sha');
 
+const fragments = require('./routes/fragments');
 const index = require('./routes/index');
 const users = require('./routes/users');
 
@@ -119,6 +120,9 @@ app.use('/users', users);
 // The application's API handlers...
 app.use('/api/login', apiLogin);
 app.use('/api/users', apiUsers);
+
+// The application's fragments...
+app.use('/fragments', fragments);
 
 
 // catch 404 and forward to error handler

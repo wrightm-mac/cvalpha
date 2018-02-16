@@ -33,6 +33,20 @@
 ----------------------------------------------------------------------------- */
 
 
+$.extend({
+  fragment: function(callback) {
+    console.log("$.fragment");
+
+    $("div [data-fragment]").each(function() {
+      console.log("$.fragment *");
+
+      $(this).fragment(callback);
+    }); 
+      
+    return this;
+  }
+});
+
 $.fn.extend({
   exists: function() {
     return this.length;
@@ -57,10 +71,16 @@ $.fn.extend({
     $(this).dialog("close");
     $(this).remove();
     $("#dialogModalBackdrop").remove();
+  },
+
+  fragment(callback) {
+    $(this).load($(this).attr("data-fragment"), null, function() {
+      callback && callback.call(this, element);
+    });
   }
 });
 
 
 $(function() {
-  startLoginBox();
+  $.fragment();
 });

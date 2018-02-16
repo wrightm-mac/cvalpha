@@ -17,15 +17,4 @@ mixin header
     div#loginBubbleText
       | login
   
-  div#loginBox
-    div#loginRegistrationText
-      | If you haven't logged in before, an account will be created for you with
-      | the given email address. You must verify the email address within 24 hours,
-      | or the account will automatically be deleted.
-    input(type="text", id="loginEmail", name="email", placeholder="email")
-    input(type="password", id="loginPassword", name="password", placeholder="password")
-    div#loginBoxButtons
-      div#loginOk
-        | Login
-      div#loginCancel
-        | Cancel
+  div(data-fragment='/fragments/loginbox')

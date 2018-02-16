@@ -1,0 +1,54 @@
+div#loginBox(data-fragment='/fragments/loginbox')
+    div#loginRegistrationText
+        | If you haven't logged in before, an account will be created for you with
+        | the given email address. You must verify the email address within 24 hours,
+        | or the account will automatically be deleted.
+    input(type="text", id="loginEmail", name="email", placeholder="email")
+    input(type="password", id="loginPassword", name="password", placeholder="password")
+    div#loginBoxButtons
+        div#loginOk
+        | Login
+        div#loginCancel
+        | Cancel
+
+script.
+    $(function() {
+        $("#loginBubble").click(function() {
+            let $loginBox = $("#loginBox");
+            if ($loginBox.hidden()) {
+                $loginBox.fadeIn();
+                $("#loginBoxButtons div").button();
+                $("#loginOk").click(function() {
+
+                    let email = $("#loginEmail").val();
+                    let password = $("#loginPassword").val();
+
+                    console.log("login [email=%s][password=%s]", email, password);
+
+                    $.ajax({
+                        url: "/api/login",
+                        method: "POST",
+                        data: {
+                            email: email,
+                            password: password
+                        }
+                    })
+                    .done((data, status) => {
+                        console.log("login [response-data=%o][status=%o]", data, status);
+                    })
+                    .fail(error => {
+                        console.error("login [response-error=%o]", error);
+                    })
+                    .always(() => {
+                        $loginBox.fadeOut();
+                    });
+                });
+                $("#loginCancel").click(function() {
+                $loginBox.fadeOut();
+                });
+            }
+            else {
+                $loginBox.fadeOut();
+            }
+        });
+    });

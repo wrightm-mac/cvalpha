@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-
+  
                             BSD 3-Clause License
 
                         Copyright (c) 2018, wrightm-mac
@@ -32,44 +32,11 @@
 
 ----------------------------------------------------------------------------- */
 
+var router = require('express').Router();
 
-function startLoginBox() {
-$("#loginBubble").click(function() {
-    let $loginBox = $("#loginBox");
-    if ($loginBox.hidden()) {
-        $loginBox.fadeIn();
-        $("#loginBoxButtons div").button();
-        $("#loginOk").click(function() {
 
-            let email = $("#loginEmail").val();
-            let password = $("#loginPassword").val();
+router.get("/:name", function(req, res, next) {
+  res.render(`fragments/${req.params.name}`);
+});
 
-            console.log("login [email=%s][password=%s]", email, password);
-
-            $.ajax({
-                url: "/api/login",
-                method: "POST",
-                data: {
-                    email: email,
-                    password: password
-                }
-            })
-            .done((data, status) => {
-                console.log("login [response-data=%o][status=%o]", data, status);
-            })
-            .fail(error => {
-                console.error("login [response-error=%o]", error);
-            })
-            .always(() => {
-                $loginBox.fadeOut();
-            });
-        });
-        $("#loginCancel").click(function() {
-        $loginBox.fadeOut();
-        });
-    }
-    else {
-        $loginBox.fadeOut();
-    }
-    });
-}
+module.exports = router;

@@ -231,6 +231,43 @@ a {
 // ------------------------------------------------------------------------- //
 
 
+.standardButton {
+  background-color: @titlecolor;
+  color: @headercolor;
+  font-size: smaller;
+
+  width: 60px;
+  height: 18px;
+
+  margin: 0 3px 0 3px;
+
+  border-radius: 4px;
+
+  text-align: center;
+}
+
+.standardInput {
+  width: (100% - 5px);
+
+  font-size: 110%;
+
+  border-color: darkgrey;
+  border-radius: 6px;
+  border-style: solid;
+  border-width: 1px;
+
+  margin-top: 5px;
+  padding: 3px;
+
+  &::placeholder {
+    color: powderblue;
+  }
+}
+
+
+// ------------------------------------------------------------------------- //
+
+
 @loginBubbleDiameter: (@headerHeight - 20%);
 @loginBubbleOffset: ((@headerHeight - @loginBubbleDiameter) / 2.0);
 @loginBubbleFontSize: 18px;
@@ -277,7 +314,7 @@ a {
   right: 5px;
 
   width: 210px;
-  height: 200px;
+  height: 150px;
 
   background-color: @headercolor;
 
@@ -291,54 +328,32 @@ a {
   z-index: 9003;
 }
 
-#loginBox input {
-  width: (100% - 5px);
-
-  font-size: 110%;
-
-  border-color: darkgrey;
-  border-style: solid;
-  border-width: 1px;
-
-  margin-top: 5px;
-  padding: 3px;
-
-  &::placeholder {
-    color: powderblue;
-  }
-}
-
 #loginBoxButtons {
   width: 100%;
 
-  margin: 10px 0 0 0;
+  margin: 10px 0 0 8px;
 }
 
-#loginBoxButtons div {
+#loginOk, #loginCancel {
   float: left;
-
-  background-color: @titlecolor;
-  color: @headercolor;
-  font-size: smaller;
-
-  width: 60px;
-  height: 18px;
-
-  margin: 0 3px 0 3px;
-
-  border-radius: 4px;
-
-  text-align: center;
-
-  &:first-child {
-    margin-left: 14px;
-  }
 }
 
 #loginRegistrationText {
+  color: darkgrey;
+
   font-size: x-small;
   line-height: 1.1;
   text-align: center;
+
+  margin: 50px 0 0 0;
+  padding: 0 0 8px 0;
+}
+
+#loginRegister {
+  color: @titlecolor;
+  font-size: larger;
+  padding: 0 2px 0 2px;
+  cursor: pointer;
 }
 
 

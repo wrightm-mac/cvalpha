@@ -35,11 +35,7 @@
 
 $.extend({
   fragment: function(callback) {
-    console.log("$.fragment");
-
     $("div [data-fragment]").each(function() {
-      console.log("$.fragment *");
-
       $(this).fragment(callback);
     }); 
       

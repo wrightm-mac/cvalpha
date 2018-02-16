@@ -95,8 +95,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Ensure that there is a valid session for the user...
 app.use(function(req,res,next) {
-  req.session.user = req.session.user || { isLoggedIn: false , roles: [] };
-
   // TODO: Check for session expiry..!
 
   next();

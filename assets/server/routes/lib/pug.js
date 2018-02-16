@@ -73,9 +73,8 @@ function isMapItemVisible(session, item) {
         return;
     }
 
-    for (let userRole of session.user.roles) {
+    for (let userRole of session.user.roles || []) {
         for (let itemRole of item.roles) {
-            console.log("isMapItemVisible [user-role=%s][item-role=%s][result=%s]", userRole, itemRole, userRole === itemRole);
             if (userRole === itemRole) {
                 return true;
             }

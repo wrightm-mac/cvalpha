@@ -35,6 +35,15 @@
 var mongoose = require("mongoose");
 
 
+var UserSessionSchema = new mongoose.Schema({
+    token: {
+        type: String,
+        required: true,
+        indexed: true
+    },
+    endedAt: Date
+}, { timestamps: true });
+
 var UserSchema = new mongoose.Schema({
     firstname: {
         type: String,
@@ -65,7 +74,8 @@ var UserSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true
-    }
+    },
+    sessions: [UserSessionSchema]
 }, { timestamps: true });
 
 module.exports = {

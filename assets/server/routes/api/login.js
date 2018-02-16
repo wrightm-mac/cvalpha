@@ -75,29 +75,35 @@ router.post('/', (req, res) => {
 
   console.log("/api/login [email=%s][password=%s]", email, password);
 
-  user.model.findOne({ $and: [{ email: email }, { password: password }]}, (error, data) => {
-    console.log("/api/login [error=%o][data=%o]", error, data);
-
-    if (error) {
-      helper.sendCode(res, 500, { message: error } );
-      return;
-    }
-    
+  user.model.findOne({ $and: [{ email: email }, { password: password }]},
+                      { _id: true, firstname: true, lastname: true, email: true, roles: true, sessions: true },
+                      helper.responder(res, (data) => {
     if (data) {
-      req.session.user = data;
+      let sessionToken = helper.hash(`${email}+${Date.now}`);
 
-      helper.sendOk(res, {
+      req.session.user = {
+        id: data._id,
         firstname: data.firstname,
         lastname: data.lastname,
         email: data.email,
+        roles: data.roles,
         login: true,
-        message: "logged in"
+        token: sessionToken
+      };
+
+      data.sessions.push({ token: sessionToken });
+      data.save((err) => {
+        if (err) {
+          console.error("router:login - error saving session (%o)", err);
+        }
       });
+
+      return req.session.user;
     }
     else {
-      helper.sendCode(res, 406, "bad login");
+      res.status(406);
     }
-  });
+  }));
 });
 
 /**

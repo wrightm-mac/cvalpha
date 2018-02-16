@@ -46,6 +46,10 @@ module.exports = {
         return dest;
     },
 
+    stripExtension: function(path) {
+        return path.replace(/\.[^/.]+$/, "")
+    },
+
     /**
      *  Standard response handler to send Mongoose query results back to caller.
      *

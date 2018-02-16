@@ -36,10 +36,16 @@ var mongoose = require("mongoose");
 
 
 var UserSchema = new mongoose.Schema({
-    name: {
+    firstname: {
         type: String,
         required: true,
-        index: true,
+        index: false,
+        trim: true
+    },
+    lastname: {
+        type: String,
+        required: true,
+        index: false,
         trim: true
     },
     roles: [String],

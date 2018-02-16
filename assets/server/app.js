@@ -40,6 +40,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const lessMiddleware = require('less-middleware');
 const session = require('express-session');
+const mongoose = require('mongoose');
 const MongoStore = require('connect-mongo')(session);
 
 const config = require('./routes/lib/config');
@@ -56,6 +57,20 @@ const apiUsers = require('./routes/api/users');
 const app = express();
 
 
+// The site information (from the config file)...
+const sitehash = config.site.id.hash
+const siteName = config.site.id.name;
+const siteVersion = config.site.id.version;
+
+console.log("site('%s', %d, '%s')", siteName, siteVersion, sitehash);
+
+
+// Initialise mongo/mongoose...
+mongoose.connect(`mongodb://localhost/${helper.stripExtension(siteName)}`, {
+    autoIndex: false
+});
+
+
 // The session store config...
 const sessionStore = {
   secret: 'secret',
@@ -69,11 +84,6 @@ const sessionStore = {
   saveUninitialized: true
 };
 
-
-// The site's hash will be used as the unique-id for the
-// session token...
-const sitehash = config.site.id.hash
-console.log("site('%s', %d, '%s')", config.site.id.name, config.site.id.version, sitehash);
 
 // Make config and some libraries & functions available in view...
 helper.extend(app.locals, pug, config);

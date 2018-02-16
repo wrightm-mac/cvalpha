@@ -1,12 +1,12 @@
 div#loginBox(data-fragment='/fragments/loginbox')
-    input.standardInput(type="text", id="loginEmail", name="email", placeholder="email")
+    input.standardInput(type="email", id="loginEmail", name="email", placeholder="email")
     input.standardInput(type="password", id="loginPassword", name="password", placeholder="password")
     div#loginBoxButtons
         div#loginOk.standardButton
             | Login
         div#loginCancel.standardButton
             | Cancel
-    div#loginRegistrationText
+    div.loginRegistrationTextDown
         | Don't have an account?
         span#loginRegister
             | register
@@ -53,5 +53,9 @@ script.
 
         $("#loginCancel").click(function() {
             $loginBox.fadeOut();
+        });
+
+        $("#loginRegister").click(function() {
+            $("#registrationBox").fadeIn();
         });
     });

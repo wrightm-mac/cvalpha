@@ -35,27 +35,54 @@
 const router = require('express').Router();
 
 const helper = require('../lib/helper');
+const sha = require('../lib/hash/sha');
 
 const user = require('./models/user');
+
+
+/**
+  Creates a new user.
+*/
+router.post('/register', (req, res) => {
+  let firstName = req.body.firstName;
+  let lastName = req.body.lastName;
+  let email = req.body.email;
+  let password = req.body.password;
+
+  let hasher = new sha("SHA-1", "TEXT");
+  hasher.update(password);
+  let passwordHash = hasher.getHash("HEX");
+  //let passwordHash = `***${password}***`;
+  
+  console.log("/api/login [first-name=%s][last-name=%s][email=%s][password=%s][hash=%s]", firstName, lastName, email, password, passwordHash);
+
+  let newUser = new user.model({
+    firstname: firstName,
+    lastname: lastName, 
+    roles: ["user"],
+    email: email,
+    password: passwordHash
+  });
+
+  newUser.save(helper.responder(res));
+});
 
 
 /**
   Creates a logged-in session.
 */
 router.post('/', (req, res) => {
-    let email = req.body.email;
-    let password = req.body.password;
+  let email = req.body.email;
+  let password = req.body.password;
 
-    console.log("/api/login [email=%s][password=%s]", email, password);
+  console.log("/api/login [email=%s][password=%s]", email, password);
 
-    // TODO: Create a new user-login & save it...
+  // TODO: Add the token to the session...
 
-    // TODO: Add the token to the session...
-
-    helper.sendOk(res, {
-      hello: "world!",
-      message: "bazinga!"
-    });
+  helper.sendOk(res, {
+    hello: "world!",
+    message: "bazinga!"
+  });
 });
 
 /**

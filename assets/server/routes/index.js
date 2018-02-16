@@ -34,11 +34,13 @@
 
 var router = require('express').Router();
 
+var helper = require('./lib/helper');
+
 
 router.get(["/", "/:page"], function(req, res, next) {
   console.log("router:index [page=%s]", req.params.page)
   // Strip off the '.html' extension to get the name of the pug-view...
-  let pagename = req.params.page ? req.params.page.replace(/\.[^/.]+$/, "") : "index";
+  let pagename = req.params.page ? helper.stripExtension(req.params.page) : "index";
   
   res.render(pagename);
 });

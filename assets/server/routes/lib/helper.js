@@ -32,6 +32,9 @@
 
 ----------------------------------------------------------------------------- */
 
+const sha = require('./hash/sha');
+
+
 module.exports = {
 
     /**
@@ -48,6 +51,13 @@ module.exports = {
 
     stripExtension: function(path) {
         return path.replace(/\.[^/.]+$/, "")
+    },
+
+    hash: function(text) {
+        let hasher = new sha("SHA-1", "TEXT");
+        hasher.update(text);
+        
+        return hasher.getHash("HEX");
     },
 
     /**

@@ -48,6 +48,11 @@ var UserSchema = new mongoose.Schema({
         index: false,
         trim: true
     },
+    hash: {
+        type: String,
+        required: true,
+        index: true
+    },
     roles: [String],
     email: {
         type: String,

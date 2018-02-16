@@ -1,3 +1,4 @@
 [
-    { "firstname" : "Michael", "lastname" : "Wright", "roles" : [ "user", "admin" ], "email" : "wrightm@mac.com", "password" : "5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8" }
+    { "firstname" : "Michael", "lastname" : "Wright", "roles" : [ "user", "admin" ], "email" : "wrightm@mac.com", "hash" : "154256e92c0f91a9ccfe4d4193efd69d8c27ac5c", "password" : "5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8" },
+    { "firstname" : "Albert", "lastname" : "Anchovy", "roles" : [ "user" ], "email" : "albert@anchovy.com", "hash" : "154256e92c987654ccfe4d4193efd69d8c27ac5c", "password" : "5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8" }
 ]

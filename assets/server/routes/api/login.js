@@ -35,7 +35,6 @@
 const router = require('express').Router();
 
 const helper = require('../lib/helper');
-const sha = require('../lib/hash/sha');
 
 const user = require('./models/user');
 
@@ -49,10 +48,8 @@ router.post('/register', (req, res) => {
   let email = req.body.email;
   let password = req.body.password;
 
-  let hasher = new sha("SHA-1", "TEXT");
-  hasher.update(password);
-  let passwordHash = hasher.getHash("HEX");
-  //let passwordHash = `***${password}***`;
+  let userHash = helper.hash(`${firstName}+${Math.random() * 999999.999999}+${lastName}+${Date.now().toString()}`)
+  let passwordHash = helper.hash(password);
   
   console.log("/api/login [first-name=%s][last-name=%s][email=%s][password=%s][hash=%s]", firstName, lastName, email, password, passwordHash);
 
@@ -60,6 +57,7 @@ router.post('/register', (req, res) => {
     firstname: firstName,
     lastname: lastName, 
     roles: ["user"],
+    hash: userHash,
     email: email,
     password: passwordHash
   });

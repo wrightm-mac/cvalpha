@@ -8,24 +8,24 @@ div#loginBox(data-fragment='/fragments/loginbox')
             | Cancel
     div.loginRegistrationTextDown
         | Don't have an account?
-        span#loginRegister
+        br
+        div#loginRegister
             | register
 
 script.
     $(function() {
-        let $loginBox = $("#loginBox");
-
-        $("#loginBubble").click(function() {
-            if ($loginBox.hidden()) {
-                $loginBox.fadeIn();
-            }
-            else {
-                $loginBox.fadeOut();
-            }
-        });
-
         $("#loginBoxButtons div").button();
 
+        let $loginBox = $("#loginBox");
+        $("#loginBubble").click(function() {
+          if ($loginBox.hidden()) {
+              $loginBox.fadeIn();
+          }
+          else {
+              $loginBox.fadeOut();
+          }
+        });
+        
         $("#loginOk").click(function() {
             let email = $("#loginEmail").val();
             let password = $("#loginPassword").val();
@@ -42,12 +42,11 @@ script.
             })
             .done((data, status) => {
                 console.log("login [response-data=%o][status=%o]", data, status);
+                $.redirect("/");
             })
             .fail(error => {
-                console.error("login [response-error=%o]", error);
-            })
-            .always(() => {
-                $loginBox.fadeOut();
+                console.error("login: error [status-code=%d][message=%o]", error.status, error.statusText);
+                $("#loginBox input").addClass("badInput");
             });
         });
 

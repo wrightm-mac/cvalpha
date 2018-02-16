@@ -71,25 +71,44 @@ router.post('/register', (req, res) => {
 */
 router.post('/', (req, res) => {
   let email = req.body.email;
-  let password = req.body.password;
+  let password = helper.hash(req.body.password);
 
   console.log("/api/login [email=%s][password=%s]", email, password);
 
-  // TODO: Add the token to the session...
+  user.model.findOne({ $and: [{ email: email }, { password: password }]}, (error, data) => {
+    console.log("/api/login [error=%o][data=%o]", error, data);
 
-  helper.sendOk(res, {
-    hello: "world!",
-    message: "bazinga!"
+    if (error) {
+      helper.sendCode(res, 500, { message: error } );
+      return;
+    }
+    
+    if (data) {
+      req.session.user = data;
+
+      helper.sendOk(res, {
+        firstname: data.firstname,
+        lastname: data.lastname,
+        email: data.email,
+        login: true,
+        message: "logged in"
+      });
+    }
+    else {
+      helper.sendCode(res, 406, "bad login");
+    }
   });
 });
 
 /**
   Deletes a logged-in session.
 */
-router.delete('/:id', (req, res) => {
-    let sessionId = req.session.token;
+router.delete('/', (req, res) => {
+  console.log("router:delete");
 
-    // TODO:    Lookup the session-token & then expire it..!
+  delete req.session.user;
+
+  helper.sendOk(res, { message: "user logout"});
 });
 
 module.exports = router;

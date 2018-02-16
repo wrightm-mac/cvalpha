@@ -63,7 +63,7 @@ module.exports = {
             name: "us",
             path: "/us.html"
         }, {
-            name: "Admin",
+            name: "admin",
             path: "/admin.html",
             roles: ["admin"]
         }]

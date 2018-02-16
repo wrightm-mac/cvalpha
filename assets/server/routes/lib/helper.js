@@ -90,5 +90,10 @@ module.exports = {
     sendOk: function(res, data) {
         res.status = 200;
         res.send(data || {});
+    },
+
+    sendCode: function(res, code, data) {
+        res.status(code);
+        res.send(data || {});
     }
 };

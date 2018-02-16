@@ -8,7 +8,7 @@ div#registrationBox(data-fragment='/fragments/loginbox')
     input.standardInput(type="password", id="regPasswordConfirm", placeholder="confirm password")
     div#loginBoxButtons
         div#registerOk.standardButton
-            | Login
+            | Register
         div#registerCancel.standardButton
             | Cancel
 
@@ -32,10 +32,10 @@ script.
                 }
             })
             .done((data, status) => {
-                console.log("login [response-data=%o][status=%o]", data, status);
+                console.log("login: success [response-data=%o][status=%o]", data, status);
             })
-            .fail(error => {
-                console.error("login [response-error=%o]", error);
+            .fail((error, message) => {
+                console.error("login: error [error=%o][message=%o]", error, message);
             })
             .always(() => {
                 $registrationBox.fadeOut();

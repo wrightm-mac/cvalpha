@@ -237,7 +237,7 @@ a {
   color: @headercolor;
   font-size: smaller;
 
-  width: 60px;
+  width: 70px;
   height: 18px;
 
   margin: 0 3px 0 3px;
@@ -253,7 +253,7 @@ a {
   font-size: 110%;
 
   border-color: darkgrey;
-  border-radius: 6px;
+  border-radius: 3px;
   border-style: solid;
   border-width: 1px;
 
@@ -265,9 +265,25 @@ a {
   }
 }
 
+.badInput {
+  border-color: red;
+}
+
 
 // ------------------------------------------------------------------------- //
 
+
+#waitGraphic {
+  position: fixed;
+  top:0px;
+  right:0px;
+  width:100%;
+  height:100%;
+  background-image: url(@ajaxWaitGraphic);
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: 10000000;
+}
 
 #dialogModalBackdrop {
   position: fixed;

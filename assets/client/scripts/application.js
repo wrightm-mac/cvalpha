@@ -40,8 +40,23 @@ $.extend({
     }); 
       
     return this;
-  }
+  },
+
+  redirect: function(url) {
+    $(location).attr('href', url);
+  },
+  
+  showWaiting: function() {
+    if (! $("body .waitGraphic").exists()) {
+      $("body").append("<div>", { id: "waitGraphic"});
+    }
+  },
+  
+  hideWaiting: function() {
+    $("body #waitGraphic").remove();
+  },
 });
+
 
 $.fn.extend({
   exists: function() {
@@ -55,6 +70,15 @@ $.fn.extend({
 
   showing: function() {
     return ! this.hidden();
+  },
+  
+  enterkey: function(callback) {
+    $(this).keypress(function (event) {
+      if (event.which == 13) {
+        callback.call(this, event);
+        return false;
+      }
+    });
   },
 
   // (requires jqueryui)...
@@ -78,5 +102,13 @@ $.fn.extend({
 
 
 $(function() {
-  $.fragment();
+  $(document)
+    .ajaxStart(function () {
+      $.showWaiting();
+    })
+    .ajaxStop(function () {
+      $.hideWaiting();
+    })
+  
+    $.fragment();
 });

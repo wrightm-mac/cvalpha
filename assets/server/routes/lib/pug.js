@@ -62,14 +62,15 @@ function nameFromPath(path, map) {
 }
 
 function isMapItemVisible(session, item) {
-    // Should never happen...
-    if (! (session && session.user)) {
-        return;
-    }
-
     // An item without any roles should always be visible...
     if (! item.roles) {
         return true;
+    }
+
+    // The session will only have a user if it's logged in - so hide all links
+    // that have a defined role from all non-login views...
+    if (! (session.user)) {
+        return;
     }
 
     for (let userRole of session.user.roles) {

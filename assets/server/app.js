@@ -49,7 +49,6 @@ const sha = require('./routes/lib/hash/sha');
 
 const fragments = require('./routes/fragments');
 const index = require('./routes/index');
-const users = require('./routes/users');
 
 const apiLogin = require('./routes/api/login');
 const apiUsers = require('./routes/api/users');
@@ -74,7 +73,7 @@ const sessionStore = {
 // The site's hash will be used as the unique-id for the
 // session token...
 const sitehash = config.site.id.hash
-console.log("site: [site-hash=%s]", sitehash);
+console.log("site('%s', %d, '%s')", config.site.id.name, config.site.id.version, sitehash);
 
 // Make config and some libraries & functions available in view...
 helper.extend(app.locals, pug, config);
@@ -115,7 +114,6 @@ app.use(function(req,res,next) {
 
 // The application's pages...
 app.use('/', index);
-app.use('/users', users);
 
 // The application's API handlers...
 app.use('/api/login', apiLogin);

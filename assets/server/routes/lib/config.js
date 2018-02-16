@@ -39,7 +39,7 @@ module.exports = {
     site: {
         id: {
             name: "cvalpha.com",
-            version: 0.3,
+            version: 0.4,
             get hash() {
                 let hasher = new sha("SHA-1", "TEXT");
                 hasher.update(`${this.name}+${this.version}`);

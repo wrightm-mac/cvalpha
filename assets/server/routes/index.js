@@ -35,20 +35,12 @@
 var router = require('express').Router();
 
 
-router.get("/", function(req, res, next) {
-  res.render("index", { title: "You"});
-});
-
-router.get("/index.html", function(req, res, next) {
-  res.render("index", { title: "You"});
-});
-
-router.get("/them.html", function(req, res, next) {
-  res.render("them", { title: "Them"});
-});
-
-router.get("/us.html", function(req, res, next) {
-  res.render("us", { title: "Us"});
+router.get(["/", "/:page"], function(req, res, next) {
+  console.log("router:index [page=%s]", req.params.page)
+  // Strip off the '.html' extension to get the name of the pug-view...
+  let pagename = req.params.page ? req.params.page.replace(/\.[^/.]+$/, "") : "index";
+  
+  res.render(pagename);
 });
 
 module.exports = router;

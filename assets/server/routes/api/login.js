@@ -48,8 +48,13 @@ router.post('/register', (req, res) => {
   let email = req.body.email;
   let password = req.body.password;
 
-  let userHash = helper.hash(`${firstName}+${Math.random() * 999999.999999}+${lastName}+${Date.now().toString()}`)
   let passwordHash = helper.hash(password);
+  let userHash = helper.hash([
+    firstName,
+    Math.random() * 999999.999999,
+    lastName,
+    Date.now().toString()
+  ]);
 
   console.log("/api/login [first-name=%s][last-name=%s][email=%s][password=%s][hash=%s]", firstName, lastName, email, password, passwordHash);
 
@@ -76,11 +81,11 @@ router.post('/', (req, res) => {
   console.log("/api/login [email=%s][password=%s]", email, password);
 
   user.model.findOne({ $and: [{ email: email }, { password: password }]},
-                      { _id: true, firstname: true, lastname: true, email: true, roles: true, sessions: true },
+                      { _id: true, firstname: true, lastname: true, email: true, roles: true },
                       helper.responder(res, (data) => {
 
     if (data) {
-      let sessionToken = helper.hash(`${email}+${Date.now}`);
+      let sessionToken = helper.hash([email, Date.now()]);
 
       req.session.user = {
         id: data._id,
@@ -91,13 +96,6 @@ router.post('/', (req, res) => {
         login: true,
         token: sessionToken
       };
-
-      data.sessions.push({ token: sessionToken });
-      data.save((err) => {
-        if (err) {
-          console.error("router:login - error saving session (%o)", err);
-        }
-      });
 
       return req.session.user;
     }

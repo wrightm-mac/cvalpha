@@ -53,10 +53,18 @@ module.exports = {
         return path.replace(/\.[^/.]+$/, "")
     },
 
-    hash: function(text) {
+    hash: function(content) {
         let hasher = new sha("SHA-1", "TEXT");
-        hasher.update(text);
-        
+
+        if (Array.isArray(content)) {
+            for (let item of content) {
+                hasher.update(item + "+");
+            }
+        }
+        else {
+            hasher.update(content);
+        }
+
         return hasher.getHash("HEX");
     },
 

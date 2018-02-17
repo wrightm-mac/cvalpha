@@ -102,6 +102,9 @@ gulp.task('client:html', function() {
 gulp.task('client:images', function() {
   gulp.src('assets/client/images/**/*')
     .pipe(gulp.dest('public/images'));
+
+  gulp.src('assets/client/favicon.ico')
+    .pipe(gulp.dest('public'));
 });
 
 gulp.task('client:scripts', function() {

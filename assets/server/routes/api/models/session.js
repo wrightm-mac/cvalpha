@@ -10,11 +10,21 @@ var mongoose = require("mongoose");
 
 
 var SessionSchema = new mongoose.Schema({
-    token: String,
-    userId: String,
-    userEmail: String,
-    created_at: { type: Date, default: Date.now }
-});
+    token: {
+        type: String,
+        required: true,
+        indexed: true
+    },
+    userId: {
+        type: String,
+        required: true,
+        indexed: true
+    },
+    userEmail: {
+        type: String,
+        required: true
+    }
+}, { timestamps: true });
 
 var Session = mongoose.model("Session", SessionSchema);
 

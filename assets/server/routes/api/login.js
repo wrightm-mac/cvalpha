@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-  
+
                             BSD 3-Clause License
 
                         Copyright (c) 2018, wrightm-mac
@@ -50,12 +50,12 @@ router.post('/register', (req, res) => {
 
   let userHash = helper.hash(`${firstName}+${Math.random() * 999999.999999}+${lastName}+${Date.now().toString()}`)
   let passwordHash = helper.hash(password);
-  
+
   console.log("/api/login [first-name=%s][last-name=%s][email=%s][password=%s][hash=%s]", firstName, lastName, email, password, passwordHash);
 
   let newUser = new user.model({
     firstname: firstName,
-    lastname: lastName, 
+    lastname: lastName,
     roles: ["user"],
     hash: userHash,
     email: email,
@@ -78,6 +78,7 @@ router.post('/', (req, res) => {
   user.model.findOne({ $and: [{ email: email }, { password: password }]},
                       { _id: true, firstname: true, lastname: true, email: true, roles: true, sessions: true },
                       helper.responder(res, (data) => {
+
     if (data) {
       let sessionToken = helper.hash(`${email}+${Date.now}`);
 

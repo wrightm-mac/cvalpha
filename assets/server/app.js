@@ -62,7 +62,7 @@ console.log("mongo (host='%s', port='%s', db='%s', url='%s')", config.mongo.host
 
 // Initialise mongo/mongoose...
 mongoose.connect(config.mongo.url, {
-    autoIndex: false
+  autoIndex: false
 });
 
 

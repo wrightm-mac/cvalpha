@@ -1,7 +1,7 @@
 div#loginBox(data-fragment='/fragments/loginbox')
     input.standardInput(type="email", id="loginEmail", name="email", placeholder="email")
     input.standardInput(type="password", id="loginPassword", name="password", placeholder="password")
-    div#loginBoxButtons
+    div.loginBoxButtons
         div#loginOk.standardButton
             | Login
         div#loginCancel.standardButton
@@ -14,9 +14,6 @@ div#loginBox(data-fragment='/fragments/loginbox')
 
 script.
     $(function() {
-        $("#loginBoxButtons div").button();
-
-        let $loginBox = $("#loginBox");
         $("#loginBubble").click(function() {
           if ($loginBox.hidden()) {
               $loginBox.fadeIn();
@@ -25,7 +22,10 @@ script.
               $loginBox.fadeOut();
           }
         });
-        
+
+        $(".loginBoxButtons .standardButton").button();
+
+        let $loginBox = $("#loginBox");
         $("#loginOk").click(function() {
             let email = $("#loginEmail").val();
             let password = $("#loginPassword").val();

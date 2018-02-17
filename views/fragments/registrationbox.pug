@@ -6,7 +6,7 @@ div#registrationBox(data-fragment='/fragments/loginbox')
     input.standardInput(type="email", id="regEmail", placeholder="email")
     input.standardInput(type="password", id="regPassword", placeholder="password")
     input.standardInput(type="password", id="regPasswordConfirm", placeholder="confirm password")
-    div#loginBoxButtons
+    div.loginBoxButtons
         div#registerOk.standardButton
             | Register
         div#registerCancel.standardButton
@@ -14,11 +14,10 @@ div#registrationBox(data-fragment='/fragments/loginbox')
 
 script.
     $(function() {
-        let $registrationBox = $("#registrationBox");
-        
-        $("#registerOk").click(function() {
-            console.log("register-ok: clicked");
+        $(".loginBoxButtons .standardButton").button();
 
+        let $registrationBox = $("#registrationBox");
+        $("#registerOk").click(function() {
             $.ajax({
                 url: "/api/login/register",
                 method: "POST",

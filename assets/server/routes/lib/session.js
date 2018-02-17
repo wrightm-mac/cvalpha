@@ -32,48 +32,19 @@
 
 ----------------------------------------------------------------------------- */
 
-const sha = require('./hash/sha');
+const config = require('./config');
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
 
 
-module.exports = {
-    site: {
-        title: "cv alpha",
-        id: {
-            name: "cvalpha.com",
-            version: 0.4,
-        },
-        get hash() {
-            let hasher = new sha("SHA-1", "TEXT");
-            hasher.update(`${this.id.name}+${this.id.version}`);
-
-            return hasher.getHash("HEX");
-        },
-        //image: "/images/headergraphic.png",
-        map: [{
-            name: "you",
-            path: "/index.html",
-            children: [
-                "/",
-                /stuff\/*/
-            ]
-        }, {
-            name: "them",
-            path: "/them.html"
-        }, {
-            name: "us",
-            path: "/us.html"
-        }, {
-            name: "admin",
-            path: "/admin.html",
-            roles: ["admin"]
-        }]
-    },
-    mongo: {
-        host: process.env.NODE_MONGO_HOST || '127.0.0.1',
-        port: process.env.NODE_MONGO_PORT || '27017',
-        db: "cvalpha",
-        get url() {
-            return `mongodb://${this.host}:${this.port}/${this.db}`;
-        }
-    }
-};
+module.exports = session({
+  secret: config.site.hash,
+  store: new MongoStore({
+    host: config.mongo.host,
+    port: config.mongo.port,
+    db: 'session',
+    url: `mongodb://${config.mongo.host}:${config.mongo.port}`
+  }),
+  resave: false,
+  saveUninitialized: true
+});

@@ -39,14 +39,13 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const lessMiddleware = require('less-middleware');
-const session = require('express-session');
 const mongoose = require('mongoose');
-const MongoStore = require('connect-mongo')(session);
 
 const config = require('./routes/lib/config');
 const helper = require('./routes/lib/helper');
 const pug = require('./routes/lib/pug');
 const sha = require('./routes/lib/hash/sha');
+const session = require('./routes/lib/session');
 
 const fragments = require('./routes/fragments');
 const index = require('./routes/index');
@@ -57,32 +56,14 @@ const apiUsers = require('./routes/api/users');
 const app = express();
 
 
-// The site information (from the config file)...
-const sitehash = config.site.id.hash
-const siteName = config.site.id.name;
-const siteVersion = config.site.id.version;
-
-console.log("site('%s', %d, '%s')", siteName, siteVersion, sitehash);
+console.log("site  ('%s', %d, '%s')", config.site.id.name, config.site.id.version, config.site.hash);
+console.log("mongo (host='%s', port='%s', db='%s', url='%s')", config.mongo.host, config.mongo.port, config.mongo.db, config.mongo.url);
 
 
 // Initialise mongo/mongoose...
-mongoose.connect(`mongodb://localhost/${helper.stripExtension(siteName)}`, {
+mongoose.connect(config.mongo.url, {
     autoIndex: false
 });
-
-
-// The session store config...
-const sessionStore = {
-  secret: 'secret',
-  store: new MongoStore({
-    host: '127.0.0.1',
-    port: '27017',
-    db: 'session',
-    url: 'mongodb://localhost:27017/cvalpha'
-  }),
-  resave: false,
-  saveUninitialized: true
-};
 
 
 // Make config and some libraries & functions available in view...
@@ -97,8 +78,8 @@ app.set('view engine', 'pug');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser(sitehash));
-app.use(session(sessionStore));
+app.use(cookieParser(config.site.hash));
+app.use(session);
 app.use(lessMiddleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 

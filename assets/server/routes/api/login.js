@@ -81,7 +81,7 @@ router.post('/', (req, res) => {
   console.log("/api/login [email=%s][password=%s]", email, password);
 
   user.model.findOne({ $and: [{ email: email }, { password: password }]},
-                      { _id: true, firstname: true, lastname: true, email: true, roles: true },
+                      { _id: true, firstname: true, lastname: true, email: true, roles: true, validated: true },
                       helper.responder(res, (data) => {
 
     if (data) {

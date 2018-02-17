@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-  
+
                             BSD 3-Clause License
 
                         Copyright (c) 2018, wrightm-mac
@@ -38,11 +38,17 @@ var helper = require('./lib/helper');
 
 
 router.get(["/", "/:page"], function(req, res, next) {
-  console.log("router:index [page=%s]", req.params.page)
-  // Strip off the '.html' extension to get the name of the pug-view...
-  let pagename = req.params.page ? helper.stripExtension(req.params.page) : "index";
-  
-  res.render(pagename);
+  let page = req.params.page || "index.html";
+
+  if (page.endsWith(".html")) {
+    console.log("router:index - html [page=%s]", req.params.page)
+
+    res.render(helper.stripExtension(page));
+  }
+  else {
+    // TODO:  This will be a cv display - the 'page' will be the user/cv id..!
+
+  }
 });
 
 module.exports = router;

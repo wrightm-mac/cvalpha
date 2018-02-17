@@ -1,0 +1,61 @@
+mixin loginbox
+    div#loginBox
+        input.standardInput(type="email", id="loginEmail", name="email", placeholder="email")
+        input.standardInput(type="password", id="loginPassword", name="password", placeholder="password")
+        div.loginBoxButtons
+            div#loginOk.standardButton
+                | Login
+            div#loginCancel.standardButton
+                | Cancel
+        div.loginRegistrationTextDown
+            | Don't have an account?
+            br
+            div#loginRegister
+                | register
+
+    script.
+        $(function() {
+            $("#loginBubble").click(function() {
+            if ($loginBox.hidden()) {
+                $loginBox.fadeIn();
+            }
+            else {
+                $loginBox.fadeOut();
+            }
+            });
+
+            $(".loginBoxButtons .standardButton").button();
+
+            let $loginBox = $("#loginBox");
+            $("#loginOk").click(function() {
+                let email = $("#loginEmail").val();
+                let password = $("#loginPassword").val();
+
+                console.log("login [email=%s][password=%s]", email, password);
+
+                $.ajax({
+                    url: "/api/login",
+                    method: "POST",
+                    data: {
+                        email: email,
+                        password: password
+                    }
+                })
+                .done((data, status) => {
+                    console.log("login [response-data=%o][status=%o]", data, status);
+                    $.redirect("/");
+                })
+                .fail(error => {
+                    console.error("login: error [status-code=%d][message=%o]", error.status, error.statusText);
+                    $("#loginBox input").addClass("badInput");
+                });
+            });
+
+            $("#loginCancel").click(function() {
+                $loginBox.fadeOut();
+            });
+
+            $("#loginRegister").click(function() {
+                $("#registrationBox").fadeIn();
+            });
+        });

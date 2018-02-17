@@ -144,7 +144,6 @@ gulp.task('client', ['client:3rdParty', 'client:data', 'client:css', 'client:htm
 
 gulp.task('server:scripts', function() {
   let sources = [
-    'assets/server/**/*.ts',
     'assets/server/**/*.js'
   ];
 

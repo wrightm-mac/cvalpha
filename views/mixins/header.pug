@@ -1,4 +1,7 @@
 mixin header
+  include ./loginbox
+  include ./registrationbox
+
   div#header
     div#headertext= site.title
 
@@ -15,23 +18,23 @@ mixin header
 
   div#loginBubble
     div#loginBubbleText
+      if ! req.session.user
+        | login
+      else
+        | logout
 
-  if ! req.session.user  
-    div(data-fragment='/fragments/loginbox')
-    div(data-fragment='/fragments/registrationbox')
+  if ! req.session.user
+    +loginbox
+    +registrationbox
 
     script.
       console.log("header.pug : logged out");
 
-      $(function() {
-        $("#loginBubbleText").text("login");
-      });
   else
     script.
       console.log("header.pug : logged in");
 
       $(function() {
-        $("#loginBubbleText").text("logout");
         $("#loginBubble").click(function() {
             $.ajax({
                 url: "/api/login",

@@ -109,7 +109,6 @@ gulp.task('client:images', function() {
 
 gulp.task('client:scripts', function() {
   let sources = [
-    //'assets/client/scripts/**/*.ts',
     'assets/client/scripts/**/*.js'
   ];
 
@@ -136,6 +135,8 @@ gulp.task('client:static:scripts', function() {
     .pipe(uglify())
     .pipe(gulp.dest('public/scripts'));
 });
+
+gulp.task('client:fast', ['client:css', 'client:scripts']);
 
 gulp.task('client:static', ['client:static:css', 'client:static:scripts']);
 
@@ -181,6 +182,8 @@ gulp.task('watch', function() {
 });
 
 gulp.task('clean', ['clean:client', 'clean:server']);
+
+gulp.task('build:fast', ['client:fast', 'server']);
 
 gulp.task('build', ['client', 'server']);
 

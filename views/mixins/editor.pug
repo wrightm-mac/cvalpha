@@ -1,0 +1,13 @@
+mixin editor
+  div#editor
+    h2= info.personal.title
+    each value, name in info.personal.values
+      div #{name} -> #{value}
+
+    h2= info.education.title
+    each item in info.education.values
+      div #{item.name}, #{item.course}, #{item.grade}
+
+    h2= info.employment.title
+    each item in info.employment.values
+      div #{item.name} -> #{item.title}

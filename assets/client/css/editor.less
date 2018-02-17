@@ -32,52 +32,9 @@
 
 ----------------------------------------------------------------------------- */
 
-var router = require('express').Router();
+div#editor {
+  width: 100%;
+  height: 100%;
 
-var helper = require('./lib/helper');
-
-
-router.get(["/", "/:page"], function(req, res, next) {
-  let page = req.params.page || "index.html";
-
-  if (page.endsWith(".html")) {
-    console.log("router:index - html [page=%s]", req.params.page)
-
-    res.render(helper.stripExtension(page), {
-      info: {
-        personal: {
-          title: "Personal",
-          values: {
-            name: "me",
-            dob: "aa-bb-cccc",
-            title: "blah"
-          }
-        },
-        education: {
-          title: "Education",
-          values: [
-            { name: "School #1", course: "Course #1", grade: "Grade #1", from: "a", to: "b" },
-            { name: "School #2", course: "Course #2", grade: "Grade #2", from: "p", to: "q" },
-            { name: "School #3", course: "Course #3", grade: "Grade #3", from: "x", to: "y" }
-          ]
-        },
-        employment: {
-          title: "Employment",
-          values: [
-            { name: "Place #1", title: "Title #1", from: "", to: "" },
-            { name: "Place #2", title: "Title #2", from: "", to: "" },
-            { name: "Place #3", title: "Title #3", from: "", to: "" },
-            { name: "Place #4", title: "Title #4", from: "", to: "" },
-            { name: "Place #5", title: "Title #5", from: "", to: "" }
-          ]
-        }
-      }
-    });
-  }
-  else {
-    // TODO:  This will be a cv display - the 'page' will be the user/cv id..!
-
-  }
-});
-
-module.exports = router;
+  margin-top: (@headerHeight + 25px);
+}

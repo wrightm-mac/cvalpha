@@ -3,19 +3,18 @@ doctype html
 include ./mixins/header
 include ./mixins/footer
 
-#html
-  head
-    title  #{site.title} | #{nameFromPath(req.path, site.map)}
-    script(src="/scripts/jquery-3.2.1.min.js")
-    link(rel='stylesheet', href='/css/jquery-ui.min.css')
-    script(src='/scripts/jquery-ui-1.12.1.min.js')
-    script(src="/scripts/application.js")
-    link(rel='stylesheet', href='/css/styles.css')
+head
+  title  #{site.title} | #{nameFromPath(req.path, site.map)}
+  script(src="/scripts/jquery-3.2.1.min.js")
+  link(rel='stylesheet', href='/css/jquery-ui.min.css')
+  script(src='/scripts/jquery-ui-1.12.1.min.js')
+  script(src="/scripts/application.js")
+  link(rel='stylesheet', href='/css/styles.css')
 
-  body
-    +header
+body
+  +header
 
-    div#content
-      block content
+  div#content
+    block content
 
-    +footer
+  +footer

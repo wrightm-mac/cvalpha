@@ -34,9 +34,9 @@
 
 const router = require('express').Router();
 
-const helper = require('../lib/helper');
+const helper = require('./lib/helper');
 
-const user = require('./models/user');
+const user = require('./api/models/user');
 
 
 /**

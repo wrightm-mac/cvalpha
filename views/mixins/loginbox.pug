@@ -34,7 +34,7 @@ mixin loginbox
                 console.log("login [email=%s][password=%s]", email, password);
 
                 $.ajax({
-                    url: "/api/login",
+                    url: "/login",
                     method: "POST",
                     data: {
                         email: email,

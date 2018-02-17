@@ -37,7 +37,7 @@ mixin header
       $(function() {
         $("#loginBubble").click(function() {
             $.ajax({
-                url: "/api/login",
+                url: "/login",
                 method: "DELETE"
             })
             .done((data, status) => {

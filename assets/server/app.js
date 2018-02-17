@@ -49,8 +49,8 @@ const session = require('./routes/lib/session');
 
 const fragments = require('./routes/fragments');
 const index = require('./routes/index');
+const login = require('./routes/api/login');
 
-const apiLogin = require('./routes/api/login');
 const apiUsers = require('./routes/api/users');
 
 const app = express();
@@ -84,11 +84,17 @@ app.use(lessMiddleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-// Ensure that there is a valid session for the user...
-app.use(function(req,res,next) {
-  // TODO: Check for session expiry..!
-
-  next();
+// Prevent access to 'api' if the user does not have permission...
+app.use('/api', function(req,res,next) {
+  if (! (req.session.user && req.session.user.roles.includes("api"))) {
+    helper.sendCode(res, 404, {
+      status: 404,
+      message: "forbidden"
+    });
+  }
+  else {
+    next();
+  }
 });
 
 // Pass the request object to the view - this will make the
@@ -96,16 +102,15 @@ app.use(function(req,res,next) {
 // to code in the pug view...
 app.use(function(req,res,next) {
   res.locals.req = req;
-
   next();
 });
 
 
 // The application's pages...
 app.use('/', index);
+app.use('/login', login);
 
 // The application's API handlers...
-app.use('/api/login', apiLogin);
 app.use('/api/users', apiUsers);
 
 // The application's fragments...

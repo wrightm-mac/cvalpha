@@ -7,5 +7,55 @@ mixin editPersonal
       tr(data-id=item.id)
         td.editorColumnVisible
           input(id=name, type='checkbox', checked=item.visible)
-        td.editorColumnPersonalName= item.name
-        td.editorColumnPersonalValue= item.value
+        td.editorColumnPersonalName
+          span.editorClickable(data-id='name_' + item.id)= item.name
+        td.editorColumnPersonalValue
+          span.editorClickable(data-id='value_' + item.id)= item.value
+
+  script.
+
+    $(function() {
+      var $text;
+      var $edit;
+
+      function startEdit() {
+        endEdit();
+
+        $text = $(this);
+        let $parent = $text.parent();
+
+        $text.hide();
+        $edit = $("<input>").attr("type", "text")
+                  .addClass("editorText")
+                  .val($text.html())
+                  .attr("data-id", $text.attr("data-id"))
+                  .appendTo($parent)
+                  .click(function() {
+                    return false;
+                  })
+                  .keypress(function (event) {
+                    if (event.which == 13) {
+                      endEdit();
+                      return false;
+                    }
+                  });
+
+        $edit.focus();
+
+        return false;
+      }
+
+      function endEdit() {
+        if ($edit && $text) {
+          $text.html($edit.val()).show();
+          $edit.remove();
+
+          $edit = null;
+          $text = null;
+        }
+      }
+
+      $("body").click(endEdit);
+
+      $("table#cvSectionPersonal .editorClickable").click(startEdit);
+    });

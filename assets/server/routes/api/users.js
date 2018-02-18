@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-  
+
                             BSD 3-Clause License
 
                         Copyright (c) 2018, wrightm-mac
@@ -36,7 +36,7 @@ const router = require('express').Router();
 
 const helper = require('../lib/helper');
 
-const user = require('./models/user');
+const user = require('../models/user');
 
 
 /**

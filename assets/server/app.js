@@ -49,7 +49,7 @@ const session = require('./routes/lib/session');
 
 const fragments = require('./routes/fragments');
 const index = require('./routes/index');
-const login = require('./routes/api/login');
+const login = require('./routes/login');
 
 const apiUsers = require('./routes/api/users');
 

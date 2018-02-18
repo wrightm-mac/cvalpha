@@ -36,7 +36,7 @@ const router = require('express').Router();
 
 const helper = require('./lib/helper');
 
-const user = require('./api/models/user');
+const user = require('./models/user');
 
 
 /**

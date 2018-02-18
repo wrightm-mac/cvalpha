@@ -1,5 +1,6 @@
 include ./editPersonal
 include ./editEducation
+include ./editEmployment
 
 mixin editor
   div#editor
@@ -12,4 +13,4 @@ mixin editor
 
       div.cvSpacer
 
-    | (...employment...)
+      +editEmployment

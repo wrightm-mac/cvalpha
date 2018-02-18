@@ -64,11 +64,11 @@ router.get(["/", "/:page"], function(req, res, next) {
         employment: {
           title: "Employment",
           values: [
-            { name: "Place #1", title: "Title #1", from: "", to: "" },
-            { name: "Place #2", title: "Title #2", from: "", to: "" },
-            { name: "Place #3", title: "Title #3", from: "", to: "" },
-            { name: "Place #4", title: "Title #4", from: "", to: "" },
-            { name: "Place #5", title: "Title #5", from: "", to: "" }
+            { id: "0001", name: "Place #1", title: "Title #1", from: "a", to: "b", tasks: ["one", "two", "three"] },
+            { id: "0002", name: "Place #2", title: "Title #2", from: "a", to: "b", tasks: ["one", "two", "three"] },
+            { id: "0003", name: "Place #3", title: "Title #3", from: "a", to: "b", tasks: ["one", "two", "three"] },
+            { id: "0004", name: "Place #4", title: "Title #4", from: "a", to: "b", tasks: ["one", "two", "three"] },
+            { id: "0005", name: "Place #5", title: "Title #5", from: "a", to: "b", tasks: ["one", "two", "three"] }
           ]
         }
       }

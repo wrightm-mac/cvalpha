@@ -47,9 +47,6 @@ div#editor {
   height: 60px;
 }
 
-table#cvSectionPersonal td {
-}
-
 th.editorSectionTitle {
   background-color: white;
   color: black;
@@ -90,13 +87,12 @@ td span {
   width: 100%;
 }
 
-td.editorColumnVisible {
+th.editorColumnVisible, td.editorColumnVisible {
   width: 30px;
 }
 
 td.editorColumnPersonalName {
   width: 40%;
-
   font-weight: bold;
 }
 
@@ -107,7 +103,6 @@ td.editorColumnPersonalValue {
 
 td.editorColumnEducationName {
   width: 40%;
-
   font-weight: bold;
 }
 
@@ -119,4 +114,32 @@ td.editorColumnEducationGraduation {
   width: 20%;
 
   font-style: italic;
+  text-align: right;
+}
+
+td.editorColumnEmploymentName {
+  width: 40%;
+  font-weight: bold;
+}
+
+td.editorColumnEmploymentTitle {
+  width: 40%;
+}
+
+td.editorColumnEmploymentDate {
+  width: 20%;
+}
+
+td.editorEmploymentListVisible {
+  vertical-align: top;
+}
+
+td.editorEmploymentList {
+  width: 100%;
+  vertical-align: top;
+}
+
+.editorEmploymentList ul {
+  margin: 0 0 15px 20px;
+  padding: 0;
 }

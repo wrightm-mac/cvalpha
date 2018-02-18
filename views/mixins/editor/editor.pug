@@ -1,0 +1,15 @@
+include ./editPersonal
+include ./editEducation
+
+mixin editor
+  div#editor
+    div#cvPersonal
+      +editPersonal
+
+      div.cvSpacer
+
+      +editEducation
+
+    h2= info.employment.title
+    each item in info.employment.values
+      div #{item.name} -> #{item.title}

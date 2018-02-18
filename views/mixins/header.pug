@@ -12,6 +12,8 @@ mixin header
           - let linkClass = isCurrentPage ? "headerNavLinkSelected" : "headerNavLinkUnselected";
           - let linkPath = isCurrentPage ? undefined : item.path;
           if (isMapItemVisible(req.session, item) && (! item.hidden))
+            if item.class
+              - linkClass += " " + item.class;
             a(href=linkPath, class= linkClass, disabled= isCurrentPage) #{item.name}
   if site.image
     img#headerPicture(src=site.image)

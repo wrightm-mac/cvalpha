@@ -47,18 +47,18 @@ router.get(["/", "/:page"], function(req, res, next) {
       info: {
         personal: {
           title: "Personal",
-          values: {
-            name: "me",
-            dob: "aa-bb-cccc",
-            title: "blah"
-          }
+          values: [
+            { id: "0001", name: "Name", value: "Charlie Chuckles", visible: true },
+            { id: "0004",name: "Date of Birth", value: "1st January, 1901", visible: true },
+            { id: "0003",name: "Place of Birth", value: "Lincoln, Nebraska", visible: false }
+          ]
         },
         education: {
           title: "Education",
           values: [
-            { name: "School #1", course: "Course #1", grade: "Grade #1", from: "a", to: "b" },
-            { name: "School #2", course: "Course #2", grade: "Grade #2", from: "p", to: "q" },
-            { name: "School #3", course: "Course #3", grade: "Grade #3", from: "x", to: "y" }
+            { id: "0001",name: "School #1", course: "Course #1", grade: "Grade #1", graduation: "b", visible: true },
+            { id: "0002",name: "School #2", course: "Course #2", grade: "Grade #2", graduation: "q", visible: false },
+            { id: "0003",name: "School #3", course: "Course #3", grade: "Grade #3", graduation: "y", visible: true }
           ]
         },
         employment: {

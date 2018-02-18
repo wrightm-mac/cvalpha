@@ -65,7 +65,8 @@ module.exports = {
         }, {
             name: "admin",
             path: "/admin.html",
-            roles: ["admin"]
+            roles: ["admin"],
+            class: "headerAdminNavLink"
         }]
     },
     mongo: {

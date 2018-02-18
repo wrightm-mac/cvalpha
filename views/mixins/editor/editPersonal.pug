@@ -1,0 +1,11 @@
+mixin editPersonal
+  table#cvSectionPersonal
+    tr
+      td.editorColumnVisible
+      th.editorSectionTitle(colspan=2)= info.personal.title
+    each item in info.personal.values
+      tr(data-id=item.id)
+        td.editorColumnVisible
+          input(id=name, type='checkbox', checked=item.visible)
+        td.editorColumnPersonalName= item.name
+        td.editorColumnPersonalValue= item.value

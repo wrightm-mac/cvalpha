@@ -1,0 +1,12 @@
+mixin editEducation
+  table#cvSectionEducation
+    tr
+      td.editorColumnVisible
+      th.editorSectionTitle(colspan=3)= info.education.title
+    each item in info.education.values
+      tr(data-id=item.id)
+        td.editorColumnVisible
+          input(id=name, type='checkbox', checked=item.visible)
+        td.editorColumnEducationName= item.name
+        td.editorColumnEducationCourse= item.course
+        td.editorColumnEducationGraduation= item.graduation

@@ -233,6 +233,30 @@ a {
 // ------------------------------------------------------------------------- //
 
 
+#errorPage {
+  margin-top: (@headerHeight + 25px);
+
+  font-size: small;
+}
+
+#errorPage #errorPageMessage {
+  color: @errorPageMessageColor;
+  font-weight: bold;
+}
+
+#errorPage #errorPageStatus {
+  color: @errorPageStatusColor;
+}
+
+#errorPage #errorPageStack {
+  font-size: smaller;
+  color: @errorPageStackColor;
+}
+
+
+// ------------------------------------------------------------------------- //
+
+
 .standardButton {
   background-color: @titlecolor;
   color: @headercolor;

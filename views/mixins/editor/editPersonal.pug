@@ -47,8 +47,15 @@ mixin editPersonal
 
       function endEdit() {
         if ($edit && $text) {
-          $text.html($edit.val()).show();
+          let text = $text.html();
+          let edit = $edit.val();
+          if (text !== edit) {
+            $text.html(edit);
+            $text.addClass("editorModified");
+          }
+
           $edit.remove();
+          $text.show();
 
           $edit = null;
           $text = null;

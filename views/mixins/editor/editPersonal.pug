@@ -1,13 +1,16 @@
 mixin editPersonal
-  table#cvSectionPersonal
-    tr
-      th.editorColumnVisible
-      th.editorSectionTitle(colspan=2)= info.personal.title
-    each item in info.personal.values
-      tr(data-id=item.id)
-        td.editorColumnVisible
-          input(id=name, type='checkbox', checked=item.visible)
-        td.editorColumnPersonalName
-          span.editorClickable(data-id='name_' + item.id)= item.name
-        td.editorColumnPersonalValue
-          span.editorClickable(data-id='value_' + item.id)= item.value
+  div.cvSection
+    table#cvSectionPersonal(data-columns=2)
+      tr
+        th.editorColumnVisible
+        th.editorSectionTitle(colspan=2)= info.personal.title
+      each item in info.personal.values
+        tr(data-id=item.id)
+          td.editorColumnVisible
+            input(id='visible_' + item.id, type='checkbox', checked=item.visible)
+          td.editorColumnPersonalName
+            span.editorClickable(data-id='name_' + item.id)= item.name
+          td.editorColumnPersonalValue
+            span.editorClickable(data-id='value_' + item.id)= item.value
+    span.editorAdd
+      img(src='/images/badge_plus.png')

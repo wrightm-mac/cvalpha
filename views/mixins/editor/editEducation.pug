@@ -1,15 +1,18 @@
 mixin editEducation
-  table#cvSectionEducation
-    tr
-      th.editorColumnVisible
-      th.editorSectionTitle(colspan=3)= info.education.title
-    each item in info.education.values
-      tr(data-id=item.id)
-        td.editorColumnVisible
-          input(id=name, type='checkbox', checked=item.visible)
-        td.editorColumnEducationName
-          span.editorClickable(data-id='name_' + item.id)= item.name
-        td.editorColumnEducationCourse
-          span.editorClickable(data-id='course_' + item.id)= item.course
-        td.editorColumnEducationGraduation
-          span.editorClickable(data-id='graduation_' + item.id)= item.graduation
+  div.cvSection
+    table#cvSectionEducation
+      tr
+        th.editorColumnVisible
+        th.editorSectionTitle(colspan=3)= info.education.title
+      each item in info.education.values
+        tr(data-id=item.id)
+          td.editorColumnVisible
+            input(id=name, type='checkbox', checked=item.visible)
+          td.editorColumnEducationName
+            span.editorClickable(data-id='name_' + item.id)= item.name
+          td.editorColumnEducationCourse
+            span.editorClickable(data-id='course_' + item.id)= item.course
+          td.editorColumnEducationGraduation
+            span.editorClickable(data-id='graduation_' + item.id)= item.graduation
+    span.editorAdd
+      img(src='/images/badge_plus.png')

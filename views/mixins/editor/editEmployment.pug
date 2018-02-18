@@ -1,23 +1,26 @@
 mixin editEmployment
-  table#cvSectionEmployment
-    tr
-      th.editorColumnVisible
-      th.editorSectionTitle(colspan=3)= info.employment.title
-    each item in info.employment.values
-      tr(data-id=item.id)
-        td.editorColumnVisible
-          input(id='visible_' + item.id, type='checkbox', checked=item.visible)
-        td.editorColumnEmploymentName
-          span.editorClickable(data-id='name_' + item.id)= item.name
-        td.editorColumnEmploymentTitle
-          span.editorClickable(data-id='title_' + item.id)= item.title
-        td.editorColumnEmploymentDate
-          span.editorClickable(data-id='date_' + item.id)= item.from + ' to ' + item.to
+  div.cvSection
+    table#cvSectionEmployment
       tr
-        td.editorColumnVisible.editorEmploymentListVisible
-          input(id='tasks_' + item.id, type='checkbox', checked=item.visible)
-        td(colspan=3).editorEmploymentList
-          ul
-            each task, index in item.tasks
-              li
-                span.editorClickable(data-id='task_' + index)= task
+        th.editorColumnVisible
+        th.editorSectionTitle(colspan=3)= info.employment.title
+      each item in info.employment.values
+        tr(data-id=item.id)
+          td.editorColumnVisible
+            input(id='visible_' + item.id, type='checkbox', checked=item.visible)
+          td.editorColumnEmploymentName
+            span.editorClickable(data-id='name_' + item.id)= item.name
+          td.editorColumnEmploymentTitle
+            span.editorClickable(data-id='title_' + item.id)= item.title
+          td.editorColumnEmploymentDate
+            span.editorClickable(data-id='date_' + item.id)= item.from + ' to ' + item.to
+        tr
+          td.editorColumnVisible.editorEmploymentListVisible
+            input(id='tasks_' + item.id, type='checkbox', checked=item.visible)
+          td(colspan=3).editorEmploymentList
+            ul
+              each task, index in item.tasks
+                li
+                  span.editorClickable(data-id='task_' + index)= task
+    span.editorAdd
+      img(src='/images/badge_plus.png')

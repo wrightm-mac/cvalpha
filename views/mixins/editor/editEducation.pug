@@ -1,8 +1,9 @@
 mixin editEducation
   div.cvSection
-    table#cvSectionEducation
+    table#cvSectionEducation(data-columns=3)
       tr
-        th.editorColumnVisible
+        th.editorColumnVisible.editorAdd
+          img(src='/images/badge_plus.png')
         th.editorSectionTitle(colspan=3)= info.education.title
       each item in info.education.values
         tr(data-id=item.id)
@@ -14,5 +15,5 @@ mixin editEducation
             span.editorClickable(data-id='course_' + item.id)= item.course
           td.editorColumnEducationGraduation
             span.editorClickable(data-id='graduation_' + item.id)= item.graduation
-    span.editorAdd
-      img(src='/images/badge_plus.png')
+          td.editorDelete
+            img(src='/images/badge_minus.png')

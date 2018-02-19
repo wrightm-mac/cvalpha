@@ -1,8 +1,9 @@
 mixin editEmployment
   div.cvSection
-    table#cvSectionEmployment
+    table#cvSectionEmployment(data-columns=2)
       tr
-        th.editorColumnVisible
+        th.editorColumnVisible.editorAdd
+          img(src='/images/badge_plus.png')
         th.editorSectionTitle(colspan=3)= info.employment.title
       each item in info.employment.values
         tr(data-id=item.id)
@@ -14,6 +15,8 @@ mixin editEmployment
             span.editorClickable(data-id='title_' + item.id)= item.title
           td.editorColumnEmploymentDate
             span.editorClickable(data-id='date_' + item.id)= item.from + ' to ' + item.to
+          td.editorDelete
+            img(src='/images/badge_minus.png')
         tr
           td.editorColumnVisible.editorEmploymentListVisible
             input(id='tasks_' + item.id, type='checkbox', checked=item.visible)
@@ -22,5 +25,3 @@ mixin editEmployment
               each task, index in item.tasks
                 li
                   span.editorClickable(data-id='task_' + index)= task
-    span.editorAdd
-      img(src='/images/badge_plus.png')

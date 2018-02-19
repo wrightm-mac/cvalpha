@@ -2,7 +2,8 @@ mixin editPersonal
   div.cvSection
     table#cvSectionPersonal(data-columns=2)
       tr
-        th.editorColumnVisible
+        th.editorColumnVisible.editorAdd
+          img(src='/images/badge_plus.png')
         th.editorSectionTitle(colspan=2)= info.personal.title
       each item in info.personal.values
         tr(data-id=item.id)
@@ -12,5 +13,5 @@ mixin editPersonal
             span.editorClickable(data-id='name_' + item.id)= item.name
           td.editorColumnPersonalValue
             span.editorClickable(data-id='value_' + item.id)= item.value
-    span.editorAdd
-      img(src='/images/badge_plus.png')
+          td.editorDelete
+            img(src='/images/badge_minus.png')

@@ -32,7 +32,7 @@
 
 ----------------------------------------------------------------------------- */
 
-const user = require('../models/document');
+const document = require('../models/document');
 
 const helper = require('../lib/helper');
 
@@ -40,28 +40,38 @@ const helper = require('../lib/helper');
 module.exports = {
 
     create: function(userEmail) {
-        return new document.model({
+        return /*new document.model(*/{
             email: userEmail,
             hash: helper.id(),
-            personal: [{
-                name: "Name",
-                value: "My Name",
-                visible: true,
-            }],
-            education: [{
-                school: "My Last School",
-                course: "My Course",
-                graduation: Date.now(),
-                visible: true
-            }],
-            employment: [{
-                name: "My Last Employer",
-                title: "My Last Job Title",
-                from: Date.now(),
-                to: Date.now(),
-                description: "My roles & achievements."
-            }]
-        });
+            personal: {
+                title: "Personal",
+                items: [{
+                    id: "001",
+                    name: "Name",
+                    value: "My Name",
+                    visible: true,
+                }]
+            },
+            education: {
+                title: "Education",
+                items: [{
+                    school: "My Last School",
+                    course: "My Course",
+                    graduation: Date.now(),
+                    visible: true
+                }]
+            },
+            employment: {
+                title: "Employment",
+                items: [{
+                    name: "My Last Employer",
+                    title: "My Last Job Title",
+                    from: Date.now(),
+                    to: Date.now(),
+                    description: "My roles & achievements."
+                }]
+            }
+        }/*)*/;
     },
 
     get: function(userEmail, callback) {

@@ -32,47 +32,32 @@
 
 ----------------------------------------------------------------------------- */
 
-var router = require('express').Router();
+const router = require('express').Router();
 
-var helper = require('./lib/helper');
+const documents = require('./services/document');
 
+const helper = require('./lib/helper');
+
+
+function renderPage(req, res, page) {
+  console.log("renderPage - html [page=%s]", req.params.page)
+
+  if (req.session && req.session.user && (page === "index")) {
+    let cv = documents.create(req.session.user.email);
+    res.render(page, {
+      info: cv
+    });
+  }
+  else {
+    res.render(page);
+  }
+}
 
 router.get(["/", "/:page"], function(req, res, next) {
   let page = req.params.page || "index.html";
 
   if (page.endsWith(".html")) {
-    console.log("router:index - html [page=%s]", req.params.page)
-
-    res.render(helper.stripExtension(page), {
-      info: {
-        personal: {
-          title: "Personal",
-          values: [
-            { id: "0001", name: "Name", value: "Charlie Chuckles", visible: true },
-            { id: "0004",name: "Date of Birth", value: "1st January, 1901", visible: true },
-            { id: "0003",name: "Place of Birth", value: "Lincoln, Nebraska", visible: false }
-          ]
-        },
-        education: {
-          title: "Education",
-          values: [
-            { id: "0001",name: "School #1", course: "Course #1", grade: "Grade #1", graduation: "b", visible: true },
-            { id: "0002",name: "School #2", course: "Course #2", grade: "Grade #2", graduation: "q", visible: false },
-            { id: "0003",name: "School #3", course: "Course #3", grade: "Grade #3", graduation: "y", visible: true }
-          ]
-        },
-        employment: {
-          title: "Employment",
-          values: [
-            { id: "0001", name: "Place #1", title: "Title #1", from: "a", to: "b", description: "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog." },
-            { id: "0002", name: "Place #2", title: "Title #2", from: "a", to: "b", description: "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog." },
-            { id: "0003", name: "Place #3", title: "Title #3", from: "a", to: "b", description: "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog." },
-            { id: "0004", name: "Place #4", title: "Title #4", from: "a", to: "b", description: "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog." },
-            { id: "0005", name: "Place #5", title: "Title #5", from: "a", to: "b", description: "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog." }
-          ]
-        }
-      }
-    });
+    renderPage(req, res, helper.stripExtension(page));
   }
   else {
     // TODO:  This will be a cv display - the 'page' will be the user/cv id..!

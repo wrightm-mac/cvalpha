@@ -6,7 +6,7 @@ mixin editEmployment
           img(src='/images/badge_plus.png')
         th.editorSectionTitle(colspan=3)= info.employment.title
         th.editoreDelete
-      each item in info.employment.values
+      each item in info.employment.items
         tr(data-id=item.id)
           td.editorColumnVisible
             input(id='visible_' + item.id, type='checkbox', checked=item.visible)

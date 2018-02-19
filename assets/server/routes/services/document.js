@@ -46,10 +46,13 @@ module.exports = {
             personal: {
                 title: "Personal",
                 items: [{
-                    id: "001",
                     name: "Name",
                     value: "My Name",
                     visible: true,
+                }, {
+                    name: "Location",
+                    value: "Somewhere",
+                    visible: true
                 }]
             },
             education: {

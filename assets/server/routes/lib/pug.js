@@ -82,8 +82,24 @@ function isMapItemVisible(session, item) {
     }
 }
 
+class Id {
+
+    constructor() {
+        this.current = Math.round(Math.random() * 10000);
+    }
+
+    next() {
+        return ++this.current;
+    }
+
+    prev() {
+        return this.current;
+    }
+}
+
 module.exports = {
     nameFromPath: nameFromPath,
     isMapLink: isMapLink,
-    isMapItemVisible: isMapItemVisible
+    isMapItemVisible: isMapItemVisible,
+    id: new Id()
 };

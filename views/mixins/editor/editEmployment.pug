@@ -7,7 +7,7 @@ mixin editEmployment
         th.editorSectionTitle(colspan=3)= info.employment.title
         th.editoreDelete
       each item in info.employment.items
-        tr(data-id=item.id)
+        tr(data-id=id.next())
           td.editorColumnVisible
             input(id='visible_' + item.id, type='checkbox', checked=item.visible)
           td.editorColumnEmploymentName
@@ -18,7 +18,7 @@ mixin editEmployment
             span.editorClickable(data-id='date')= item.from + ' to ' + item.to
           td.editorDelete
             img(src='/images/badge_minus.png')
-        tr(data-id=item.id)
+        tr(data-id=id.prev())
           td.editorColumnVisible
             input(id='description_' + item.id, type='checkbox', checked=item.visible)
           td(colspan=3).editorEmploymentColumnDescription

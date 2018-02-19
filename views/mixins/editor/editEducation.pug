@@ -1,13 +1,13 @@
 mixin editEducation
   div.cvSection
-    table#cvSectionEducation(data-append='name:editorColumnEducationName,course:editorColumnEducationCourse,graduation:editorColumnEducationGraduation', data-mode='last')
+    table#cvSectionEducation(data-record=cv.education._id,data-append='name:editorColumnEducationName,course:editorColumnEducationCourse,graduation:editorColumnEducationGraduation', data-mode='last')
       tr
         th.editorColumnVisible.editorAdd
           img(src='/images/badge_plus.png')
-        th.editorSectionTitle(colspan=3)= info.education.title
+        th.editorSectionTitle(colspan=3)= cv.education.title
         th.editorDelete
-      each item in info.education.items
-        tr(data-id=id.next())
+      each item in cv.education.items
+        tr(data-record=item._id,data-id=id.next())
           td.editorColumnVisible
             input(id='visible_' + id.prev(), type='checkbox', checked=item.visible)
           td.editorColumnEducationName

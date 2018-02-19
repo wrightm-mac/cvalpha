@@ -43,9 +43,16 @@ function renderPage(req, res, page) {
   console.log("renderPage - html [page=%s]", req.params.page)
 
   if (req.session && req.session.user && (page === "index")) {
-    let cv = documents.create(req.session.user.email);
-    res.render(page, {
-      info: cv
+    let email = req.session.user.email;
+
+    documents.get(email, (data) => {
+      if (! data) {
+        data = documents.create(email);
+      }
+
+      res.render(page, {
+        cv: data
+      });
     });
   }
   else {

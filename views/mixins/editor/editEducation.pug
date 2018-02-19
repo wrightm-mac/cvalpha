@@ -1,6 +1,6 @@
 mixin editEducation
   div.cvSection
-    table#cvSectionEducation(data-columns='name:editorColumnEducationName,course:editorColumnEducationCourse,graduation:editorColumnEducationGraduation')
+    table#cvSectionEducation(data-append='name:editorColumnEducationName,course:editorColumnEducationCourse,graduation:editorColumnEducationGraduation', data-mode='last')
       tr
         th.editorColumnVisible.editorAdd
           img(src='/images/badge_plus.png')

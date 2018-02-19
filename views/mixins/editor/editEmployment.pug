@@ -1,6 +1,6 @@
 mixin editEmployment
   div.cvSection
-    table#cvSectionEmployment(data-columns='name:editorColumnEmploymentName,title:editorColumnEmploymentTitle,date:editorColumnEmploymentDate')
+    table#cvSectionEmployment(data-append='name:editorColumnEmploymentName,title:editorColumnEmploymentTitle,date:editorColumnEmploymentDate,*3description:!editorColumnEmploymentDescription', data-mode='first')
       tr
         th.editorColumnVisible.editorAdd
           img(src='/images/badge_plus.png')
@@ -18,11 +18,8 @@ mixin editEmployment
             span.editorClickable(data-id='date')= item.from + ' to ' + item.to
           td.editorDelete
             img(src='/images/badge_minus.png')
-        tr
-          td.editorColumnVisible.editorEmploymentListVisible
-            input(id='tasks_' + item.id, type='checkbox', checked=item.visible)
-          td(colspan=3).editorEmploymentList
-            ul
-              each task, index in item.tasks
-                li
-                  span.editorClickable(data-id='task_' + index)= task
+        tr(data-id=item.id)
+          td.editorColumnVisible
+            input(id='description_' + item.id, type='checkbox', checked=item.visible)
+          td(colspan=3).editorEmploymentColumnDescription
+            span.editorClickable(data-id='description', data-edit='large')= item.description

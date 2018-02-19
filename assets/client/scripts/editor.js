@@ -43,20 +43,28 @@ $(function() {
     let $parent = $text.parent();
 
     $text.hide();
-    $edit = $("<input>").attr("type", "text")
-              .addClass("editorText")
-              .val($text.html())
-              .attr("data-id", $text.attr("data-id"))
-              .appendTo($parent)
-              .click(function() {
-                return false;
-              })
-              .keypress(function (event) {
-                if (event.which == 13) {
-                  endEdit();
-                  return false;
-                }
-              });
+
+    if ($text.attr("data-edit") === "large") {
+      $edit = $("<textarea>").attr("rows", 20);
+    }
+    else {
+      $edit = $("<input>").attr("type", "text")  
+    }
+    
+    $edit
+      .addClass("editorText")
+      .val($text.html())
+      .attr("data-id", $text.attr("data-id"))
+      .appendTo($parent)
+      .click(function() {
+        return false;
+      })
+      .keypress(function (event) {
+        if (event.which == 13) {
+          endEdit();
+          return false;
+        }
+      });
 
     $edit.focus();
 
@@ -91,7 +99,9 @@ $(function() {
 
   function deleteRow() {
     let $row = $(this).parent();
-    $row.remove();
+    let id = $row.attr("data-id");
+    console.log("delete (id=%s)", id);
+    $(`[data-id='${id}']`, $row.parent()).remove();
   }
 
   $("body").click(endEdit);
@@ -100,35 +110,111 @@ $(function() {
 
   $("td").click(passClick);
 
+
+  function getAppendInfo($table) {
+    let rawcolumns = $table.attr("data-append");
+    let mode = $table.attr("data-mode");
+    
+    let rows = [];
+    let row = [];
+    for (let column of rawcolumns.split(",")) {
+      let [name, type] = column.split(":");
+
+      if (name.startsWith("*")) {
+        rows.push(row);
+        row = [];
+        name = name.slice(1);
+      }
+
+      var colspan;
+      if ((name[0] >= '0') && (name[0] <= '9')) {
+        colspan = Number.parseInt(name.slice(0, 1));
+        name = name.slice(1);
+      }
+      else {
+        colspan = 1;
+      }
+
+      var edit;
+      if (type.startsWith("!")) {
+        var edit = "large";
+        type = type.slice(1);
+      }
+      else {
+        edit = "small";
+      }
+
+      row.push({
+        name: name,
+        colspan: colspan,
+        type: type,
+        edit: edit
+      });
+    }
+
+    rows.push(row);
+
+    return {
+      id: Date.now(),
+      mode: $table.attr("data-mode") || "last",
+      rows: rows
+    };
+  }
+
+  ///
+  // Called when the '+' is clicked for a section...
+  //
   $(".editorAdd").click(function() {
     let $table = $(this).parent().parent().parent();
 
-    let $row = $("<tr>");
-    $("<td>", { class: "editorColumnVisible" })
-      .append($("<input>", { type: "checkbox", checked: true }))
-      .appendTo($row);
+    let info = getAppendInfo($table);
+    let insertedRows = [];
 
-    let datacolumns = $table.attr("data-columns");
-    console.log("[columns=%s]", datacolumns);
-    for (let column of datacolumns.split(",")) {
-      let info = column.split(":");
+    for (let row of info.rows) {
+      let $row = $("<tr>")
+        .attr("data-id", info.id);
+      $("<td>", { class: "editorColumnVisible" })
+        .append($("<input>", { type: "checkbox", checked: true }))
+        .appendTo($row);
+      
+      for (let column of row) {
+        console.log("append-column: %o", column);
 
-      let $cell = $("<td>", { class: info[1] } )
-        .click(passClick);
-      $("<span>", { class: "editorClickable editorModified" })
-        .attr("data-id", info[0])
-        .click(startEdit)
-        .appendTo($cell);
+        let $cell = $("<td>", { class: column.type } )
+          .attr("colspan", column.colspan)
+          .click(passClick);
+  
+        $("<span>", { class: "editorClickable editorModified" })
+          .attr("data-id", column.name)
+          .attr("data-edit", column.edit)
+          .click(startEdit)
+          .appendTo($cell);
 
-      $cell.appendTo($row);
+        $cell.appendTo($row);
+      }
+
+      let $deleteCell = $("<td>", { class: "editorDelete" })
+                          .appendTo($row);
+
+      if (! insertedRows.length) {
+        $deleteCell
+        .append($("<img>", { src: "/images/badge_minus.png" }))
+        .click(deleteRow);
+      }
+
+      insertedRows.push($row);
     }
-
-    $("<td>", { class: "editorDelete" })
-      .append($("<img>", { src: "/images/badge_minus.png" }))
-      .click(deleteRow)
-      .appendTo($row);
-
-    $table.append($row);
+    
+    if (info.mode === "last") {
+      for (let $insert of insertedRows) {
+        $table.append($insert);
+      }
+    }
+    else {
+      for (let index = insertedRows.length - 1; index >= 0; --index) {
+        $("tr:first", $table).after(insertedRows[index]);
+      }
+    }
   });
 
   $(".editorDelete").click(deleteRow);

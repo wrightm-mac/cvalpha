@@ -1,6 +1,6 @@
 mixin editPersonal
   div.cvSection
-    table#cvSectionPersonal(data-columns='name:editorColumnPersonalName,value:editorColumnPersonalValue')
+    table#cvSectionPersonal(data-append='name:editorColumnPersonalName,value:editorColumnPersonalValue', data-mode='last')
       tr
         th.editorColumnVisible.editorAdd
           img(src='/images/badge_plus.png')

@@ -48,8 +48,15 @@ $(function() {
       $edit = $("<textarea>").attr("rows", 20);
     }
     else {
-      $edit = $("<input>").attr("type", "text")  
-    }
+      $edit = $("<input>")
+        .attr("type", "text")  
+        .keypress(function (event) {
+          if (event.which == 13) {
+            endEdit();
+            return false;
+          }
+        });
+      }
     
     $edit
       .addClass("editorText")
@@ -58,12 +65,6 @@ $(function() {
       .appendTo($parent)
       .click(function() {
         return false;
-      })
-      .keypress(function (event) {
-        if (event.which == 13) {
-          endEdit();
-          return false;
-        }
       });
 
     $edit.focus();

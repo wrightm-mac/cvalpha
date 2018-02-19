@@ -35,96 +35,70 @@
 const router = require('express').Router();
 
 const service = require('./services/document');
-
 const helper = require('./lib/helper');
 
-const user = require('./models/user');
-
-
-function loginUser(req, data) {
-  let sessionToken = helper.id();
-
-  req.session.user = {
-    id: data._id,
-    firstname: data.firstname,
-    lastname: data.lastname,
-    email: data.email,
-    roles: data.roles,
-    login: true,
-    token: sessionToken
-  };
-
-  return req.session.user;
-}
 
 
 /**
-  Creates a new user.
+  Gets an identified document.
+
+  :id - document's identifier.
 */
-router.post('/register', (req, res) => {
-  let firstName = req.body.firstName;
-  let lastName = req.body.lastName;
-  let email = req.body.email;
-  let password = req.body.password;
-
-  let passwordHash = helper.hash(password);
-  let userHash = helper.id();
-
-  console.log("/login/register [first-name=%s][last-name=%s][email=%s][password=%s][hash=%s]", firstName, lastName, email, password, passwordHash);
-
-  let newUser = new user.model({
-    firstname: firstName,
-    lastname: lastName,
-    roles: ["user"],
-    hash: userHash,
-    email: email,
-    password: passwordHash
-  });
-
-  newUser.save(helper.responder(res, (data) => {
-    console.log("saved new user! (%o)", data);
-
-    if (data) {
-      return loginUser(req, data);
-    }
-    else {
-      res.status(406);
-    }
-  }));
+router.get('/:id', (req, res) => {
+    service.get(req.params.id, (data) => {
+        if (data) {
+          helper.sendOk(res, data);
+        }
+        else {
+          helper.sendError(404, "not found");
+        }
+    });
 });
 
-
 /**
-  Creates a logged-in session.
+  Adds a new document.
 */
 router.post('/', (req, res) => {
-  let email = req.body.email;
-  let password = helper.hash(req.body.password);
-
-  console.log("/api/login [email=%s][password=%s]", email, password);
-
-  user.model.findOne({ $and: [{ email: email }, { password: password }]},
-                      { _id: true, firstname: true, lastname: true, email: true, roles: true, hash: true, validated: true },
-                      helper.responder(res, (data) => {
-
-    if (data) {
-      return loginUser(req, data);
-    }
-    else {
-      res.status(406);
-    }
-  }));
+    service.save(req.body, (data) => {
+      if (data) {
+        helper.sendOk(res, data);
+      }
+      else {
+        helper.sendError(404, "not found");
+      }
+  });
 });
 
 /**
-  Deletes a logged-in session.
+  Updates an identified document.
+
+  :id - document's identifier.
 */
-router.delete('/', (req, res) => {
-  console.log("router:delete");
+router.put('/:id', (req, res) => {
+  service.save(req.body, (data) => {
+    if (data) {
+      helper.sendOk(res, data);
+    }
+    else {
+      helper.sendError(404, "not found");
+    }
+  });
+});
 
-  delete req.session.user;
+/**
+  Deletes an identified document.
 
-  helper.sendOk(res, { message: "user logout"});
+  :id - document's identifier.
+*/
+router.delete('/:id', (req, res) => {
+  service.delete(req.body, (data) => {
+    if (data) {
+      helper.sendOk(res, data);
+    }
+    else {
+      helper.sendError(404, "not found");
+    }
+  });
 });
 
 module.exports = router;

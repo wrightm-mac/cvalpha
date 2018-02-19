@@ -68,6 +68,10 @@ module.exports = {
         return hasher.getHash("HEX");
     },
 
+    id: function() {
+        return this.hash(`${Date.now * Math.random() * 9999999.999}+${Math.random() * 9999999.999}+${Date.now}`);
+    },
+
     /**
      *  Standard response handler to send Mongoose query results back to caller.
      *
@@ -94,14 +98,22 @@ module.exports = {
             res.send(data);
         }
     },
+    
+    sendCode: function(res, code, data) {
+        res.status(code);
+        res.send(data || {});
+    },
 
     sendOk: function(res, data) {
         res.status = 200;
         res.send(data || {});
     },
 
-    sendCode: function(res, code, data) {
+    sendError: function(res, code, message) {
         res.status(code);
-        res.send(data || {});
+        res.send({
+            status: code,
+            message: message
+        });
     }
 };

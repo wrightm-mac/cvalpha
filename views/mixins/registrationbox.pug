@@ -20,7 +20,7 @@ mixin registrationbox
             let $registrationBox = $("#registrationBox");
             $("#registerOk").click(function() {
                 $.ajax({
-                    url: "/register",
+                    url: "/login/register",
                     method: "POST",
                     data: {
                         firstName: $("#regFirstName").val(),
@@ -31,6 +31,8 @@ mixin registrationbox
                 })
                 .done((data, status) => {
                     console.log("login: success [response-data=%o][status=%o]", data, status);
+
+                    $.redirect("/");
                 })
                 .fail((error, message) => {
                     console.error("login: error [error=%o][message=%o]", error, message);

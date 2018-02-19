@@ -101,22 +101,34 @@ $(function() {
   $("td").click(passClick);
 
   $(".editorAdd").click(function() {
-    let $table = $(this).parent().parent();
+    let $table = $(this).parent().parent().parent();
 
-    let $row = $("tr", $table).last();
-    let $new = $row.clone().attr("data-id", "");
+    let $row = $("<tr>");
+    $("<td>", { class: "editorColumnVisible" })
+      .append($("<input>", { type: "checkbox", checked: true }))
+      .appendTo($row);
 
-    $("td", $new).click(passClick);
-    $("input", $new).attr("checked", true);
-    $("span", $new)
-      .addClass("editorClickable")
-      .addClass("editorModified")
-      .text("")
-      .click(startEdit);
+    let datacolumns = $table.attr("data-columns");
+    console.log("[columns=%s]", datacolumns);
+    for (let column of datacolumns.split(",")) {
+      let info = column.split(":");
 
-    $(".editorDelete", $new).click(deleteRow);
+      let $cell = $("<td>", { class: info[1] } )
+        .click(passClick);
+      $("<span>", { class: "editorClickable editorModified" })
+        .attr("data-id", info[0])
+        .click(startEdit)
+        .appendTo($cell);
 
-    $table.append($new);
+      $cell.appendTo($row);
+    }
+
+    $("<td>", { class: "editorDelete" })
+      .append($("<img>", { src: "/images/badge_minus.png" }))
+      .click(deleteRow)
+      .appendTo($row);
+
+    $table.append($row);
   });
 
   $(".editorDelete").click(deleteRow);

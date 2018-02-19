@@ -1,19 +1,20 @@
 mixin editEducation
   div.cvSection
-    table#cvSectionEducation(data-columns=3)
+    table#cvSectionEducation(data-columns='name:editorColumnEducationName,course:editorColumnEducationCourse,graduation:editorColumnEducationGraduation')
       tr
         th.editorColumnVisible.editorAdd
           img(src='/images/badge_plus.png')
         th.editorSectionTitle(colspan=3)= info.education.title
+        th.editoreDelete
       each item in info.education.values
         tr(data-id=item.id)
           td.editorColumnVisible
             input(id=name, type='checkbox', checked=item.visible)
           td.editorColumnEducationName
-            span.editorClickable(data-id='name_' + item.id)= item.name
+            span.editorClickable(data-id='name')= item.name
           td.editorColumnEducationCourse
-            span.editorClickable(data-id='course_' + item.id)= item.course
+            span.editorClickable(data-id='course')= item.course
           td.editorColumnEducationGraduation
-            span.editorClickable(data-id='graduation_' + item.id)= item.graduation
+            span.editorClickable(data-id='graduation')= item.graduation
           td.editorDelete
             img(src='/images/badge_minus.png')

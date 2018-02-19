@@ -1,20 +1,21 @@
 mixin editEmployment
   div.cvSection
-    table#cvSectionEmployment(data-columns=2)
+    table#cvSectionEmployment(data-columns='name:editorColumnEmploymentName,title:editorColumnEmploymentTitle,date:editorColumnEmploymentDate')
       tr
         th.editorColumnVisible.editorAdd
           img(src='/images/badge_plus.png')
         th.editorSectionTitle(colspan=3)= info.employment.title
+        th.editoreDelete
       each item in info.employment.values
         tr(data-id=item.id)
           td.editorColumnVisible
             input(id='visible_' + item.id, type='checkbox', checked=item.visible)
           td.editorColumnEmploymentName
-            span.editorClickable(data-id='name_' + item.id)= item.name
+            span.editorClickable(data-id='name')= item.name
           td.editorColumnEmploymentTitle
-            span.editorClickable(data-id='title_' + item.id)= item.title
+            span.editorClickable(data-id='title')= item.title
           td.editorColumnEmploymentDate
-            span.editorClickable(data-id='date_' + item.id)= item.from + ' to ' + item.to
+            span.editorClickable(data-id='date')= item.from + ' to ' + item.to
           td.editorDelete
             img(src='/images/badge_minus.png')
         tr

@@ -40,7 +40,7 @@ const helper = require('../lib/helper');
 module.exports = {
 
     create: function(userEmail) {
-        return /*new document.model(*/{
+        return new document.model({
             email: userEmail,
             hash: helper.id(),
             personal: {
@@ -74,7 +74,7 @@ module.exports = {
                     description: "My roles & achievements."
                 }]
             }
-        }/*)*/;
+        });
     },
 
     get: function(userEmail, callback) {

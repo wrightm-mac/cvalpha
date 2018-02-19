@@ -5,11 +5,11 @@ mixin editEducation
         th.editorColumnVisible.editorAdd
           img(src='/images/badge_plus.png')
         th.editorSectionTitle(colspan=3)= info.education.title
-        th.editoreDelete
+        th.editorDelete
       each item in info.education.items
         tr(data-id=id.next())
           td.editorColumnVisible
-            input(id=name, type='checkbox', checked=item.visible)
+            input(id='visible_' + id.prev(), type='checkbox', checked=item.visible)
           td.editorColumnEducationName
             span.editorClickable(data-id='name')= item.school
           td.editorColumnEducationCourse

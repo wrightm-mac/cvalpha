@@ -5,11 +5,11 @@ mixin editEmployment
         th.editorColumnVisible.editorAdd
           img(src='/images/badge_plus.png')
         th.editorSectionTitle(colspan=3)= info.employment.title
-        th.editoreDelete
+        th.editorDelete
       each item in info.employment.items
         tr(data-id=id.next())
           td.editorColumnVisible
-            input(id='visible_' + item.id, type='checkbox', checked=item.visible)
+            input(id='visible_' + id.prev(), type='checkbox', checked=item.visible)
           td.editorColumnEmploymentName
             span.editorClickable(data-id='name')= item.name
           td.editorColumnEmploymentTitle
@@ -20,6 +20,6 @@ mixin editEmployment
             img(src='/images/badge_minus.png')
         tr(data-id=id.prev())
           td.editorColumnVisible
-            input(id='description_' + item.id, type='checkbox', checked=item.visible)
+            input(id='description_' + id.prev(), type='checkbox', checked=item.visible)
           td(colspan=3).editorEmploymentColumnDescription
             span.editorClickable(data-id='description', data-edit='large')= item.description

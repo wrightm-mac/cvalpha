@@ -126,9 +126,9 @@ var DocumentSchema = new mongoose.Schema({
         index: true
     },
     deleted: Boolean,
-    personal: [DocumentPersonalSchema],
-    education: [DocumentEducationSchema],
-    employment: [DocumentEmploymentSchema]
+    personal: DocumentPersonalSchema,
+    education: DocumentEducationSchema,
+    employment: DocumentEmploymentSchema
 }, { timestamps: true });
 
 module.exports = {

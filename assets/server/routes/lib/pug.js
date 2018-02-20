@@ -97,9 +97,49 @@ class Id {
     }
 }
 
+let cvparts = [];
+// name:editorColumnPersonalName,value:editorColumnPersonalValue
+cvparts["personal"] = [{
+    name: "name",
+    type: "editorColumnPersonalName"
+}, {
+    name: "value",
+    type: "editorColumnPersonalValue"
+}];
+
+// name:editorColumnEducationName,course:editorColumnEducationCourse,graduation:editorColumnEducationGraduation
+cvparts["education"] = [{
+    name: "name",
+    type: "editorColumnEducationName"
+}, {
+    name: "course",
+    type: "editorColumnEducationCourse"
+}, {
+    name: "graduation",
+    type: "editorColumnEducationGraduation"
+}];
+
+// name:editorColumnEmploymentName,title:editorColumnEmploymentTitle,date:editorColumnEmploymentDate,*3description:!editorColumnEmploymentDescription
+cvparts["employment"] = [{
+    name: "name",
+    type: "editorColumnEmploymentName"
+}, {
+    name: "title",
+    type: "editorColumnEmploymentTitle"
+}, {
+    name: "date",
+    type: "editorColumnEmploymentDate"
+}, {
+    name: "description",
+    type: "editorColumnEmploymentDescription",
+    colspan: 3,
+    edit: "large"
+}];
+
 module.exports = {
     nameFromPath: nameFromPath,
     isMapLink: isMapLink,
     isMapItemVisible: isMapItemVisible,
-    id: new Id()
+    id: new Id(),
+    cvparts: cvparts
 };

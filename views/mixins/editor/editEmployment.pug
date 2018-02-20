@@ -15,11 +15,11 @@ mixin editEmployment
           td.editorColumnEmploymentTitle
             span.editorClickable(data-id='title')= item.title
           td.editorColumnEmploymentDate
-            span.editorClickable(data-id='from', data-format='shortMonthYear')= item.from
+            span.editorClickable(data-id='from', data-edit='date', data-format='shortMonthYear', data-raw=item.from)= item.from
           td.editorColumnBlank
             span.editorClickable(data-locked=true)= ' - '
           td.editorColumnEmploymentDate
-            span.editorClickable(data-id='to', data-edit='date', data-format='shortMonthYear')= item.to
+            span.editorClickable(data-id='to', data-edit='date', data-format='shortMonthYear', data-raw=item.to)= item.to
           td.editorDelete
             img(src='/images/badge_minus.png')
         tr(data-id=id.prev())

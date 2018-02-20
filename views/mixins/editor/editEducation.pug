@@ -15,6 +15,6 @@ mixin editEducation
           td.editorColumnEducationCourse
             span.editorClickable(data-id='course')= item.course
           td.editorColumnEducationGraduation
-            span.editorClickable(data-id='graduation', data-edit='date', data-format='longMonthYear')= item.graduation
+            span.editorClickable(data-id='graduation', data-edit='date', data-format='shortMonthYear', data-raw=item.graduation)= item.graduation
           td.editorDelete
             img(src='/images/badge_minus.png')

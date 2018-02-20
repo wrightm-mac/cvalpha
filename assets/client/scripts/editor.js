@@ -118,19 +118,43 @@ $(function() {
 
       $text.hide();
 
-      if ($text.attr("data-edit") === "large") {
+      let edit = $text.attr("data-edit");
+      if (edit === "date") {
+        let rawDate = $text.attr("data-raw");
+        let currentDate = new Date(rawDate);
+        console.log("**** [raw=%s][date=%s]", rawDate, currentDate.toDateString());
+        
+        $edit = $("<input>").attr("type", "text");
+        $edit.datepicker({
+          changeMonth: true,
+          changeYear: true,
+          showButtonPanel: true,
+          defaultDate: currentDate,
+          onClose: function() {
+            endEdit();
+          },
+          onChangeMonthYear: function(year, month, inst) {
+            let date = new Date(year, month - 1, 1);
+
+            $text.attr("data-raw", date.toDateString());
+            let displayDate = date[$text.attr("data-format")]();
+            $edit.text(displayDate);
+          }
+        });
+      }
+      else if ($text.attr("data-edit") === "large") {
         $edit = $("<textarea>").attr("rows", 20);
       }
       else {
         $edit = $("<input>")
-          .attr("type", "text")  
+          .attr("type", "text")
           .keypress(function (event) {
             if (event.which == 13) {
               endEdit();
               return false;
             }
           });
-        }
+      }
       
       $edit
         .addClass("editorText")
@@ -140,8 +164,9 @@ $(function() {
         .click(function() {
           return false;
         });
-
-      $edit.focus();
+        
+  
+        $edit.focus();
 
       return false;
     }
@@ -149,11 +174,17 @@ $(function() {
 
   function endEdit() {
     if ($edit && $text) {
-      let text = $text.html();
-      let edit = $edit.val();
-      if (text !== edit) {
-        $text.html(edit);
-        $text.addClass("editorModified");
+      if ($text.attr("data-edit") !== "date") {
+        let text = $text.html();
+        let edit = $edit.val();
+        if (text !== edit) {
+          $text.html(edit);
+          $text.addClass("editorModified");
+        }
+      }
+      else {
+        let date = new Date($text.attr("data-raw"));
+        $text.html(date[$text.attr("data-format")]());
       }
 
       $edit.remove();

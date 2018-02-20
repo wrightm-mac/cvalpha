@@ -1,6 +1,6 @@
 mixin editEmployment
   div.cvSection
-    table#cvSectionEmployment(data-record=cv.employment._id,data-append='name:editorColumnEmploymentName,title:editorColumnEmploymentTitle,date:editorColumnEmploymentDate,*3description:!editorColumnEmploymentDescription', data-mode='first')
+    table#cvSectionEmployment(data-record=cv.employment._id, data-section='employment')
       tr
         th.editorColumnVisible.editorAdd
           img(src='/images/badge_plus.png')

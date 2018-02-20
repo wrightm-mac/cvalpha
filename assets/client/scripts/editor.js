@@ -33,6 +33,54 @@
 ----------------------------------------------------------------------------- */
 
 $(function() {
+
+  const sections = {
+    personal: {
+      insert: "last",
+      rows: [[{
+        name: "name",
+        css: "editorColumnPersonalName"
+      }, {
+        name: "value",
+        css: "editorColumnPersonalValue"
+      }]]
+    },
+
+    education: {
+      insert: "last",
+      rows: [[{
+        name: "name",
+        css: "editorColumnEducationName"
+      }, {
+        name: "course",
+        css: "editorColumnEducationCourse"
+      }, {
+        name: "graduation",
+        css: "editorColumnEducationGraduation"
+      }]]
+    },
+
+    employment: {
+      insert: "first",
+      rows: [[{
+        name: "name",
+        css: "editorColumnEmploymentName"
+      }, {
+        name: "title",
+        css: "editorColumnEmploymentTitle"
+      }, {
+        name: "date",
+        css: "editorColumnEmploymentDate"
+      }], [{
+        name: "description",
+        css: "editorColumnEmploymentDescription",
+        colspan: 3,
+        edit: "large"
+      }]]
+    }
+  };
+
+
   var $text;
   var $edit;
 
@@ -112,68 +160,19 @@ $(function() {
   $("td").click(passClick);
 
 
-  function getAppendInfo($table) {
-    let rawcolumns = $table.attr("data-append");
-    let mode = $table.attr("data-mode");
-    
-    let rows = [];
-    let row = [];
-    for (let column of rawcolumns.split(",")) {
-      let [name, type] = column.split(":");
-
-      if (name.startsWith("*")) {
-        rows.push(row);
-        row = [];
-        name = name.slice(1);
-      }
-
-      var colspan;
-      if ((name[0] >= '0') && (name[0] <= '9')) {
-        colspan = Number.parseInt(name.slice(0, 1));
-        name = name.slice(1);
-      }
-      else {
-        colspan = 1;
-      }
-
-      var edit;
-      if (type.startsWith("!")) {
-        var edit = "large";
-        type = type.slice(1);
-      }
-      else {
-        edit = "small";
-      }
-
-      row.push({
-        name: name,
-        colspan: colspan,
-        type: type,
-        edit: edit
-      });
-    }
-
-    rows.push(row);
-
-    return {
-      id: Date.now(),
-      mode: $table.attr("data-mode") || "last",
-      rows: rows
-    };
-  }
-
   ///
   // Called when the '+' is clicked for a section...
   //
   $(".editorAdd").click(function() {
     let $table = $(this).parent().parent().parent();
 
-    let info = getAppendInfo($table);
+    let info = sections[$table.attr("data-section")];
+    let id = (Date.now() * Math.random() * 100000);
     let insertedRows = [];
 
     for (let row of info.rows) {
       let $row = $("<tr>")
-        .attr("data-id", info.id);
+        .attr("data-id", id);
       $("<td>", { class: "editorColumnVisible" })
         .append($("<input>", { type: "checkbox", checked: true }))
         .appendTo($row);
@@ -181,7 +180,7 @@ $(function() {
       for (let column of row) {
         console.log("append-column: %o", column);
 
-        let $cell = $("<td>", { class: column.type } )
+        let $cell = $("<td>", { class: column.css } )
           .attr("colspan", column.colspan)
           .click(passClick);
   
@@ -206,7 +205,7 @@ $(function() {
       insertedRows.push($row);
     }
     
-    if (info.mode === "last") {
+    if (info.insert === "last") {
       for (let $insert of insertedRows) {
         $table.append($insert);
       }

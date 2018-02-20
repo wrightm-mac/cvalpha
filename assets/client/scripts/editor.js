@@ -34,6 +34,20 @@
 
 $(function() {
 
+  function doFormat($span) {
+    let format = $span.attr("data-format");
+    let text = $span.text();
+
+    if (text) {
+      let date = new Date(text);
+      $span.text(date[format]());
+    }
+  }
+
+  $("[data-format]").each(function() {
+    doFormat($(this));
+  });
+
   const sections = {
     personal: {
       insert: "last",
@@ -56,7 +70,9 @@ $(function() {
         css: "editorColumnEducationCourse"
       }, {
         name: "graduation",
-        css: "editorColumnEducationGraduation"
+        css: "editorColumnEducationGraduation",
+        edit: "date",
+        format: "longMonthYear"
       }]]
     },
 
@@ -69,17 +85,26 @@ $(function() {
         name: "title",
         css: "editorColumnEmploymentTitle"
       }, {
-        name: "date",
-        css: "editorColumnEmploymentDate"
+        name: "from",
+        css: "editorColumnEmploymentDate",
+        edit: "date",
+        format: "shortMonthYear"
+      }, {
+        locked: true,
+        content: " - "
+      }, {
+        name: "to",
+        css: "editorColumnEmploymentDate",
+        edit: "date",
+        format: "shortMonthYear"
       }], [{
         name: "description",
         css: "editorColumnEmploymentDescription",
-        colspan: 3,
+        colspan: 5,
         edit: "large"
       }]]
     }
   };
-
 
   var $text;
   var $edit;
@@ -88,36 +113,38 @@ $(function() {
     endEdit();
 
     $text = $(this);
-    let $parent = $text.parent();
+    if (! $text.attr("data-locked")) {
+      let $parent = $text.parent();
 
-    $text.hide();
+      $text.hide();
 
-    if ($text.attr("data-edit") === "large") {
-      $edit = $("<textarea>").attr("rows", 20);
-    }
-    else {
-      $edit = $("<input>")
-        .attr("type", "text")  
-        .keypress(function (event) {
-          if (event.which == 13) {
-            endEdit();
-            return false;
-          }
-        });
+      if ($text.attr("data-edit") === "large") {
+        $edit = $("<textarea>").attr("rows", 20);
       }
-    
-    $edit
-      .addClass("editorText")
-      .val($text.html())
-      .attr("data-id", $text.attr("data-id"))
-      .appendTo($parent)
-      .click(function() {
-        return false;
-      });
+      else {
+        $edit = $("<input>")
+          .attr("type", "text")  
+          .keypress(function (event) {
+            if (event.which == 13) {
+              endEdit();
+              return false;
+            }
+          });
+        }
+      
+      $edit
+        .addClass("editorText")
+        .val($text.html())
+        .attr("data-id", $text.attr("data-id"))
+        .appendTo($parent)
+        .click(function() {
+          return false;
+        });
 
-    $edit.focus();
+      $edit.focus();
 
-    return false;
+      return false;
+    }
   }
 
   function endEdit() {
@@ -184,12 +211,17 @@ $(function() {
           .attr("colspan", column.colspan)
           .click(passClick);
   
-        $("<span>", { class: "editorClickable editorModified" })
-          .attr("data-id", column.name)
-          .attr("data-edit", column.edit)
-          .click(startEdit)
-          .appendTo($cell);
+        let $span = $("<span>", { class: "editorClickable" })
+                    .attr("data-id", column.name)
+                    .attr("data-edit", column.edit)
+                    .attr("data-format", column.format)
+                    .attr("data-locked", column.locked)
+                    .addClass(column.locked ? "" : "editorModified")
+                    .text(column.content)
+                    .click(startEdit)
+                    .appendTo($cell);
 
+        column.format && doFormat($span);
         $cell.appendTo($row);
       }
 

@@ -4,7 +4,7 @@ mixin editEmployment
       tr
         th.editorColumnVisible.editorAdd
           img(src='/images/badge_plus.png')
-        th.editorSectionTitle(colspan=3)= cv.employment.title
+        th.editorSectionTitle(colspan=5)= cv.employment.title
         th.editorDelete
       each item in cv.employment.items
         tr(data-record=item._id,data-id=id.next())
@@ -15,7 +15,11 @@ mixin editEmployment
           td.editorColumnEmploymentTitle
             span.editorClickable(data-id='title')= item.title
           td.editorColumnEmploymentDate
-            span.editorClickable(data-id='date')= item.from + ' to ' + item.to
+            span.editorClickable(data-id='from', data-format='shortMonthYear')= item.from
+          td.editorColumnBlank
+            span.editorClickable(data-locked=true)= ' - '
+          td.editorColumnEmploymentDate
+            span.editorClickable(data-id='to', data-edit='date', data-format='shortMonthYear')= item.to
           td.editorDelete
             img(src='/images/badge_minus.png')
         tr(data-id=id.prev())

@@ -60,7 +60,7 @@ $.extend({
 
 $.fn.extend({
   exists: function() {
-    return this.length;
+    return (this.length > 0);
   },
 
   hidden: function()

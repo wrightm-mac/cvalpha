@@ -4,7 +4,7 @@ include ./editEmployment
 
 mixin editor
   div#editor
-    div#cvPersonal
+    div#cvPersonal(data-id=cv._id, data-user=cv.email)
       +editPersonal
 
       div.cvSpacer
@@ -14,3 +14,6 @@ mixin editor
       div.cvSpacer
 
       +editEmployment
+
+    div#editControls
+      div#editorSaveButton.standardButton Save

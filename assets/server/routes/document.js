@@ -59,7 +59,9 @@ router.get('/:id', (req, res) => {
   Adds a new document.
 */
 router.post('/', (req, res) => {
-    service.save(req.body, (data) => {
+  console.log("document.post");
+
+  service.save(req.body, (data) => {
       if (data) {
         helper.sendOk(res, data);
       }
@@ -75,14 +77,18 @@ router.post('/', (req, res) => {
   :id - document's identifier.
 */
 router.put('/:id', (req, res) => {
-  service.save(req.body, (data) => {
-    if (data) {
-      helper.sendOk(res, data);
-    }
-    else {
-      helper.sendError(404, "not found");
-    }
-  });
+  console.log("document.put [user=%s][email=%s][%o]", req.session.user.email, req.params.id, req.body);
+
+  helper.sendOk(res, { message: "bazinga!" });
+  
+  // service.save(req.body, (data) => {
+  //   if (data) {
+  //     helper.sendOk(res, data);
+  //   }
+  //   else {
+  //     helper.sendError(404, "not found");
+  //   }
+  // });
 });
 
 /**

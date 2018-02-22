@@ -34,6 +34,8 @@
 
 $(function() {
 
+  // Format date fields using the `Date.<fn>` function that's in  the element's
+  // `data-format` attribute,,,
   function doFormat($span) {
     let format = $span.attr("data-format");
     let text = $span.text();
@@ -44,10 +46,15 @@ $(function() {
     }
   }
 
+  // When loaded - call the `doFormat` function for all the formattable date
+  // fields...
   $("[data-format]").each(function() {
     doFormat($(this));
   });
 
+  // Describes the structure of an individual item in each of the sections - used
+  // when adding a new row to a section. (The section's name is given in the
+  // section's table's `data-section` attribute, so user `let sectionInfo = `sections[$table.attr('data-section')]`.)
   const sections = {
     personal: {
       insert: "last",
@@ -195,6 +202,8 @@ $(function() {
     }
   }
 
+  // Passes a click on a `<td>` to the contained `<span>`, enabling it to handle
+  // the editing...
   function passClick() {
     let $span = $("span.editorClickable", this).first();
     if ($span) {
@@ -281,4 +290,60 @@ $(function() {
   });
 
   $(".editorDelete").click(deleteRow);
+
+
+  //
+  // Save & settings...
+  //
+
+  function getSectionContents(sectionName) {
+    let $table = $(`table [data-section=${sectionName}]`);
+    if ($table.exists()) {
+      let section = {
+        title: $("th [data-name]", $table).attr("data-name"),
+        items: []
+      };
+
+      $("tr [data-record]", $table).each(function() {
+        let $row = $(this);
+        let item = {
+          _id: $row.attr("data-record"),
+          visible: $("input [type=checkbox]", $row).first().val()
+        };
+
+        $("span [data-id]", $row).each(function() {
+          let $span = $(this);
+          item[$span.attr("data-id")] = $span.text()
+        });
+
+        section.items.push(item);
+      });
+
+      return section;
+    }
+  }
+
+  $("#editorSaveButton").click(function() {
+    console.log("editor-save");
+
+    let $cv = $("#cvPersonal");
+    let id = $cv.attr("data-id");
+    let email = $cv.attr("data-user");
+    
+    let cv = {
+      _id: id,
+      email: email,
+      personal: getSectionContents("personal"),
+      education: getSectionContents("education"),
+      employment: getSectionContents("employment")
+    };
+
+    $.ajax({
+      url: `/document/${email}`,
+      method: "PUT",
+      data: cv
+    }).done((data, status) => {
+      console.log("editor-save [response-data=%o][status=%o]", data, status);
+  });
+  });
 });

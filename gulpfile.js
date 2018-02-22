@@ -172,12 +172,34 @@ gulp.task('watch', function() {
     'assets/client/css/**/*.less',
     'assets/client/images/*',
     'assets/client/scripts/**/*.js',
-    'assets/client/scripts/**/*.ts',
     'assets/server/lib/**/*.js',
-    'assets/server/lib/**/*.ts'
+    'assets/server/routes/**/*.js',
   ];
 
   gulp.watch(watchFiles, ['_out:watchstart', 'build', '_out:watchend']);
+});
+
+gulp.task('watch:client:fast', function() {
+  console.log('Watching...');
+
+  let watchFiles = [
+    'assets/client/css/**/*.less',
+    'assets/client/scripts/**/*.js'
+  ];
+
+  gulp.watch(watchFiles, ['_out:watchstart', 'client:fast', '_out:watchend']);
+});
+
+gulp.task('watch:fast', function() {
+  console.log('Watching...');
+
+  let watchFiles = [
+    'assets/client/css/**/*.less',
+    'assets/client/scripts/**/*.js',
+    'assets/server/routes/**/*.js',
+  ];
+
+  gulp.watch(watchFiles, ['_out:watchstart', 'client:fast', 'server', '_out:watchend']);
 });
 
 gulp.task('clean', ['clean:client', 'clean:server']);

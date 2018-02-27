@@ -9,7 +9,7 @@ mixin editPersonal
       each item in cv.personal.items
         tr(data-record=item._id,data-id=id.next())
           td.editorColumnVisible
-            input(id='visible_' + id.prev(), type='checkbox', checked=item.visible)
+            input(type='checkbox', checked=item.visible)
           td.editorColumnPersonalName
             span.editorClickable(data-id='name')= item.name
           td.editorColumnPersonalValue

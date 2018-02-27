@@ -206,11 +206,10 @@ $(function() {
   // the editing...
   function passClick() {
     let $span = $("span.editorClickable", this).first();
-    if ($span) {
+    if ($span.exists()) {
       startEdit.call($span, $span);
+      return false;
     }
-
-    return false;
   }
 
   function deleteRow() {
@@ -297,21 +296,21 @@ $(function() {
   //
 
   function getSectionContents(sectionName) {
-    let $table = $(`table [data-section=${sectionName}]`);
+    let $table = $(`table[data-section=${sectionName}]`);
     if ($table.exists()) {
       let section = {
         title: $("th [data-name]", $table).attr("data-name"),
         items: []
       };
 
-      $("tr [data-record]", $table).each(function() {
+      $("tr[data-record]", $table).each(function() {
         let $row = $(this);
         let item = {
           _id: $row.attr("data-record"),
-          visible: $("input [type=checkbox]", $row).first().val()
+          visible: $("input[type=checkbox]", $row).first().val()
         };
 
-        $("span [data-id]", $row).each(function() {
+        $("span[data-id]", $row).each(function() {
           let $span = $(this);
           item[$span.attr("data-id")] = $span.text()
         });

@@ -9,7 +9,7 @@ mixin editEducation
       each item in cv.education.items
         tr(data-record=item._id,data-id=id.next())
           td.editorColumnVisible
-            input(id='visible_' + id.prev(), type='checkbox', checked=item.visible)
+            input(name='visible_' + id.prev(), type='checkbox', checked=item.visible)
           td.editorColumnEducationName
             span.editorClickable(data-id='name')= item.school
           td.editorColumnEducationCourse

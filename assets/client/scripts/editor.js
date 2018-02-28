@@ -129,7 +129,7 @@ $(function() {
       if (edit === "date") {
         let rawDate = $text.attr("data-raw");
         let currentDate = new Date(rawDate);
-        
+
         $edit = $("<input>").attr("type", "text");
         $edit.datepicker({
           changeMonth: true,
@@ -161,7 +161,7 @@ $(function() {
             }
           });
       }
-      
+
       $edit
         .addClass("editorText")
         .val($text.html())
@@ -170,8 +170,8 @@ $(function() {
         .click(function() {
           return false;
         });
-        
-  
+
+
         $edit.focus();
 
       return false;
@@ -238,14 +238,14 @@ $(function() {
       let $row = $("<tr>")
         .attr("data-id", id);
       $("<td>", { class: "editorColumnVisible" })
-        .append($("<input>", { type: "checkbox", checked: true }))
+        .append($("<input>", { name: `visible_${id}`, type: "checkbox", checked: true }))
         .appendTo($row);
-      
+
       for (let column of row) {
         let $cell = $("<td>", { class: column.css } )
           .attr("colspan", column.colspan)
           .click(passClick);
-  
+
         let $span = $("<span>", { class: "editorClickable" })
                     .attr("data-id", column.name)
                     .attr("data-edit", column.edit)
@@ -271,7 +271,7 @@ $(function() {
 
       insertedRows.push($row);
     }
-    
+
     if (info.insert === "last") {
       for (let $insert of insertedRows) {
         $table.append($insert);
@@ -343,8 +343,7 @@ $(function() {
     let $cv = $("#cvPersonal");
     let id = $cv.attr("data-id");
     let email = $cv.attr("data-user");
-    let hash = $cv.attr("data-hash");
-    
+
     let cv = {
       _id: id,
       email: email,
@@ -360,6 +359,6 @@ $(function() {
       data: cv
     }).done((data, status) => {
       console.log("editor-save [response-data=%o][status=%o]", data, status);
-  });
+    });
   });
 });

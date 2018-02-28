@@ -37,21 +37,21 @@ $.extend({
   fragment: function(callback) {
     $("div [data-fragment]").each(function() {
       $(this).fragment(callback);
-    }); 
-      
+    });
+
     return this;
   },
 
   redirect: function(url) {
     $(location).attr('href', url);
   },
-  
+
   showWaiting: function() {
     if (! $("body .waitGraphic").exists()) {
       $("body").append("<div>", { id: "waitGraphic"});
     }
   },
-  
+
   hideWaiting: function() {
     $("body #waitGraphic").remove();
   },
@@ -71,7 +71,7 @@ $.fn.extend({
   showing: function() {
     return ! this.hidden();
   },
-  
+
   enterkey: function(callback) {
     $(this).keypress(function (event) {
       if (event.which == 13) {
@@ -102,13 +102,13 @@ $.fn.extend({
 
 
 $(function() {
-  $(document)
-    .ajaxStart(function () {
-      $.showWaiting();
-    })
-    .ajaxStop(function () {
-      $.hideWaiting();
-    })
-  
-    $.fragment();
+  // $(document)
+  //   .ajaxStart(function () {
+  //     $.showWaiting();
+  //   })
+  //   .ajaxStop(function () {
+  //     $.hideWaiting();
+  //   })
+
+  //  $.fragment();
 });

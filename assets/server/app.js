@@ -50,7 +50,6 @@ const session = require('./routes/lib/session');
 const fragments = require('./routes/fragments');
 const index = require('./routes/index');
 const login = require('./routes/login');
-const document = require('./routes/document');
 
 const apiUsers = require('./routes/api/users');
 
@@ -110,7 +109,6 @@ app.use(function(req,res,next) {
 // The application's pages...
 app.use('/', index);
 app.use('/login', login);
-app.use('/document', document);
 
 // The application's API handlers...
 app.use('/api/users', apiUsers);

@@ -44,7 +44,6 @@ const minifyCss = require('gulp-clean-css');
 const minify = require('gulp-minify-html');
 const uglify = require('gulp-uglify');
 const jsonmin = require('gulp-jsonmin');
-const sourcemaps = require('gulp-sourcemaps');
 const chalk = require('chalk');
 
 let src = 'assets/';
@@ -150,10 +149,8 @@ gulp.task('server:scripts', function() {
   ];
 
   gulp.src(sources)
-    //.pipe(sourcemaps.init())
     .pipe(babel({ presets: ['env'] }))
     .pipe(uglify())
-    //.pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(''));
 });
 

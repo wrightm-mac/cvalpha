@@ -33,12 +33,8 @@
 ----------------------------------------------------------------------------- */
 
 const router = require('express').Router();
-
-const service = require('./services/document');
-
-const helper = require('./lib/helper');
-
 const user = require('./models/user');
+const helper = require('./lib/helper');
 
 
 function loginUser(req, data) {

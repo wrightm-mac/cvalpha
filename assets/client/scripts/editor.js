@@ -355,7 +355,7 @@ $(function() {
     };
 
     $.ajax({
-      url: `/document/${email}`,
+      url: `/${email}`,
       method: "PUT",
       data: cv
     }).done((data, status) => {

@@ -35,7 +35,7 @@
 var mongoose = require("mongoose");
 
 
-var DocumentPersonalItemSchema = new mongoose.Schema({
+var CvPersonalItemSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true
@@ -47,15 +47,15 @@ var DocumentPersonalItemSchema = new mongoose.Schema({
     visible: Boolean
 });
 
-var DocumentPersonalSchema = new mongoose.Schema({
+var CvPersonalSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true
     },
-    items: [DocumentPersonalItemSchema]
+    items: [CvPersonalItemSchema]
 });
 
-var DocumentEducationItemSchema = new mongoose.Schema({
+var CvEducationItemSchema = new mongoose.Schema({
     school: {
         type: String,
         required: true
@@ -73,15 +73,15 @@ var DocumentEducationItemSchema = new mongoose.Schema({
     visible: Boolean
 });
 
-var DocumentEducationSchema = new mongoose.Schema({
+var CvEducationSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true
     },
-    items: [DocumentEducationItemSchema]
+    items: [CvEducationItemSchema]
 });
 
-var DocumentEmploymentItemSchema = new mongoose.Schema({
+var CvEmploymentItemSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true
@@ -106,15 +106,15 @@ var DocumentEmploymentItemSchema = new mongoose.Schema({
     visible: Boolean
 });
 
-var DocumentEmploymentSchema = new mongoose.Schema({
+var CvEmploymentSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true
     },
-    items: [DocumentEmploymentItemSchema]
+    items: [CvEmploymentItemSchema]
 });
 
-var DocumentSchema = new mongoose.Schema({
+var CvSchema = new mongoose.Schema({
     hash: {
         type: String,
         required: true,
@@ -126,12 +126,12 @@ var DocumentSchema = new mongoose.Schema({
         index: true
     },
     deleted: Boolean,
-    personal: DocumentPersonalSchema,
-    education: DocumentEducationSchema,
-    employment: DocumentEmploymentSchema
+    personal: CvPersonalSchema,
+    education: CvEducationSchema,
+    employment: CvEmploymentSchema
 }, { timestamps: true });
 
 module.exports = {
-    schema: DocumentSchema,
-    model: mongoose.model("Document", DocumentSchema)
+    schema: CvSchema,
+    model: mongoose.model("Cv", CvSchema)
 };

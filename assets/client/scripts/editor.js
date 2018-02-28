@@ -343,6 +343,7 @@ $(function() {
     let $cv = $("#cvPersonal");
     let id = $cv.attr("data-id");
     let email = $cv.attr("data-user");
+    let hash = $cv.attr("data-hash");
 
     let cv = {
       _id: id,

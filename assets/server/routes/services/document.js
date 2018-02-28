@@ -42,7 +42,6 @@ module.exports = {
     create: function(userEmail) {
         return new document.model({
             email: userEmail,
-            hash: helper.id(),
             personal: {
                 title: "Personal",
                 items: [{
@@ -52,6 +51,10 @@ module.exports = {
                 }, {
                     name: "Location",
                     value: "Somewhere",
+                    visible: true
+                }, {
+                    name: "Phone",
+                    value: "0123 4567 890",
                     visible: true
                 }]
             },
@@ -67,6 +70,7 @@ module.exports = {
             employment: {
                 title: "Employment",
                 items: [{
+                    visible: true,
                     name: "My Last Employer",
                     title: "My Last Job Title",
                     from: Date.now(),
@@ -83,11 +87,12 @@ module.exports = {
         });
     },
 
-    save: function(document, callback) {
-        console.log("services/document: save [%o]", document);
+    save: function(cv, callback) {
+        console.log("services/document: save [%o]", cv);
 
-        document.save(function(data) {
-            callback.call(data || this, data);
+        document.model.findById(cv._id, (err, data) => {
+            data = Object.assign(data || new document.model(), cv);
+            data.save(helper.responder(res));
         });
     },
 

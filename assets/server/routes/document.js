@@ -34,6 +34,7 @@
 
 const router = require('express').Router();
 
+const document = require('./models/document');
 const service = require('./services/document');
 const helper = require('./lib/helper');
 
@@ -79,16 +80,67 @@ router.post('/', (req, res) => {
 router.put('/:id', (req, res) => {
   console.log("document.put [user=%s][email=%s][%o]", req.session.user.email, req.params.id, req.body);
 
-  helper.sendOk(res, { message: "bazinga!" });
-  
-  // service.save(req.body, (data) => {
-  //   if (data) {
-  //     helper.sendOk(res, data);
-  //   }
-  //   else {
-  //     helper.sendError(404, "not found");
-  //   }
-  // });
+  const cv = req.body;
+  document.model.findOne({ email: cv.email }, (err, data) => {
+      data = data || new document.model({
+        email: cv.email,
+      });
+
+      data = Object.assign(data, {
+        _id: data._id,
+        hash: data.hash || helper.id(),
+        personal: {
+          title: cv.personal.title || "Personal",
+          items: (cv.personal.items || []).map(item => {
+            return {
+              _id: item._id,
+              name: item.name,
+              value: item.value,
+              visible: true
+            }
+          })
+        },
+        education: {
+          title: cv.education.title || "Education",
+          items: (cv.education.items || []).map(item => {
+            return {
+              _id: item._id,
+              school: item.name,
+              course: item.course,
+              grade: item.grade,
+              graduation: new Date(item.graduation),
+              visible: true
+            }
+          })
+        },
+        employment: {
+          title: cv.employment.title || "Employment",
+          items: (cv.employment.items || []).map(item => {
+            return {
+              _id: item._id,
+              name: item.name,
+              title: item.title,
+              from: new Date(item.from),
+              to: new Date(item.to),
+              description: item.description,
+              descriptionvisible: true,
+              visible: true
+            }
+          })
+        }
+      });
+
+      // helper.sendOk(res, { message: "hello, world!" });
+      data.save(helper.responder(res, saved => {
+        console.log("save: (%o)", saved);
+
+        return {
+          success: true,
+          email: saved.email,
+          hash: saved.hash
+        };
+      }));
+  });
 });
 
 /**

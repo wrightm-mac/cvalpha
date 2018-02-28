@@ -79,7 +79,7 @@ $(function() {
         name: "graduation",
         css: "editorColumnEducationGraduation",
         edit: "date",
-        format: "longMonthYear"
+        format: "shortMonthYear"
       }]]
     },
 
@@ -129,7 +129,6 @@ $(function() {
       if (edit === "date") {
         let rawDate = $text.attr("data-raw");
         let currentDate = new Date(rawDate);
-        console.log("**** [raw=%s][date=%s]", rawDate, currentDate.toDateString());
         
         $edit = $("<input>").attr("type", "text");
         $edit.datepicker({
@@ -215,7 +214,6 @@ $(function() {
   function deleteRow() {
     let $row = $(this).parent();
     let id = $row.attr("data-id");
-    console.log("delete (id=%s)", id);
     $(`[data-id='${id}']`, $row.parent()).remove();
   }
 
@@ -244,8 +242,6 @@ $(function() {
         .appendTo($row);
       
       for (let column of row) {
-        console.log("append-column: %o", column);
-
         let $cell = $("<td>", { class: column.css } )
           .attr("colspan", column.colspan)
           .click(passClick);
@@ -299,39 +295,60 @@ $(function() {
     let $table = $(`table[data-section=${sectionName}]`);
     if ($table.exists()) {
       let section = {
-        title: $("th [data-name]", $table).attr("data-name"),
+        title: $("th.editorSectionTitle", $table).text(),
         items: []
       };
 
-      $("tr[data-record]", $table).each(function() {
+      let currentDataId;
+      let currentItem;
+      $("tr[data-id]", $table).each(function() {
         let $row = $(this);
-        let item = {
-          _id: $row.attr("data-record"),
-          visible: $("input[type=checkbox]", $row).first().val()
-        };
+
+        let dataId = $row.attr("data-id");
+        if (dataId !== currentDataId) {
+          currentDataId = dataId;
+
+          if (currentItem) {
+            section.items.push(currentItem);
+          }
+          
+          currentItem = {
+            _id: $row.attr("data-record"),
+            visible: true
+          };
+        }
 
         $("span[data-id]", $row).each(function() {
           let $span = $(this);
-          item[$span.attr("data-id")] = $span.text()
-        });
+          let text = $span.text();
 
-        section.items.push(item);
+          if ($span.attr("data-raw")) {
+            //text = Date.parse(text);
+            text = $span.attr("data-raw");
+          }
+          
+          currentItem[$span.attr("data-id")] = text;
+        });
       });
+
+      if (currentItem) {
+        section.items.push(currentItem);
+      }
 
       return section;
     }
   }
 
   $("#editorSaveButton").click(function() {
-    console.log("editor-save");
-
     let $cv = $("#cvPersonal");
     let id = $cv.attr("data-id");
     let email = $cv.attr("data-user");
+    let hash = $cv.attr("data-hash");
     
     let cv = {
       _id: id,
       email: email,
+      hash: hash,
       personal: getSectionContents("personal"),
       education: getSectionContents("education"),
       employment: getSectionContents("employment")

@@ -134,7 +134,8 @@ $(function() {
           change: function(date) {
             $text.attr("data-raw", date.toDateString());
             let displayDate = date[$text.attr("data-format")]();
-            $edit.text(displayDate);
+            $text.text(displayDate);
+            $text.addClass("editorModified");
           }
         });
       }

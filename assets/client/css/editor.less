@@ -125,13 +125,17 @@ div.cvSection td {
   vertical-align: top;
 }
 
-th.editorColumnVisible, td.editorColumnVisible {
+.editorColumnVisible {
   width: 30px;
   text-align: center;
   vertical-align: center;
 }
 
-th.editorColumnDelete, td.editorColumnDelete {
+.editorColumnVisible input {
+  display: none;
+}
+
+.editorColumnDelete {
   width: 30px;
   text-align: center;
   vertical-align: center;
@@ -227,10 +231,10 @@ div#editControls .standardButton {
 
 .editDate .editDateSelect {
   float: right;
- 
+
   height: 100%;
   margin-top: 4px;
-  
+
   background-color: white;
   color: black;
 

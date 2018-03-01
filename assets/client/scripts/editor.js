@@ -199,23 +199,17 @@ $(function() {
     }
   }
 
-  function deleteRow() {
+  function deleteSectionItem() {
     let $row = $(this).parent();
     let id = $row.attr("data-id");
     $(`[data-id='${id}']`, $row.parent()).remove();
   }
 
-  $("body").click(endEdit);
-
-  $("div#cvPersonal .editorClickable").click(startEdit);
-
-  $("td").click(passClick);
-
 
   ///
   // Called when the '+' is clicked for a section...
   //
-  $(".editorAdd").click(function() {
+  function addSectionItem() {
     let $table = $(this).parent().parent().parent();
 
     let info = sections[$table.attr("data-section")];
@@ -254,7 +248,7 @@ $(function() {
       if (! insertedRows.length) {
         $deleteCell
         .append($("<img>", { src: "/images/badge_minus.png" }))
-        .click(deleteRow);
+        .click(deleteSectionItem);
       }
 
       insertedRows.push($row);
@@ -270,9 +264,7 @@ $(function() {
         $("tr:first", $table).after(insertedRows[index]);
       }
     }
-  });
-
-  $(".editorDelete").click(deleteRow);
+  }
 
 
   //
@@ -299,7 +291,7 @@ $(function() {
           if (currentItem) {
             section.items.push(currentItem);
           }
-          
+
           currentItem = {
             _id: $row.attr("data-record"),
             visible: true
@@ -311,10 +303,9 @@ $(function() {
           let text = $span.text();
 
           if ($span.attr("data-raw")) {
-            //text = Date.parse(text);
             text = $span.attr("data-raw");
           }
-          
+
           currentItem[$span.attr("data-id")] = text;
         });
       });
@@ -327,7 +318,7 @@ $(function() {
     }
   }
 
-  $("#editorSaveButton").click(function() {
+  function save() {
     let $cv = $("#cvPersonal");
     let id = $cv.attr("data-id");
     let email = $cv.attr("data-user");
@@ -348,6 +339,20 @@ $(function() {
       data: cv
     }).done((data, status) => {
       console.log("editor-save [response-data=%o][status=%o]", data, status);
+
+      $(".cvSection span").removeClass("editorModified");
     });
-  });
+  }
+
+
+  //
+  // Hook up the events...
+  //
+
+  $("body").click(endEdit);
+  $("div#cvPersonal .editorClickable").click(startEdit);
+  $("td").click(passClick);
+  $(".editorAdd").click(addSectionItem);
+  $(".editorDelete").click(deleteSectionItem);
+  $("#editorSaveButton").click(save);
 });

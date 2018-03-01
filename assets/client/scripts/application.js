@@ -55,6 +55,52 @@ $.extend({
   hideWaiting: function() {
     $("body #waitGraphic").remove();
   },
+
+  datechooser: function(config = {}) {
+    const months = ["January", "February", "March", "April", "May", "June", "July",
+                    "August", "September", "October", "November", "December"];
+    
+    const today = new Date();
+    let selectedMonth = (config.date || today).getMonth();
+    let selectedYear = (config.date || today).getFullYear();
+
+    let $chooser = $("<span>")
+                    .addClass("editDate");
+
+    let $year = $("<select>")
+                  .addClass("editDateSelect editDateYear")
+                  .appendTo($chooser);
+    for (let year = 1950; year <= today.getFullYear(); ++year) {
+    $("<option>")
+      .attr("value", year)
+      .attr("selected", year === selectedYear)
+      .text(year)
+      .appendTo($year);
+    }
+    
+    let $month = $("<select>")
+                  .addClass("editDateSelect editDateMonth")
+                  .appendTo($chooser);
+    for (let month = 0; month < 12; ++month) {
+      $("<option>")
+        .attr("value", month)
+        .attr("selected", month === selectedMonth)
+        .text(months[month])
+        .appendTo($month);
+    }
+
+    function doDateChange() {
+      if (config.change) {
+        let selectedDate = new Date($year.val(), $month.val());
+        config.change.call($chooser, selectedDate);
+      }
+    }
+
+    $year.change(doDateChange);
+    $month.change(doDateChange);
+
+    return $chooser;
+  }
 });
 
 

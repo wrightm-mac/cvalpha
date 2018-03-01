@@ -127,21 +127,11 @@ $(function() {
 
       let edit = $text.attr("data-edit");
       if (edit === "date") {
-        let rawDate = $text.attr("data-raw");
-        let currentDate = new Date(rawDate);
+        let currentDate = new Date($text.attr("data-raw"));
 
-        $edit = $("<input>").attr("type", "text");
-        $edit.datepicker({
-          changeMonth: true,
-          changeYear: true,
-          showButtonPanel: true,
-          defaultDate: currentDate,
-          onClose: function() {
-            endEdit();
-          },
-          onChangeMonthYear: function(year, month, inst) {
-            let date = new Date(year, month - 1, 1);
-
+        $edit = $.datechooser({
+          date: currentDate,
+          change: function(date) {
             $text.attr("data-raw", date.toDateString());
             let displayDate = date[$text.attr("data-format")]();
             $edit.text(displayDate);
@@ -149,11 +139,14 @@ $(function() {
         });
       }
       else if ($text.attr("data-edit") === "large") {
-        $edit = $("<textarea>").attr("rows", 20);
+        $edit = $("<textarea>")
+                  .attr("rows", 20)
+                  .addClass("editorText");
       }
       else {
         $edit = $("<input>")
           .attr("type", "text")
+          .addClass("editorText")
           .keypress(function (event) {
             if (event.which == 13) {
               endEdit();
@@ -163,14 +156,9 @@ $(function() {
       }
 
       $edit
-        .addClass("editorText")
         .val($text.html())
         .attr("data-id", $text.attr("data-id"))
-        .appendTo($parent)
-        .click(function() {
-          return false;
-        });
-
+        .appendTo($parent);
 
         $edit.focus();
 

@@ -34,30 +34,24 @@
 
 $(function() {
 
-  // Format date fields using the `Date.<fn>` function that's in  the element's
-  // `data-format` attribute,,,
   function doFormat($span) {
-    let date = new Date($span.attr("data-raw"));
-    $span.text(date[$span.attr("data-format")]());
-
-    // let format = $span.attr("data-format");
-    // let text = $span.text();
-
-    // if (text) {
-    //   let date = new Date(text);
-    //   $span.text(date[format]());
-    // }
+    let rawDate = $span.attr("data-raw");
+    if (rawDate) {
+      let date = new Date(rawDate);
+      $span.text(date[$span.attr("data-format")]());
+    }
   }
 
-  // When loaded - call the `doFormat` function for all the formattable date
-  // fields...
-  $("[data-format]").each(function() {
+  // Format dates for display...
+  $(".cvSection span[data-format]").each(function() {
     doFormat($(this));
   });
 
+
   // Describes the structure of an individual item in each of the sections - used
-  // when adding a new row to a section. (The section's name is given in the
-  // section's table's `data-section` attribute, so user `let sectionInfo = `sections[$table.attr('data-section')]`.)
+  // when adding a new row to a section. The section's name is given in the
+  // section's table's `data-section` attribute, so use:
+  //     `let sectionInfo = `sections[$table.attr('data-section')]`
   const sections = {
     personal: {
       insert: "last",
@@ -82,7 +76,7 @@ $(function() {
         name: "graduation",
         css: "editorColumnEducationGraduation",
         edit: "date",
-        format: "shortMonthYear"
+        format: "longMonthYear"
       }]]
     },
 

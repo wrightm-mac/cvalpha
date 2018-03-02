@@ -157,34 +157,42 @@ td.editorColumnPersonalValue {
 
 
 td.editorColumnEducationName {
-  width: 40%;
+  width: 35%;
   font-weight: bold;
 }
 
 td.editorColumnEducationCourse {
-  width: 40%;
+  width: 35%;
 }
 
 td.editorColumnEducationGraduation {
-  width: 20%;
+  width: 30%;
 
   font-style: italic;
   text-align: right;
 }
 
 td.editorColumnEmploymentName {
-  width: 35%;
+  width: 50%;
   font-weight: bold;
 }
 
 td.editorColumnEmploymentTitle {
-  width: 35%;
+  width: 50%;
+  text-align: right;
 }
 
 td.editorColumnEmploymentDate {
-  width: 15%;
+  width: 35%;
   font-style: italic;
-  text-align: center;
+}
+
+td.editorColumnEmploymentDateFrom:extend(td.editorColumnEmploymentDate) {
+  text-align: right;
+}
+
+td.editorColumnEmploymentDateTo:extend(td.editorColumnEmploymentDate) {
+  text-align: left;
 }
 
 td.editorEmploymentDescriptionVisible {
@@ -196,7 +204,7 @@ td.editorEmploymentDescriptionVisible {
 td.editorEmploymentColumnDescription {
   width: 100%;
   vertical-align: top;
-  margin-bottom: 10px;
+  padding-bottom: 30px;
 }
 
 .ui-datepicker-calendar {

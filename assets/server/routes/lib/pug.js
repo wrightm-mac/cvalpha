@@ -98,8 +98,8 @@ class Id {
 
 
 module.exports = {
-    nameFromPath: nameFromPath,
-    isMapLink: isMapLink,
-    isMapItemVisible: isMapItemVisible,
+    nameFromPath,
+    isMapLink,
+    isMapItemVisible,
     id: new Id()
 };

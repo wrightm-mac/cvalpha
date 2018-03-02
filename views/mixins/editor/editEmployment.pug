@@ -4,7 +4,7 @@ mixin editEmployment
       tr
         th.editorColumnVisible.editorAdd
           img(src='/images/badge_plus.png')
-        th.editorSectionTitle(colspan=5)= cv.employment.title
+        th.editorSectionTitle(colspan=3)= cv.employment.title
         th.editorDelete
       each item in cv.employment.items
         tr(data-record=item._id,data-id=id.next())
@@ -12,16 +12,20 @@ mixin editEmployment
             input(id='visible_' + id.prev(), type='checkbox', checked=item.visible)
           td.editorColumnEmploymentName
             span.editorClickable(data-id='name')= item.name
+          td.editorColumnBlank
+            span.editorClickable(data-locked=true)
           td.editorColumnEmploymentTitle
             span.editorClickable(data-id='title')= item.title
-          td.editorColumnEmploymentDate
-            span.editorClickable(data-id='from', data-edit='date', data-format='shortMonthYear', data-raw=item.from)= item.from
-          td.editorColumnBlank
-            span.editorClickable(data-locked=true)= ' - '
-          td.editorColumnEmploymentDate
-            span.editorClickable(data-id='to', data-edit='date', data-format='shortMonthYear', data-raw=item.to)= item.to
           td.editorDelete
             img(src='/images/badge_minus.png')
+        tr(data-id=id.prev())
+          td.editorColumnVisible
+          td.editorColumnEmploymentDateFrom
+            span.editorClickable(data-id='from', data-edit='date', data-format='longMonthYear', data-raw=item.from)
+          td.editorColumnBlank
+            span.editorClickable(data-locked=true)= ' - '
+          td.editorColumnEmploymentDateTo
+            span.editorClickable(data-id='to', data-edit='date', data-format='longMonthYear', data-raw=item.to)
         tr(data-id=id.prev())
           td.editorColumnVisible
             input(id='description_' + id.prev(), type='checkbox', checked=item.visible)

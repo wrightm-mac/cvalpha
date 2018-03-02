@@ -37,13 +37,16 @@ $(function() {
   // Format date fields using the `Date.<fn>` function that's in  the element's
   // `data-format` attribute,,,
   function doFormat($span) {
-    let format = $span.attr("data-format");
-    let text = $span.text();
+    let date = new Date($span.attr("data-raw"));
+    $span.text(date[$span.attr("data-format")]());
 
-    if (text) {
-      let date = new Date(text);
-      $span.text(date[format]());
-    }
+    // let format = $span.attr("data-format");
+    // let text = $span.text();
+
+    // if (text) {
+    //   let date = new Date(text);
+    //   $span.text(date[format]());
+    // }
   }
 
   // When loaded - call the `doFormat` function for all the formattable date
@@ -89,25 +92,28 @@ $(function() {
         name: "name",
         css: "editorColumnEmploymentName"
       }, {
+        locked: true,
+        content: ""
+      }, {
         name: "title",
         css: "editorColumnEmploymentTitle"
-      }, {
+      }], [{
         name: "from",
-        css: "editorColumnEmploymentDate",
+        css: "editorColumnEmploymentDateFrom",
         edit: "date",
-        format: "shortMonthYear"
+        format: "longMonthYear"
       }, {
         locked: true,
         content: " - "
       }, {
         name: "to",
-        css: "editorColumnEmploymentDate",
+        css: "editorColumnEmploymentDateTo",
         edit: "date",
-        format: "shortMonthYear"
+        format: "longMonthYear"
       }], [{
         name: "description",
         css: "editorColumnEmploymentDescription",
-        colspan: 5,
+        colspan: 3,
         edit: "large"
       }]]
     }

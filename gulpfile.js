@@ -115,7 +115,7 @@ gulp.task('client:scripts', function() {
 
   gulp.src(sources)
     .pipe(babel({ presets: ['env'] }))
-    .pipe(uglify())
+    //.pipe(uglify())
     .pipe(concat('application.js'))
     .pipe(gulp.dest('public/scripts'));
 });

@@ -179,13 +179,13 @@ $(function() {
       else if ($text.attr("data-edit") === "large") {
         $edit = $("<textarea>")
                   .attr("rows", 20)
-                  .addClass("editorText")
+                  .addClass("editorControl editorText")
                   .click(() => false);
       }
       else {
         $edit = $("<input>")
           .attr("type", "text")
-          .addClass("editorText")
+          .addClass("editorControl editorText")
           .keypress(function (event) {
             if (event.which == 13) {
               endEdit();
@@ -197,6 +197,20 @@ $(function() {
       $edit
         .val(($edit[0].type === "textarea") ? fromDisplayList($text) : $text.text())
         .attr("data-id", $text.attr("data-id"))
+        .appendTo($parent);
+
+      $("<input>")
+        .addClass("editorControl editorFocus")
+        .focus(function() {
+          console.log("*** back");
+        })
+        .prependTo($parent);
+
+      $("<input>")
+        .addClass("editorControl editorFocus")
+        .focus(function() {
+          console.log("*** fore");
+        })
         .appendTo($parent);
 
         $edit.focus();
@@ -222,6 +236,7 @@ $(function() {
         $text.html(date[$text.attr("data-format")]());
       }
 
+      $(".editorControl").remove();
       $edit.remove();
       $text.show();
 

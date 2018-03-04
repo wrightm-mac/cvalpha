@@ -59,7 +59,7 @@ $.extend({
   datechooser: function(config = {}) {
     const months = ["January", "February", "March", "April", "May", "June", "July",
                     "August", "September", "October", "November", "December"];
-    
+
     const today = new Date();
     let selectedMonth = (config.date || today).getMonth();
     let selectedYear = (config.date || today).getFullYear();
@@ -77,7 +77,7 @@ $.extend({
       .text(year)
       .appendTo($year);
     }
-    
+
     let $month = $("<select>")
                   .addClass("editDateSelect editDateMonth")
                   .appendTo($chooser);

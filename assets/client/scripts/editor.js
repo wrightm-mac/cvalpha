@@ -47,6 +47,43 @@ $(function() {
     doFormat($(this));
   });
 
+  // Format block-text into list-items...
+  $(".cvSection span[data-edit=large]").each(function() {
+    let list = toDisplayList($(this));
+    $(this).html(list);
+  });
+
+  function fromDisplayList($text) {
+    let text = "";
+    $("ul li", $text).each(function() {
+      if (text > "") {
+        text += "\n\n";
+      }
+
+      text += $(this).text();
+    });
+
+    return text;
+  }
+
+  function toDisplayList($edit) {
+    let text = ($edit[0].type === "textarea") ? $edit.val() : $edit.text();
+    let chunks = text.split("\n");
+
+    let $list = $("<ul>").addClass("editorEmploymentList");
+    for (const chunk of chunks) {
+      let paragraph = chunk.trim();
+      if (paragraph > "") {
+        $("<li>")
+          .addClass("editorEmploymentListItem")
+          .text(chunk)
+          .appendTo($list);
+      }
+    }
+
+    return $list;
+  }
+
 
   // Describes the structure of an individual item in each of the sections - used
   // when adding a new row to a section. The section's name is given in the
@@ -142,7 +179,8 @@ $(function() {
       else if ($text.attr("data-edit") === "large") {
         $edit = $("<textarea>")
                   .attr("rows", 20)
-                  .addClass("editorText");
+                  .addClass("editorText")
+                  .click(() => false);
       }
       else {
         $edit = $("<input>")
@@ -157,7 +195,7 @@ $(function() {
       }
 
       $edit
-        .val($text.html())
+        .val(($edit[0].type === "textarea") ? fromDisplayList($text) : $text.text())
         .attr("data-id", $text.attr("data-id"))
         .appendTo($parent);
 
@@ -170,8 +208,10 @@ $(function() {
   function endEdit() {
     if ($edit && $text) {
       if ($text.attr("data-edit") !== "date") {
+
+        let edit = ($edit[0].type === "textarea") ? toDisplayList($edit) : $edit.val();
+
         let text = $text.html();
-        let edit = $edit.val();
         if (text !== edit) {
           $text.html(edit);
           $text.addClass("editorModified");
@@ -301,7 +341,7 @@ $(function() {
 
         $("span[data-id]", $row).each(function() {
           let $span = $(this);
-          let text = $span.text();
+          let text = ($span.attr("data-edit") === "large") ? fromDisplayList($span) : $span.text();
 
           if ($span.attr("data-raw")) {
             text = $span.attr("data-raw");

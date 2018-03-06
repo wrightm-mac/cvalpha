@@ -187,7 +187,7 @@ $(function() {
           .attr("type", "text")
           .addClass("editorControl editorText")
           .keypress(function (event) {
-            if (event.which == 13) {
+            if (event.which === 13) {
               endEdit();
               return false;
             }
@@ -446,6 +446,12 @@ $(function() {
   $("body").click(endEdit);
   $("div#cvPersonal .editorClickable").click(startEdit);
   $("td").click(passClick);
+  $(document).keyup(function(event) {
+    if (event.keyCode === 27) {
+      endEdit();
+    }
+  });
+
   $(".editorAdd").click(addSectionItem);
   $(".editorDelete").click(deleteSectionItem);
   $("#editorSaveButton").click(save);

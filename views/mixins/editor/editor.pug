@@ -3,6 +3,7 @@ include ./editEducation
 include ./editEmployment
 
 mixin editor
+  script(src="/scripts/editor.js")
   div#editor
     div#cvPersonal(data-id=cv._id, data-user=cv.email, data-hash=cv.hash)
       +editPersonal

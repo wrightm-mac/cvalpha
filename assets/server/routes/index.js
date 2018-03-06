@@ -76,7 +76,13 @@ router.get(["/", "/:page.html"], function(req, res) {
 router.get("/:id", function(req, res) {
   console.log("router.get (id) [id=%s]", req.params.id);
 
-  renderPage(req, res, "index");
+  let lookup = req.params.id;
+
+  cv.model.findOne({ email: lookup }, (err, data) => {
+    res.render("view", {
+      cv: data
+    });
+  });
 });
 
 router.put('/:email', (req, res) => {

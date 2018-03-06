@@ -1,0 +1,11 @@
+mixin viewPersonal
+  div.cvSection
+    table#cvSectionPersonal(data-record=cv.personal._id, data-section='personal')
+      tr
+        th.editorSectionTitle(colspan=2)= cv.personal.title
+      each item in cv.personal.items
+        tr(data-record=item._id,data-id=id.next())
+          td.editorColumnPersonalName
+            span.editorClickable(data-id='name')= item.name
+          td.editorColumnPersonalValue
+            span.editorClickable(data-id='value')= item.value

@@ -1,0 +1,23 @@
+mixin viewEmployment
+  div.cvSection
+    table#cvSectionEmployment(data-record=cv.employment._id, data-section='employment')
+      tr
+        th.editorSectionTitle(colspan=3)= cv.employment.title
+      each item in cv.employment.items
+        tr(data-record=item._id,data-id=id.next())
+          td.editorColumnEmploymentName
+            span.editorClickable(data-id='name')= item.name
+          td.editorColumnBlank
+            span.editorClickable(data-locked=true)
+          td.editorColumnEmploymentTitle
+            span.editorClickable(data-id='title')= item.title
+        tr(data-id=id.prev())
+          td.editorColumnEmploymentDateFrom
+            span.editorClickable(data-id='from', data-edit='date', data-format='longMonthYear', data-raw=item.from)
+          td.editorColumnBlank
+            span.editorClickable(data-locked=true)= ' - '
+          td.editorColumnEmploymentDateTo
+            span.editorClickable(data-id='to', data-edit='date', data-format='longMonthYear', data-raw=item.to)
+        tr(data-id=id.prev())
+          td(colspan=3).editorEmploymentColumnDescription
+            span.editorClickable(data-id='description', data-edit='large')= item.description

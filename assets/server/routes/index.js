@@ -96,8 +96,8 @@ router.put('/:email', (req, res) => {
             items: (payload.personal.items || []).map(item => {
               return {
                 _id: item._id,
-                name: item.name,
-                value: item.value,
+                name: item.name || "",
+                value: item.value || "",
                 visible: true
               }
             })
@@ -107,9 +107,9 @@ router.put('/:email', (req, res) => {
             items: (payload.education.items || []).map(item => {
               return {
                 _id: item._id,
-                school: item.name,
-                course: item.course,
-                grade: item.grade,
+                school: item.name || "",
+                course: item.course || "",
+                grade: item.grade || "",
                 graduation: new Date(item.graduation),
                 visible: true
               }
@@ -120,11 +120,11 @@ router.put('/:email', (req, res) => {
             items: (payload.employment.items || []).map(item => {
               return {
                 _id: item._id,
-                name: item.name,
-                title: item.title,
+                name: item.name || "",
+                title: item.title || "",
                 from: new Date(item.from),
                 to: new Date(item.to),
-                description: item.description,
+                description: item.description || "",
                 descriptionvisible: true,
                 visible: true
               }

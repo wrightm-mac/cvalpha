@@ -201,16 +201,12 @@ $(function() {
 
       $("<input>")
         .addClass("editorControl editorFocus")
-        .focus(function() {
-          console.log("*** back");
-        })
+        .focus(tabBackward)
         .prependTo($parent);
 
       $("<input>")
         .addClass("editorControl editorFocus")
-        .focus(function() {
-          console.log("*** fore");
-        })
+        .focus(tabForward)
         .appendTo($parent);
 
         $edit.focus();
@@ -252,6 +248,32 @@ $(function() {
     if ($span.exists()) {
       startEdit.call($span, $span);
       return false;
+    }
+  }
+
+  function tabForward() {
+    let $this = $(this).prev("input");
+    let section = $this.getParent("TABLE").attr("data-section");
+    let id = $this.attr("data-id");
+    let $next = $("span.editorClickable", $this.parent().next("td:not(.editorDelete)"));
+    console.log("tabForward [%o][tag=%s][section=%s][id=%s][next=%o]", $this, $this.tag(), section, id, $next);
+
+    endEdit();
+    if ($next.exists()) {
+      startEdit($next);
+    }
+  }
+
+  function tabBackward() {
+    let $this = $(this).next();
+    let section = $this.getParent("TABLE").attr("data-section");
+    let id = $this.attr("data-id");
+    let $prev = $("span.editorClickable", $this.parent().prev("td:not(.editorDelete)"));
+    console.log("tabBackward [%o][tag=%s][section=%s][id=%s][prev=%o]", $this, $this.tag(), section, id, $prev);
+
+    endEdit();
+    if ($prev.exists()) {
+      startEdit($prev);
     }
   }
 

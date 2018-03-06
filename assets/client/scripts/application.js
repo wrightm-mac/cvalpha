@@ -118,6 +118,26 @@ $.fn.extend({
     return ! this.hidden();
   },
 
+  tag: function() {
+    return this.prop("tagName");
+  },
+
+  getParent: function(tagName) {
+    let $control = this;
+
+    while ($control) {
+      if ($control.tag() === tagName) {
+        return $control;
+      }
+
+      if ((! $control.exists()) || ($control.tag() === "BODY")) {
+        break;
+      }
+
+      $control = $control.parent();
+    }
+  },
+
   enterkey: function(callback) {
     $(this).keypress(function (event) {
       if (event.which == 13) {

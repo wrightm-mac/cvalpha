@@ -254,9 +254,13 @@ $(function() {
   function tabForward() {
     let $this = $(this).prev("input,textarea");
     if ($this.exists()) {
-      let $next = $("span.editorClickable", $this.parent().next("td:not(.editorDelete)"));
+      function nextSpan($control) {
+        return $("span.editorClickable", $control.parent().next("td:not(.editorDelete)"));
+      }
+
+      let $next = nextSpan($this);
       if ($next.attr("data-locked")) {
-        $next = $("span.editorClickable", $next.parent().next("td:not(.editorDelete)"));
+        $next = nextSpan($next);
       }
 
       endEdit();
@@ -269,9 +273,13 @@ $(function() {
   function tabBackward($control) {
     let $this = $(this).next();
     if ($this.exists()) {
-      let $prev = $("span.editorClickable", $this.parent().prev("td:not(.editorDelete)"));
+      function prevSpan($control) {
+        return $("span.editorClickable", $control.parent().prev("td:not(.editorDelete)"));
+      }
+
+      let $prev = prevSpan($this);
       if ($prev.attr("data-locked")) {
-        $prev = $("span.editorClickable", $prev.parent().prev("td:not(.editorDelete)"));
+        $prev = prevSpan($prev);
       }
 
       endEdit();

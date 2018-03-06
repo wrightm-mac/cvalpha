@@ -81,6 +81,7 @@ function isMapItemVisible(session, item) {
         }
     }
 }
+
 class Id {
 
     constructor() {
@@ -96,10 +97,50 @@ class Id {
     }
 }
 
+const dateFormat = {
+  shortMonths: [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec"
+  ],
+
+  longMonths: [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+  ],
+
+  shortMonthYear: function(date) {
+    return `${this.shortMonths[date.getMonth()]} ${date.getFullYear()}`;
+  },
+
+  longMonthYear: function(date) {
+    return `${this.longMonths[date.getMonth()]} ${date.getFullYear()}`;
+  }
+};
 
 module.exports = {
     nameFromPath,
     isMapLink,
     isMapItemVisible,
-    id: new Id()
+    id: new Id(),
+    dateFormat
 };

@@ -4,10 +4,10 @@ mixin viewEducation
       tr
         th.editorSectionTitle(colspan=3)= cv.education.title
       each item in cv.education.items
-        tr(data-record=item._id,data-id=id.next())
+        tr(data-record=item._id, data-id=id.next())
           td.editorColumnEducationName
             span.editorClickable(data-id='name')= item.school
           td.editorColumnEducationCourse
             span.editorClickable(data-id='course')= item.course
           td.editorColumnEducationGraduation
-            span.editorClickable(data-id='graduation', data-edit='date', data-format='longMonthYear', data-raw=item.graduation)
+            span.editorClickable(data-id='graduation')= dateFormat.longMonthYear(item.graduation)

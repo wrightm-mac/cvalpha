@@ -4,7 +4,7 @@ mixin viewEmployment
       tr
         th.editorSectionTitle(colspan=3)= cv.employment.title
       each item in cv.employment.items
-        tr(data-record=item._id,data-id=id.next())
+        tr(data-record=item._id, data-id=id.next())
           td.editorColumnEmploymentName
             span.editorClickable(data-id='name')= item.name
           td.editorColumnBlank
@@ -13,11 +13,15 @@ mixin viewEmployment
             span.editorClickable(data-id='title')= item.title
         tr(data-id=id.prev())
           td.editorColumnEmploymentDateFrom
-            span.editorClickable(data-id='from', data-edit='date', data-format='longMonthYear', data-raw=item.from)
+            span.editorClickable(data-id='from')= dateFormat.longMonthYear(item.from)
           td.editorColumnBlank
             span.editorClickable(data-locked=true)= ' - '
           td.editorColumnEmploymentDateTo
-            span.editorClickable(data-id='to', data-edit='date', data-format='longMonthYear', data-raw=item.to)
+            span.editorClickable(data-id='to')= dateFormat.longMonthYear(item.to)
         tr(data-id=id.prev())
           td(colspan=3).editorEmploymentColumnDescription
-            span.editorClickable(data-id='description', data-edit='large')= item.description
+            span.editorClickable(data-id='description')
+              ul.editorEmploymentList
+              each chunk in item.description.split("\n")
+                if chunk > ""
+                  li.editorEmploymentListItem= chunk

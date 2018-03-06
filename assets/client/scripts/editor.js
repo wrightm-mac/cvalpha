@@ -153,11 +153,11 @@ $(function() {
   var $text;
   var $edit;
 
-  function startEdit() {
+  function startEdit($control) {
     endEdit();
 
-    $text = $(this);
-    if (! $text.attr("data-locked")) {
+    $text = $control || $(this);
+    if ($text.attr && (! $text.attr("data-locked"))) {
       let $parent = $text.parent();
 
       $text.hide();
@@ -252,28 +252,32 @@ $(function() {
   }
 
   function tabForward() {
-    let $this = $(this).prev("input");
-    let section = $this.getParent("TABLE").attr("data-section");
-    let id = $this.attr("data-id");
-    let $next = $("span.editorClickable", $this.parent().next("td:not(.editorDelete)"));
-    console.log("tabForward [%o][tag=%s][section=%s][id=%s][next=%o]", $this, $this.tag(), section, id, $next);
+    let $this = $(this).prev("input,textarea");
+    if ($this.exists()) {
+      let $next = $("span.editorClickable", $this.parent().next("td:not(.editorDelete)"));
+      if ($next.attr("data-locked")) {
+        $next = $("span.editorClickable", $next.parent().next("td:not(.editorDelete)"));
+      }
 
-    endEdit();
-    if ($next.exists()) {
-      startEdit($next);
+      endEdit();
+      if ($next.exists()) {
+        startEdit($next);
+      }
     }
   }
 
-  function tabBackward() {
+  function tabBackward($control) {
     let $this = $(this).next();
-    let section = $this.getParent("TABLE").attr("data-section");
-    let id = $this.attr("data-id");
-    let $prev = $("span.editorClickable", $this.parent().prev("td:not(.editorDelete)"));
-    console.log("tabBackward [%o][tag=%s][section=%s][id=%s][prev=%o]", $this, $this.tag(), section, id, $prev);
+    if ($this.exists()) {
+      let $prev = $("span.editorClickable", $this.parent().prev("td:not(.editorDelete)"));
+      if ($prev.attr("data-locked")) {
+        $prev = $("span.editorClickable", $prev.parent().prev("td:not(.editorDelete)"));
+      }
 
-    endEdit();
-    if ($prev.exists()) {
-      startEdit($prev);
+      endEdit();
+      if ($prev.exists()) {
+        startEdit($prev);
+      }
     }
   }
 
@@ -313,7 +317,9 @@ $(function() {
                     .attr("data-locked", column.locked)
                     .addClass(column.locked ? "" : "editorModified")
                     .text(column.content)
-                    .click(startEdit)
+                    .click(function() {
+                      startEdit(this.target);
+                    })
                     .appendTo($cell);
 
         column.format && doFormat($span);
@@ -397,6 +403,8 @@ $(function() {
   }
 
   function save() {
+    endEdit();
+
     let $cv = $("#cvPersonal");
     let id = $cv.attr("data-id");
     let email = $cv.attr("data-user");

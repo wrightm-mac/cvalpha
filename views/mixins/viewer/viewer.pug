@@ -3,18 +3,18 @@ include ./viewEducation
 include ./viewEmployment
 
 mixin viewer
-    if cv
-        div#editor
-            div#cvPersonal(data-id=cv._id, data-user=cv.email, data-hash=cv.hash)
-            +viewPersonal
+  if cv
+    div#editor
+      div#cvPersonal(data-id=cv._id, data-user=cv.email, data-hash=cv.hash)
+        +viewPersonal
 
-            div.cvSpacer
+        div.cvSpacer
 
-            +viewEducation
+        +viewEducation
 
-            div.cvSpacer
+        div.cvSpacer
 
-            +viewEmployment
-    else
-        p
-            | nothing to see
+        +viewEmployment
+  else
+    p
+      | nothing to see

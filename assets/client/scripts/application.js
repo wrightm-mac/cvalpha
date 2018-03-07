@@ -80,7 +80,7 @@ $.extend({
 
     let $month = $("<select>")
                   .addClass("editDateSelect editDateMonth")
-                  .appendTo($chooser);
+                  .insertBefore($year);
     for (let month = 0; month < 12; ++month) {
       $("<option>")
         .attr("value", month)
@@ -97,7 +97,7 @@ $.extend({
     }
 
     $year.change(doDateChange);
-    $month.change(doDateChange);
+    $month.change(doDateChange).focus();
 
     return $chooser;
   }

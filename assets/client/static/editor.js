@@ -199,16 +199,6 @@ $(function() {
         .attr("data-id", $text.attr("data-id"))
         .appendTo($parent);
 
-      $("<input>")
-        .addClass("editorControl editorFocus")
-        .focus(tabBackward)
-        .prependTo($parent);
-
-      $("<input>")
-        .addClass("editorControl editorFocus")
-        .focus(tabForward)
-        .appendTo($parent);
-
         $edit.focus();
 
       return false;
@@ -251,9 +241,8 @@ $(function() {
     }
   }
 
-  function tabForward() {
-    let $this = $(this).prev("input,textarea");
-    if ($this.exists()) {
+  function tabForward($this) {
+    if ($this && $this.exists()) {
       function nextSpan($control) {
         return $("span.editorClickable", $control.parent().next("td:not(.editorDelete)"));
       }
@@ -270,9 +259,8 @@ $(function() {
     }
   }
 
-  function tabBackward($control) {
-    let $this = $(this).next();
-    if ($this.exists()) {
+  function tabBackward($this) {
+    if ($this && $this.exists()) {
       function prevSpan($control) {
         return $("span.editorClickable", $control.parent().prev("td:not(.editorDelete)"));
       }
@@ -449,6 +437,15 @@ $(function() {
   $(document).keyup(function(event) {
     if (event.keyCode === 27) {
       endEdit();
+    }
+    else if (event.keyCode === 9) {
+      if (event.shiftKey) {
+        tabBackward($edit);
+      }
+      else {
+        tabForward($edit);
+      }
+      event.stopPropagation();
     }
   });
 

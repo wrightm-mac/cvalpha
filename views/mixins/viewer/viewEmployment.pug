@@ -15,7 +15,7 @@ mixin viewEmployment
           td.editorColumnEmploymentDateFrom
             span.editorClickable(data-id='from')= dateFormat.longMonthYear(item.from)
           td.editorColumnBlank
-            span.editorClickable(data-locked=true)= ' - '
+            span.editorClickable= ' - '
           td.editorColumnEmploymentDateTo
             span.editorClickable(data-id='to')= dateFormat.longMonthYear(item.to)
         tr(data-id=id.prev())

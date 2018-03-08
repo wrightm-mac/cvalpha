@@ -37,7 +37,7 @@
         "min": 11,
         "max": 70,
         "mulitplier": 100,
-        "selectors": "#content",
+        "selectors": "#content #editor",
         "style": "line-height",
         "translate": "$px"
       }, {
@@ -46,12 +46,20 @@
         "min": 0.1,
         "max": 15,
         "mulitplier": 100,
-        "selectors": "#content",
+        "selectors": "#content #editor",
         "style": "letter-spacing",
         "translate": "$px"
+      }, {
+        "name": "Section Spacing",
+        "type": "number",
+        "min": 5,
+        "max": 130,
+        "selectors": "div.cvSpacer",
+        "style": "height"
       }]
     }, {
       "title": "Titles",
+      "container": "#editor",
       "parts": [{
         "name": "Color",
         "type": "color",
@@ -93,6 +101,7 @@
       }]
     }, {
       "title": "Section",
+      "container": "#editor",
       "parts": [{
         "name": "Text Color",
         "type": "color",
@@ -104,6 +113,13 @@
         "selectors": ".cvSection table",
         "style": "background-color"
       }, {
+        "name": "Padding",
+        "type": "number",
+        "min": 0,
+        "max": 20,
+        "selectors": ".cvSection table",
+        "style": "padding"
+        }, {
         "name": "Border Width",
         "type": "number",
         "min": 0,
@@ -134,6 +150,7 @@
       }]
     }, {
       "title": "Items",
+      "container": "#editor",
       "parts": [{
         "name": "Background",
         "type": "color",

@@ -164,7 +164,7 @@ function populateSections(config, colors, fonts) {
                                   OK: function() {
                                       let color = $(this).find("#dazzleColorSwatch").css("background-color");
                                       $div.css("background-color", color);
-                                      $.selectors.applyCss(part.selectors, part.style, color);
+                                      $.selectors.applyCss(part.selectors, part.style, color, section.container);
 
                                       $(this).hideModalDialog();
                                   },
@@ -188,7 +188,7 @@ function populateSections(config, colors, fonts) {
                       change: function(event, args) {
                           let value = args.value / multiplier;
                           let newValue = part.translate ? translateMask(part.translate, value) : value;
-                          $.selectors.applyCss(part.selectors, part.style, newValue);
+                          $.selectors.applyCss(part.selectors, part.style, newValue, section.container);
                       }
                   });
                   $type.html($numDiv);
@@ -198,7 +198,7 @@ function populateSections(config, colors, fonts) {
                   selectOption($fontList, value);
                   $type.html($fontList);
                   $fontList.change(function() {
-                      $.selectors.applyCss(part.selectors, part.style, $(this).val());
+                      $.selectors.applyCss(part.selectors, part.style, $(this).val(), section.container);
                   });
                   break;
           }

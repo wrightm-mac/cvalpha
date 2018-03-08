@@ -104,89 +104,93 @@ $.extend({
     },
 
     selectors: {
-        applyCss(selectors, styles, value) {
-            selectors = Array.isArray(selectors) ? selectors : [selectors];
-            styles = Array.isArray(styles) ? styles : [styles];
+      applyCss(selectors, styles, value, container) {
+        selectors = Array.isArray(selectors) ? selectors : [selectors];
+        styles = Array.isArray(styles) ? styles : [styles];
 
-            for (let selector of selectors) {
-                for (let style of styles) {
-                    $(selector).css(style, value);
-                }
-            }
+        for (let selector of selectors) {
+          if (container) {
+            selector = `${container} ${selector}`
+          }
 
-            return this;
-        },
-
-        getCss(selectors, styles) {
-            let selector = Array.isArray(selectors) ? selectors[0] : selectors;
-            let style = Array.isArray(styles) ? styles[0] : styles;
-
-            return $(selector).first().css(style);
+          for (let style of styles) {
+              $(selector).css(style, value);
+          }
         }
+
+        return this;
+      },
+
+      getCss(selectors, styles) {
+        let selector = Array.isArray(selectors) ? selectors[0] : selectors;
+        let style = Array.isArray(styles) ? styles[0] : styles;
+
+        return $(selector).first().css(style);
+      }
     },
 
     colors: {
-        fromCssRgb: function(color) {
-            return color.split("(")[1].split(")")[0].split(",");
-        },
+      fromCssRgb: function(color) {
+        return color.split("(")[1].split(")")[0].split(",");
+      },
 
-        rgbFromHex: function(hex) {
-            let rgbcap = /(..)(..)(..)/.exec(hex).slice(1, 4);
+      rgbFromHex: function(hex) {
+        let rgbcap = /(..)(..)(..)/.exec(hex).slice(1, 4);
 
-            let results = [];
+        let results = [];
 
-            var len1;
-            for (let m = 0, len1 = rgbcap.length; m < len1; m++) {
-                results.push(parseInt(rgbcap[m], 16));
-            }
-
-            return results;
-        },
-
-        hexFromRGB: function(r, g, b) {
-            var hex = [
-                r.toString(16).padStart(2, "0"),
-                g.toString(16).padStart(2, "0"),
-                b.toString(16).padStart(2, "0")
-            ];
-
-            return "#" + hex.join("").toUpperCase();
+        var len1;
+        for (let m = 0, len1 = rgbcap.length; m < len1; m++) {
+          results.push(parseInt(rgbcap[m], 16));
         }
+
+        return results;
+      },
+
+      hexFromRGB: function(r, g, b) {
+        var hex = [
+          r.toString(16).padStart(2, "0"),
+          g.toString(16).padStart(2, "0"),
+          b.toString(16).padStart(2, "0")
+        ];
+
+        return "#" + hex.join("").toUpperCase();
+      }
     }
 });
 
 
 $.fn.extend({
     exists: function() {
-        return (this.length > 0);
+      return (this.length > 0);
     },
 
     hidden: function() {
-        return $(this).css("display") === "none";
+      return $(this).css("display") === "none";
     },
 
     showing: function() {
-        return !this.hidden();
+      return !this.hidden();
     },
 
     tag: function() {
-        return this.prop("tagName");
+      return this.prop("tagName");
     },
 
     getParent: function(tagName) {
-        let $control = this;
+      let $control = this;
 
-        while ($control) {
-            if ($control.tag() === tagName) {
-                return $control;
-            }
-
-            if ((!$control.exists()) || ($control.tag() === "BODY")) {
-                break;
-            }
-
-            $control = $control.parent();
+      while ($control) {
+        if ($control.tag() === tagName) {
+          return $control;
         }
+
+        if ((!$control.exists()) || ($control.tag() === "BODY")) {
+          break;
+        }
+
+        $control = $control.parent();
+      }
     },
 
     enterkey: function(callback) {

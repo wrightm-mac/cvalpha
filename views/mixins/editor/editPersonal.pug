@@ -7,12 +7,12 @@ mixin editPersonal
         th.editorSectionTitle(colspan=2)= cv.personal.title
         th.editorDelete
       each item in cv.personal.items
-        tr(data-record=item._id,data-id=id.next())
+        tr.editorTableRow(data-record=item._id,data-id=id.next())
           td.editorColumnVisible
             input(type='checkbox', checked=item.visible)
-          td.editorColumnPersonalName
+          td.editorColumn.editorColumnPersonalName
             span.editorClickable(data-id='name')= item.name
-          td.editorColumnPersonalValue
+          td.editorColumn.editorColumnPersonalValue
             span.editorClickable(data-id='value')= item.value
           td.editorDelete
             img(src='/images/badge_minus.png')

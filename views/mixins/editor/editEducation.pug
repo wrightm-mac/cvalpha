@@ -7,14 +7,14 @@ mixin editEducation
         th.editorSectionTitle(colspan=3)= cv.education.title
         th.editorDelete
       each item in cv.education.items
-        tr(data-record=item._id,data-id=id.next())
+        tr.editorTableRow(data-record=item._id,data-id=id.next())
           td.editorColumnVisible
             input(name='visible_' + id.prev(), type='checkbox', checked=item.visible)
-          td.editorColumnEducationName
+          td.editorColumn.editorColumnEducationName
             span.editorClickable(data-id='name')= item.school
-          td.editorColumnEducationCourse
+          td.editorColumn.editorColumnEducationCourse
             span.editorClickable(data-id='course')= item.course
-          td.editorColumnEducationGraduation
+          td.editorColumn.editorColumnEducationGraduation
             span.editorClickable(data-id='graduation', data-edit='date', data-format='longMonthYear', data-raw=item.graduation)
           td.editorDelete
             img(src='/images/badge_minus.png')

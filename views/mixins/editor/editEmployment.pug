@@ -7,27 +7,27 @@ mixin editEmployment
         th.editorSectionTitle(colspan=3)= cv.employment.title
         th.editorDelete
       each item in cv.employment.items
-        tr(data-record=item._id,data-id=id.next())
+        tr.editorTableRow(data-record=item._id,data-id=id.next())
           td.editorColumnVisible
             input(id='visible_' + id.prev(), type='checkbox', checked=item.visible)
-          td.editorColumnEmploymentName
+          td.editorColumn.editorColumnEmploymentName
             span.editorClickable(data-id='name')= item.name
           td.editorColumnBlank
             span.editorClickable(data-locked=true)
-          td.editorColumnEmploymentTitle
+          td.editorColumn.editorColumnEmploymentTitle
             span.editorClickable(data-id='title')= item.title
           td.editorDelete
             img(src='/images/badge_minus.png')
-        tr(data-id=id.prev())
+        tr.editorTableRow(data-id=id.prev())
           td.editorColumnVisible
-          td.editorColumnEmploymentDateFrom
+          td.editorColumn.editorColumnEmploymentDateFrom
             span.editorClickable(data-id='from', data-edit='date', data-format='longMonthYear', data-raw=item.from)
           td.editorColumnBlank
             span.editorClickable(data-locked=true)= ' - '
-          td.editorColumnEmploymentDateTo
+          td.editorColumn.editorColumnEmploymentDateTo
             span.editorClickable(data-id='to', data-edit='date', data-format='longMonthYear', data-raw=item.to)
-        tr(data-id=id.prev())
+        tr.editorTableRow(data-id=id.prev())
           td.editorColumnVisible
             input(id='description_' + id.prev(), type='checkbox', checked=item.visible)
-          td(colspan=3).editorEmploymentColumnDescription
+          td.editorColumn(colspan=3).editorEmploymentColumnDescription
             span.editorClickable(data-id='description', data-edit='large')= item.description

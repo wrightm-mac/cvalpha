@@ -14,10 +14,15 @@
         "selectors": "#content",
         "style": "font-size"
       }, {
-        "name": "Text",
-        "type": "color",
+        "name": "Page Margin",
+        "type": "number",
+        "min": 2,
+        "max": 160,
+        "mulitplier": 3,
         "selectors": "#content",
-        "style": "color"
+        "style": "padding",
+        "translate": "0 $px 0 $px",
+        "initial": "padding-left"
       }, {
         "name": "Background",
         "type": "color",
@@ -46,47 +51,35 @@
         "translate": "$px"
       }]
     }, {
-      "title": "Header",
+      "title": "Titles",
       "parts": [{
-        "name": "Font",
-        "type": "font",
-        "selectors": "#headertext",
-        "style": "font-family"
-      }, {
-        "name": "Font Size",
-        "type": "number",
-        "min": 20,
-        "max": 80,
-        "selectors": "#headertext",
-        "style": "font-size"
-      }, {
-        "name": "Text",
+        "name": "Color",
         "type": "color",
-        "selectors": "#headertext",
+        "selectors": "th.editorSectionTitle",
         "style": "color"
       }, {
         "name": "Background",
         "type": "color",
-        "selectors": "#header",
+        "selectors": "th.editorSectionTitle",
         "style": "background-color"
       }, {
         "name": "Border Width",
         "type": "number",
         "min": 0,
         "max": 12,
-        "selectors": "#header",
+        "selectors": "th.editorSectionTitle",
         "style": "border-width"
       }, {
         "name": "Border Color",
         "type": "color",
-        "selectors": "#header",
+        "selectors": "th.editorSectionTitle",
         "style": "border-color"
       }, {
         "name": "Border Radius",
         "type": "number",
         "min": 0,
         "max": 45,
-        "selectors": "#header",
+        "selectors": "th.editorSectionTitle",
         "style": "border-radius",
         "translate": "$px $px 0 $px"
       }, {
@@ -95,11 +88,88 @@
         "min": 0,
         "max": 1,
         "multiplier": 100,
-        "selectors": "#header",
+        "selectors": "th.editorSectionTitle",
         "style": "opacity"
       }]
     }, {
-      "title": "Pictures",
+      "title": "Section",
+      "parts": [{
+        "name": "Text Color",
+        "type": "color",
+        "selectors": ".cvSection table",
+        "style": "color"
+      }, {
+        "name": "Background",
+        "type": "color",
+        "selectors": ".cvSection table",
+        "style": "background-color"
+      }, {
+        "name": "Border Width",
+        "type": "number",
+        "min": 0,
+        "max": 12,
+        "selectors": ".cvSection table",
+        "style": "border-width"
+      }, {
+        "name": "Border Color",
+        "type": "color",
+        "selectors": ".cvSection table",
+        "style": "border-color"
+      }, {
+        "name": "Border Radius",
+        "type": "number",
+        "min": 0,
+        "max": 45,
+        "selectors": ".cvSection table",
+        "style": "border-radius",
+        "translate": "$px $px 0 $px"
+      }, {
+        "name": "Opacity",
+        "type": "float",
+        "min": 0,
+        "max": 1,
+        "multiplier": 100,
+        "selectors": ".cvSection table",
+        "style": "opacity"
+      }]
+    }, {
+      "title": "Items",
+      "parts": [{
+        "name": "Background",
+        "type": "color",
+        "selectors": ".editorTableRow .editorColumn",
+        "style": "background-color"
+      }, {
+        "name": "Border Width",
+        "type": "number",
+        "min": 0,
+        "max": 12,
+        "selectors": ".editorTableRow .editorColumn",
+        "style": "border-width"
+      }, {
+        "name": "Border Color",
+        "type": "color",
+        "selectors": ".editorTableRow .editorColumn",
+        "style": "border-color"
+      }, {
+        "name": "Border Radius",
+        "type": "number",
+        "min": 0,
+        "max": 45,
+        "selectors": ".editorTableRow .editorColumn",
+        "style": "border-radius",
+        "translate": "$px $px 0 $px"
+      }, {
+        "name": "Opacity",
+        "type": "float",
+        "min": 0,
+        "max": 1,
+        "multiplier": 100,
+        "selectors": ".editorTableRow .editorColumn",
+        "style": "opacity"
+      }]
+    }, {
+      "title": "Privacy",
       "parts": [{
         "name": "Width",
         "type": "number",

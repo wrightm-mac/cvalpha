@@ -145,7 +145,7 @@ function populateSections(config, colors, fonts) {
               .text(part.type)
               .appendTo($row);
 
-          let value = $.selectors.getCss(part.selectors, part.style);
+          let value = $.selectors.getCss(part.selectors, part.initial || part.style);
 
           switch (part.type) {
               case "color":

@@ -406,13 +406,21 @@ $(function() {
     let email = $cv.attr("data-user");
     let hash = $cv.attr("data-hash");
 
+    let styling = [];
+    for (const [selector, styles] of $.dazzle.styling.entries()) {
+      for (const [style, value] of styles.entries()) {
+        styling.push(`${selector} { ${style}: ${value}; }`);
+      }
+    }
+
     let cv = {
       _id: id,
       email: email,
       hash: hash,
       personal: getSectionContents("personal"),
       education: getSectionContents("education"),
-      employment: getSectionContents("employment")
+      employment: getSectionContents("employment"),
+      styling: styling
     };
 
     $.ajax({

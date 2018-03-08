@@ -127,6 +127,27 @@ function translateMask(mask, value) {
   return mask;
 }
 
+$.dazzle = {
+  styling: new Map()
+};
+
+function cacheStyling(selectors, styles, value, container) {
+  selectors = Array.isArray(selectors) ? selectors : [selectors];
+  styles = Array.isArray(styles) ? styles : [styles];
+
+  for (let selector of selectors) {
+    selector = container ? `${container} ${selector}` : selector;
+
+    let cache = $.dazzle.styling.get(selector) || new Map();
+
+    for (let style of styles) {
+      cache.set(style, value);
+    }
+
+    $.dazzle.styling.set(selector, cache);
+  }
+}
+
 function populateSections(config, colors, fonts) {
   let $accordion = $("<div>");
 
@@ -165,6 +186,7 @@ function populateSections(config, colors, fonts) {
                                       let color = $(this).find("#dazzleColorSwatch").css("background-color");
                                       $div.css("background-color", color);
                                       $.selectors.applyCss(part.selectors, part.style, color, section.container);
+                                      cacheStyling(part.selectors, part.style, color, section.container);
 
                                       $(this).hideModalDialog();
                                   },
@@ -189,7 +211,8 @@ function populateSections(config, colors, fonts) {
                           let value = args.value / multiplier;
                           let newValue = part.translate ? translateMask(part.translate, value) : value;
                           $.selectors.applyCss(part.selectors, part.style, newValue, section.container);
-                      }
+                          cacheStyling(part.selectors, part.style, newValue, section.container);
+                        }
                   });
                   $type.html($numDiv);
                   break;
@@ -199,7 +222,8 @@ function populateSections(config, colors, fonts) {
                   $type.html($fontList);
                   $fontList.change(function() {
                       $.selectors.applyCss(part.selectors, part.style, $(this).val(), section.container);
-                  });
+                      cacheStyling(part.selectors, part.style, $(this).val(), section.container);
+                    });
                   break;
           }
       }

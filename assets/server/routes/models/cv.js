@@ -128,7 +128,8 @@ var CvSchema = new mongoose.Schema({
     deleted: Boolean,
     personal: CvPersonalSchema,
     education: CvEducationSchema,
-    employment: CvEmploymentSchema
+    employment: CvEmploymentSchema,
+    styling: [String]
 }, { timestamps: true });
 
 module.exports = {

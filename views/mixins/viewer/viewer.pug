@@ -1,9 +1,11 @@
+include ../styling
 include ./viewPersonal
 include ./viewEducation
 include ./viewEmployment
 
 mixin viewer
   if cv
+    +styling
     div#editor
       div#cvPersonal(data-id=cv._id, data-user=cv.email, data-hash=cv.hash)
         +viewPersonal

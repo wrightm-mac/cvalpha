@@ -60,7 +60,8 @@ router.get(["/", "/:page.html"], function(req, res) {
         employment: {
           title: "Employment",
           items: []
-        }
+        },
+        styling: []
       });
 
       res.render(page, {
@@ -88,6 +89,8 @@ router.get("/:id", function(req, res) {
 router.put('/:email', (req, res) => {
   if (req.params.email === req.session.user.email) {
     const payload = req.body;
+
+    console.log("index:put ###%o###", payload);
 
     cv.model.findOne({ email: req.params.email }, (err, data) => {
         data = data || new cv.model({
@@ -135,7 +138,8 @@ router.put('/:email', (req, res) => {
                 visible: true
               }
             })
-          }
+          },
+          styling: (payload.styling || []).map(item => item)
         });
 
         data.save(helper.responder(res, saved => {

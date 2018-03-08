@@ -61,8 +61,9 @@ console.log("mongo (host='%s', port='%s', db='%s', url='%s')", config.mongo.host
 
 
 // Initialise mongo/mongoose...
+mongoose.Promise = global.Promise;
 mongoose.connect(config.mongo.url, {
-  autoIndex: false
+    autoIndex: false
 });
 
 
@@ -73,7 +74,7 @@ helper.extend(app.locals, pug, config);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-// uncomment after placing your favicon in /public
+// Uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -85,24 +86,22 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 // Prevent access to 'api' if the user does not have permission...
-app.use('/api', function(req,res,next) {
-  if (! (req.session.user && req.session.user.roles.includes("api"))) {
-    helper.sendCode(res, 404, {
-      status: 404,
-      message: "forbidden"
-    });
-  }
-  else {
-    next();
-  }
+app.use('/api', function(req, res, next) {
+    if (!(req.session.user && req.session.user.roles.includes("api"))) {
+        var err = new Error('Forbidden');
+        err.status = 404;
+        next(err);
+    } else {
+        next();
+    }
 });
 
 // Pass the request object to the view - this will make the
 // 'req' object (and all of its contents) visible as a local
 // to code in the pug view...
-app.use(function(req,res,next) {
-  res.locals.req = req;
-  next();
+app.use(function(req, res, next) {
+    res.locals.req = req;
+    next();
 });
 
 
@@ -119,20 +118,20 @@ app.use('/fragments', fragments);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
 });
 
 // error handler
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+    // render the error page
+    res.status(err.status || 500);
+    res.render('error');
 });
 
 module.exports = app;

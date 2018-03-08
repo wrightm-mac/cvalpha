@@ -52,7 +52,7 @@ let dest = 'public/';
 
 gulp.task('clean:client', function() {
   return gulp.src('public', { read: false })
-              .pipe(clean());
+    .pipe(clean());
 });
 
 gulp.task('clean:server', function() {
@@ -63,14 +63,14 @@ gulp.task('clean:server', function() {
   ];
 
   return gulp.src(sources, { read: false })
-              .pipe(clean());
+    .pipe(clean());
 });
 
 gulp.task('client:3rdParty', function() {
   gulp.src('assets/client/3rdparty/**/*.js')
     .pipe(gulp.dest('public/scripts'));
 
-    gulp.src('assets/client/3rdparty/**/*.css')
+  gulp.src('assets/client/3rdparty/**/*.css')
     .pipe(gulp.dest('public/css'));
 });
 
@@ -121,7 +121,8 @@ gulp.task('client:scripts', function() {
 });
 
 gulp.task('client:static:css', function() {
-  gulp.src('assets/client/static/*.css')
+  gulp.src('assets/client/static/*.less')
+    .pipe(less())
     .pipe(minifyCss({ keepBreaks: false }))
     .pipe(gulp.dest('public/css'));
 });
@@ -133,7 +134,7 @@ gulp.task('client:static:scripts', function() {
 
   gulp.src(sources)
     .pipe(babel({ presets: ['env'] }))
-    .pipe(uglify())
+    //.pipe(uglify())
     .pipe(gulp.dest('public/scripts'));
 });
 
@@ -169,15 +170,17 @@ gulp.task('watch', function() {
 
   let watchFiles = [
     'assets/client/**',
-    'assets/server/**',
     'assets/client/css/**/*.less',
+    'assets/client/data/*',
     'assets/client/images/*',
     'assets/client/scripts/**/*.js',
+    'assets/client/static/*',
+    'assets/server/**',
     'assets/server/lib/**/*.js',
     'assets/server/routes/**/*.js',
   ];
 
-  gulp.watch(watchFiles, ['_out:watchstart', 'build', '_out:watchend']);
+    gulp.watch(watchFiles, ['_out:watchstart', 'build', '_out:watchend']);
 });
 
 gulp.task('watch:client:fast', function() {

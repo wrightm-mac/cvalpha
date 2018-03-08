@@ -35,8 +35,8 @@
 
 // jQuery style overrides...
 
-@jqueryColor: teal;
-@jqueryText: white;
+@jqui_maincolor: @titlecolor;
+@jqui_textcolor: white;
 
 
 // accordion
@@ -47,8 +47,13 @@
 }
 
 .ui-accordion .ui-accordion-header {
-    background-color: @jqueryColor;
-    color: @jqueryText;
+    background-color: @jqui_maincolor;
+    color: @jqui_textcolor;
+    height: 18px;
+    font-size: 15px;
+}
+
+.ui-accordion-header-active {
 }
 
 
@@ -59,8 +64,8 @@
 }
 
 .ui-dialog .ui-dialog-titlebar {
-    background-color: @jqueryColor;
-    color: @jqueryText;
+    background-color: @jqui_maincolor;
+    color: @jqui_textcolor;
 
     height: 28px;
 }

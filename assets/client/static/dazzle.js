@@ -195,6 +195,8 @@ function populateSections(config, colors, fonts) {
                         cacheStyling(part.selectors, part.style, color, section.container);
 
                         $(this).hideModalDialog();
+
+                        setDirty();
                       },
                       Cancel: function() {
                         $(this).hideModalDialog();
@@ -218,6 +220,8 @@ function populateSections(config, colors, fonts) {
                   let newValue = part.translate ? translateMask(part.translate, value) : value;
                   $.selectors.applyCss(part.selectors, part.style, newValue, section.container);
                   cacheStyling(part.selectors, part.style, newValue, section.container);
+
+                  setDirty();
                 }
             });
             $type.html($numDiv);
@@ -229,12 +233,17 @@ function populateSections(config, colors, fonts) {
             $fontList.change(function() {
               $.selectors.applyCss(part.selectors, part.style, $(this).val(), section.container);
               cacheStyling(part.selectors, part.style, $(this).val(), section.container);
+
+              setDirty();
             });
             break;
           
           case "toggle":
             $type.toggleSwitch({
-              value
+              value: value,
+              change: function() {
+                setDirty();
+              }
             });
             break;
         }
@@ -252,6 +261,10 @@ function populateSections(config, colors, fonts) {
   });
 
   return $accordion;
+}
+
+function setDirty() {
+  $("#editorSaveButton").removeClass("standardButtonDisabled");
 }
 
 

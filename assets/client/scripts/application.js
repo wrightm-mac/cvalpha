@@ -236,7 +236,9 @@ $.fn.extend({
       const $toggle = $("<div>", { class: "uiToggleSwitchLatch"}).appendTo($control);
 
       function setValue(value) {
+        let oldValue = $control.data("val");
         $control.data("val", value);
+
         if (value) {
           $control.addClass("uiToggleSwitchOn");
           $toggle.addClass("uiToggleSwitchLatchOn");
@@ -245,8 +247,16 @@ $.fn.extend({
           $control.removeClass("uiToggleSwitchOn");
           $toggle.removeClass("uiToggleSwitchLatchOn");
         }
-      }
+
+        if (config.change && (value !== oldValue)) {
+          config.change.call($control, value);
+        }
+    }
       
+      $this.val = function() {
+        return $control.data("val");
+      }
+
       setValue(config.value);
 
       return $this;

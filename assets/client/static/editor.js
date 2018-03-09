@@ -215,11 +215,15 @@ $(function() {
         if (text !== edit) {
           $text.html(edit);
           $text.addClass("editorModified");
+
+          setDirty();
         }
       }
       else {
         let date = new Date($text.attr("data-raw"));
         $text.html(date[$text.attr("data-format")]());
+
+        setDirty();
       }
 
       $(".editorControl").remove();
@@ -351,6 +355,18 @@ $(function() {
   // Save & settings...
   //
 
+  function setDirty() {
+    $("#editorSaveButton").removeClass("standardButtonDisabled");
+  }
+
+  function clearDirty() {
+    $("#editorSaveButton").addClass("standardButtonDisabled");
+  }
+
+  function isDirty() {
+    return ! $("#editorSaveButton").hasClass("standardButtonDisabled");
+  }
+
   function getSectionContents(sectionName) {
     let $table = $(`table[data-section=${sectionName}]`);
     if ($table.exists()) {
@@ -431,6 +447,7 @@ $(function() {
       console.log("editor-save [response-data=%o][status=%o]", data, status);
 
       $(".cvSection span").removeClass("editorModified");
+      clearDirty();
     });
   }
 
@@ -459,5 +476,9 @@ $(function() {
 
   $(".editorAdd").click(addSectionItem);
   $(".editorDelete").click(deleteSectionItem);
-  $("#editorSaveButton").click(save);
+  $("#editorSaveButton").click(function() {
+    if (isDirty()) {
+      save();
+    }
+  });
 });

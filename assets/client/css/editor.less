@@ -246,24 +246,37 @@ li.editorEmploymentListItem {
 
 div#editControls {
   position: fixed;
-  right: 10px;
-  bottom: (@footerHeight  + 20px);
+  right: 20px;
+  bottom: (@footerHeight  - 18px);
+  padding: 6px;
+
+  background-color: @pagecolor;
+
+  border-color: @titlecolor;
+  border-radius: 0 12px 0 12px;
+  border-style: solid;
+  border-width: 3px;
 
   text-align: center;
-  z-index: 101;
+  z-index: 102;
 }
 
 div#editControls img#editorSettingsIcon {
-  width: 40px;
+  float: left;
+  width: 36px;
   height: auto;
   cursor: pointer;
+  z-index: 102;
 }
 
 div#editControls .standardButton {
+  float: left;
   width: @standardbuttonwidth;
   height: @standardbuttonheight + 10px;
+  margin: 4px 0 0 6px;
   font-size: smaller;
   cursor: pointer;
+  z-index: 102;
 }
 
 

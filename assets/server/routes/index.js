@@ -149,11 +149,7 @@ router.put('/:email', (req, res) => {
               }
             }
 
-            for (let f of fresh) {
-              merged.push(f);
-            }
-
-            return merged;
+            return merged.concat(fresh);
           })(data.styling, payload.styling)
         });
 

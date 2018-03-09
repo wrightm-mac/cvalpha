@@ -253,37 +253,45 @@ $(function() {
 
   $("#editorSettingsIcon")
     .click(function() {
-        if ($panel.hidden()) {
-          $panel.fadeIn(50, function() {
-            if ($panel.html() === "") {
-              let $options = $("<div>", { id: "dazzleOptions" })
-                .appendTo($panel);
+      if ($panel.hidden()) {
+        $("#editControls")
+          .css("border-width", "0 3px 3px 0")
+          .css("border-radius", "0 0 0 0");
 
-              // Nasty promise stuff to load all config...
-              $.getJSON("/data/dazzle.json")
-                .then(config => {
-                  return $.getJSON("/data/crayola.json")
-                      .then(colors => {
-                          return $.getJSON("/data/fonts.json")
-                              .then(fonts => { return { config, colors, fonts } })
-                      })
-                })
-                .then(({ config, colors, fonts }) => {
-                  $options.append(populateSections(config, colors, fonts));
-                });
-            }
+        $panel.fadeIn(50, function() {
+          if ($panel.html() === "") {
+            let $options = $("<div>", { id: "dazzleOptions" })
+              .appendTo($panel);
 
-            $panel.resizable({
-              handles: "n, w",
-              animate: false,
-              minWidth: 300,
-              minHeight: 200,
-              maxWidth: 750,
-              maxHeight: 750
-            });
+            // Nasty promise stuff to load all config...
+            $.getJSON("/data/dazzle.json")
+              .then(config => {
+                return $.getJSON("/data/crayola.json")
+                  .then(colors => {
+                      return $.getJSON("/data/fonts.json")
+                          .then(fonts => { return { config, colors, fonts } })
+                  })
+              })
+              .then(({ config, colors, fonts }) => {
+                $options.append(populateSections(config, colors, fonts));
+              });
+          }
+
+          $panel.resizable({
+            handles: "n, w",
+            animate: false,
+            minWidth: 300,
+            minHeight: 200,
+            maxWidth: 750,
+            maxHeight: 750
           });
-        } else {
-            $panel.fadeOut(500);
-        }
-      });
+        });
+      } else {
+        $panel.fadeOut(500);
+
+        $("#editControls")
+          .css("border-width", "3px")
+          .css("border-radius", "0 12px 0 12px");
+      }
+    });
 });

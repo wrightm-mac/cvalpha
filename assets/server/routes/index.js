@@ -90,8 +90,6 @@ router.put('/:email', (req, res) => {
   if (req.params.email === req.session.user.email) {
     const payload = req.body;
 
-    console.log("index:put ###%o###", payload);
-
     cv.model.findOne({ email: req.params.email }, (err, data) => {
         data = data || new cv.model({
           email: req.params.email,
@@ -139,7 +137,24 @@ router.put('/:email', (req, res) => {
               }
             })
           },
-          styling: (payload.styling || []).map(item => item)
+          styling: ((stored = [], fresh = []) => {
+            let merged = [];
+
+            for (let store of stored) {
+              const selector = store.split(":")[0];
+
+              let found = fresh.find(value => selector === value.split(":")[0]);
+              if (! found) {
+                merged.push(store);
+              }
+            }
+
+            for (let f of fresh) {
+              merged.push(f);
+            }
+
+            return merged;
+          })(data.styling, payload.styling)
         });
 
         data.save(helper.responder(res, saved => {

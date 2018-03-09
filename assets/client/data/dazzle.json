@@ -55,7 +55,8 @@
         "min": 5,
         "max": 130,
         "selectors": "div.cvSpacer",
-        "style": "height"
+        "style": "height",
+        "translate": "$px"
       }]
     }, {
       "title": "Titles",
@@ -76,7 +77,8 @@
         "min": 0,
         "max": 12,
         "selectors": "th.editorSectionTitle",
-        "style": "border-width"
+        "style": "border-width",
+        "translate": "$px"
       }, {
         "name": "Border Color",
         "type": "color",
@@ -118,14 +120,16 @@
         "min": 0,
         "max": 20,
         "selectors": ".cvSection table",
-        "style": "padding"
-        }, {
+        "style": "padding",
+        "translate": "$px"
+      }, {
         "name": "Border Width",
         "type": "number",
         "min": 0,
         "max": 12,
         "selectors": ".cvSection table",
-        "style": "border-width"
+        "style": "border-width",
+        "translate": "$px"
       }, {
         "name": "Border Color",
         "type": "color",
@@ -162,7 +166,8 @@
         "min": 0,
         "max": 12,
         "selectors": ".editorTableRow .editorColumn",
-        "style": "border-width"
+        "style": "border-width",
+        "translate": "$px"
       }, {
         "name": "Border Color",
         "type": "color",

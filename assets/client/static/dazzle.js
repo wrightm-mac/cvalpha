@@ -158,15 +158,21 @@ function populateSections(config, colors, fonts) {
       for (let part of section.parts) {
         let $row = $("<tr>").appendTo($table);
 
-        $("<td>", { class: "dazzleOptionName" })
-            .text(part.name)
-            .appendTo($row);
+        let $name = $("<td>", { class: "dazzleOptionName" })
+                    .text(part.name)
+                    .appendTo($row);
+        if (part.badge) {
+          $("<img>", { src: part.badge, class: "dazzleOptionBadge" })
+            .appendTo($name);
+        }
 
         let $type = $("<td>", { class: "dazzleOptionValue" })
                     .text(part.type)
                     .appendTo($row);
 
-        let value = $.selectors.getCss(part.selectors, part.initial || part.style);
+        let value = part.selectors
+                      ? $.selectors.getCss(part.selectors, part.initial || part.style)
+                      : part.value || false;
 
         switch (part.type) {
           case "color":
@@ -223,6 +229,12 @@ function populateSections(config, colors, fonts) {
             $fontList.change(function() {
               $.selectors.applyCss(part.selectors, part.style, $(this).val(), section.container);
               cacheStyling(part.selectors, part.style, $(this).val(), section.container);
+            });
+            break;
+          
+          case "toggle":
+            $type.toggleSwitch({
+              value
             });
             break;
         }

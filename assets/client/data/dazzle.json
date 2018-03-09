@@ -205,38 +205,27 @@
     }, {
       "title": "Privacy",
       "parts": [{
-        "name": "Width",
-        "type": "number",
-        "min": 100,
-        "max": 350,
-        "selectors": ".contentimage",
-        "style": "width"
-      }, {
-        "name": "Rotation",
-        "type": "number",
-        "min": 0,
-        "max": 10,
-        "selectors": ".contentimage",
-        "style": "transform: rotate(%d)"
-      }, {
-        "name": "Border Width",
-        "type": "number",
-        "min": 0,
-        "max": 10,
-        "selectors": ".contentimage",
-        "style": "border-width"
-      }, {
-        "name": "Border Color",
-        "type": "color",
-        "selectors": ".contentimage",
-        "style": "border-color"
-      }, {
-        "name": "Border Radius",
-        "type": "number",
-        "min": 0,
-        "max": 10,
-        "selectors": ".contentimage",
-        "style": "border-width"
+        "name": "Public",
+        "type": "toggle",
+        "value": true
       }]
-  }]
+    }, {
+      "title": "Social Media",
+      "parts": [{
+        "name": "Twitter",
+        "type": "toggle",
+        "value": true,
+        "badge": "/images/twitter.png"
+      }, {
+        "name": "Facebook",
+        "type": "toggle",
+        "value": true,
+        "badge": "/images/facebook.png"
+      }, {
+        "name": "Instagram",
+        "type": "toggle",
+        "value": false,
+        "badge": "/images/instagram.png"
+      }]
+    }]
 }

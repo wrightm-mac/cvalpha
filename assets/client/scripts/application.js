@@ -218,6 +218,38 @@ $.fn.extend({
         $(this).load($(this).attr("data-fragment"), null, function() {
             callback && callback.call(this, element);
         });
+    },
+
+    // ---------------------------------------------------------------------//
+
+    // Custom controls...
+
+    toggleSwitch: function(config = {}) {
+      const $this = $(this).html("");
+
+      const $control = $("<div>", { class: "uiToggleSwitch" })
+                        .click(function() {
+                          setValue(! $(this).data("val"));
+                        })
+                        .data("val", config.value || false)
+                        .appendTo($this);
+      const $toggle = $("<div>", { class: "uiToggleSwitchLatch"}).appendTo($control);
+
+      function setValue(value) {
+        $control.data("val", value);
+        if (value) {
+          $control.addClass("uiToggleSwitchOn");
+          $toggle.addClass("uiToggleSwitchLatchOn");
+        }
+        else {
+          $control.removeClass("uiToggleSwitchOn");
+          $toggle.removeClass("uiToggleSwitchLatchOn");
+        }
+      }
+      
+      setValue(config.value);
+
+      return $this;
     }
 });
 

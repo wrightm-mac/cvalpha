@@ -61,6 +61,9 @@
 @linkcolor: cornflowerblue;
 @blockcolor: white;
 
+// Header & footer frame thickness...
+@headerframethickness: 5px;
+
 // Header...
 @titlecolor: dodgerblue;
 @headerHeight: 89px;
@@ -70,7 +73,7 @@
 @headerbordercolor: @titlecolor;
 @headerborderradius: 0;
 @headerborderstyle: solid;
-@headerborderwidth: 0 0 2px 0;
+@headerborderwidth: 0 0 @headerframethickness 0;
 
 // Header picture...
 @headerPictureLeft: 4px;
@@ -89,6 +92,7 @@
 @footercolor: @blockcolor;
 @footertextcolor: @titlecolor;
 @footerlinkcolor: royalblue;
+@footerborderwidth: @headerframethickness 0 0 0;
 
 // Document icons...
 @documentIconWidth: 300px;

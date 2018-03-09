@@ -161,6 +161,13 @@ function populateSections(config, colors, fonts) {
         let $name = $("<td>", { class: "dazzleOptionName" })
                     .text(part.name)
                     .appendTo($row);
+        
+        if (part.description) {
+          $name.tooltip({
+            content: part.description
+          });
+        }
+            
         if (part.badge) {
           $("<img>", { src: part.badge, class: "dazzleOptionBadge" })
             .appendTo($name);

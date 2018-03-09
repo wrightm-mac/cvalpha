@@ -42,8 +42,10 @@
 // Main page layout...
 
 body {
-  width: (100% - 1px);
+  width: 100%;
   min-height: 800px;
+
+  margin: 0px;
 
   background-color: @pagecolor;
   color: @pencolor;
@@ -106,7 +108,7 @@ a {
   opacity: @headerOpacity;
 
   top: 0px;
-  width: (100% - 1px);
+  width: 100%;
   height: @headerHeight;
 
   background-color: @headercolor;
@@ -190,7 +192,7 @@ a {
 
   border-top-color: @headerbordercolor;
   border-top-style: @headerborderstyle;
-  border-top-width: @headerborderwidth;
+  border-top-width: @headerframethickness;
 
   text-align: center;
   vertical-align: text-bottom;

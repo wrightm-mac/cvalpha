@@ -207,7 +207,8 @@
       "parts": [{
         "name": "Public",
         "type": "toggle",
-        "value": true
+        "value": true,
+        "description": "When set, allows anybody to see your CV."
       }]
     }, {
       "title": "Social Media",

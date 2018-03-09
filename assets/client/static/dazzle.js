@@ -263,18 +263,14 @@ $(function() {
             let $options = $("<div>", { id: "dazzleOptions" })
               .appendTo($panel);
 
-            // Nasty promise stuff to load all config...
-            $.getJSON("/data/dazzle.json")
-              .then(config => {
-                return $.getJSON("/data/crayola.json")
-                  .then(colors => {
-                      return $.getJSON("/data/fonts.json")
-                          .then(fonts => { return { config, colors, fonts } })
-                  })
-              })
-              .then(({ config, colors, fonts }) => {
-                $options.append(populateSections(config, colors, fonts));
-              });
+            Promise.all([
+              $.getJSON("/data/dazzle.json"),
+              $.getJSON("/data/crayola.json"),
+              $.getJSON("/data/fonts.json")
+            ])
+            .then(([config, colors, fonts]) => {
+              $options.append(populateSections(config, colors, fonts));
+            });
           }
 
           $panel.resizable({

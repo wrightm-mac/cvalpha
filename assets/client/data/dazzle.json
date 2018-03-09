@@ -82,7 +82,10 @@
       }, {
         "name": "Border Color",
         "type": "color",
-        "selectors": "th.editorSectionTitle",
+        "selectors": [
+          "th.editorSectionTitle",
+          "th.editorSectionTitle div.editorSectionTitleUnderline"
+        ],
         "style": "border-color"
       }, {
         "name": "Border Radius",

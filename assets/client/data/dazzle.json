@@ -17,7 +17,7 @@
         "name": "Page Margin",
         "type": "number",
         "min": 2,
-        "max": 160,
+        "max": 180,
         "mulitplier": 3,
         "selectors": "#content",
         "style": "padding",
@@ -92,6 +92,15 @@
         "selectors": "th.editorSectionTitle",
         "style": "border-radius",
         "translate": "$px $px 0 $px"
+      }, {
+        "name": "Underline",
+        "type": "number",
+        "min": 0,
+        "max": 8,
+        "selectors": "th.editorSectionTitle div.editorSectionTitleUnderline",
+        "style": "border-width",
+        "translate": "0 0 $px 0",
+        "initial": "border-bottom-width"
       }, {
         "name": "Opacity",
         "type": "float",

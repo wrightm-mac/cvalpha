@@ -1,8 +1,9 @@
 mixin viewEmployment
   div.cvSection
     table#cvSectionEmployment(data-record=cv.employment._id, data-section='employment')
-      tr
-        th.editorSectionTitle(colspan=3)= cv.employment.title
+      tr.editorSectionTitleRow
+        th.editorSectionTitle(colspan=3)
+          div.editorSectionTitleUnderline= cv.employment.title
       each item in cv.employment.items
         tr.editorTableRow(data-record=item._id, data-id=id.next())
           td.editorColumn.editorColumnEmploymentName

@@ -156,83 +156,83 @@ function populateSections(config, colors, fonts) {
 
       let $table = $("<table>", { id: "dazzleOptions" });
       for (let part of section.parts) {
-          let $row = $("<tr>").appendTo($table);
+        let $row = $("<tr>").appendTo($table);
 
-          $("<td>", { class: "dazzleOptionName" })
-              .text(part.name)
-              .appendTo($row);
+        $("<td>", { class: "dazzleOptionName" })
+            .text(part.name)
+            .appendTo($row);
 
-          let $type = $("<td>", { class: "dazzleOptionValue" })
-              .text(part.type)
-              .appendTo($row);
+        let $type = $("<td>", { class: "dazzleOptionValue" })
+                    .text(part.type)
+                    .appendTo($row);
 
-          let value = $.selectors.getCss(part.selectors, part.initial || part.style);
+        let value = $.selectors.getCss(part.selectors, part.initial || part.style);
 
-          switch (part.type) {
-              case "color":
-                  let $div = $("<div>")
-                      .button()
-                      .addClass("dazzleColorButton")
-                      .css("background-color", value)
-                      .click(function() {
-                          colorSelection(colors, $div.css("background-color")).showModalDialog({
-                              title: `Select Color for '${section.title} ${part.name}'`,
-                              width: 555,
-                              height: 420,
-                              modal: true,
-                              resizable: false,
-                              buttons: {
-                                  OK: function() {
-                                      let color = $(this).find("#dazzleColorSwatch").css("background-color");
-                                      $div.css("background-color", color);
-                                      $.selectors.applyCss(part.selectors, part.style, color, section.container);
-                                      cacheStyling(part.selectors, part.style, color, section.container);
+        switch (part.type) {
+          case "color":
+            let $div = $("<div>")
+                .button()
+                .addClass("dazzleColorButton")
+                .css("background-color", value)
+                .click(function() {
+                  colorSelection(colors, $div.css("background-color")).showModalDialog({
+                    title: `Select Color for '${section.title} ${part.name}'`,
+                    width: 555,
+                    height: 420,
+                    modal: true,
+                    resizable: false,
+                    buttons: {
+                      OK: function() {
+                        let color = $(this).find("#dazzleColorSwatch").css("background-color");
+                        $div.css("background-color", color);
+                        $.selectors.applyCss(part.selectors, part.style, color, section.container);
+                        cacheStyling(part.selectors, part.style, color, section.container);
 
-                                      $(this).hideModalDialog();
-                                  },
-                                  Cancel: function() {
-                                      $(this).hideModalDialog();
-                                  }
-                              }
-                          });
-                      });
-                  $type.html($div);
-                  break;
-              case "number":
-              case "float":
-                  let multiplier = part.multiplier || 1;
-                  let currentValue = (part.type === "number") ? Number.parseInt(value) : parseFloat(value);
-                  let $numDiv = $("<div>").slider({
-                      value: currentValue * multiplier,
-                      animate: "fast",
-                      min: part.min * multiplier,
-                      max: part.max * multiplier,
-                      change: function(event, args) {
-                          let value = args.value / multiplier;
-                          let newValue = part.translate ? translateMask(part.translate, value) : value;
-                          $.selectors.applyCss(part.selectors, part.style, newValue, section.container);
-                          cacheStyling(part.selectors, part.style, newValue, section.container);
-                        }
+                        $(this).hideModalDialog();
+                      },
+                      Cancel: function() {
+                        $(this).hideModalDialog();
+                      }
+                    }
                   });
-                  $type.html($numDiv);
-                  break;
-              case "font":
-                  let $fontList = fontList(fonts);
-                  selectOption($fontList, value);
-                  $type.html($fontList);
-                  $fontList.change(function() {
-                      $.selectors.applyCss(part.selectors, part.style, $(this).val(), section.container);
-                      cacheStyling(part.selectors, part.style, $(this).val(), section.container);
-                    });
-                  break;
-          }
-      }
+                });
+            $type.html($div);
+            break;
+          case "number":
+          case "float":
+            let multiplier = part.multiplier || 1;
+            let currentValue = (part.type === "number") ? Number.parseInt(value) : parseFloat(value);
+            let $numDiv = $("<div>").slider({
+                value: currentValue * multiplier,
+                animate: "fast",
+                min: part.min * multiplier,
+                max: part.max * multiplier,
+                change: function(event, args) {
+                  let value = args.value / multiplier;
+                  let newValue = part.translate ? translateMask(part.translate, value) : value;
+                  $.selectors.applyCss(part.selectors, part.style, newValue, section.container);
+                  cacheStyling(part.selectors, part.style, newValue, section.container);
+                }
+            });
+            $type.html($numDiv);
+            break;
+          case "font":
+            let $fontList = fontList(fonts);
+            selectOption($fontList, value);
+            $type.html($fontList);
+            $fontList.change(function() {
+              $.selectors.applyCss(part.selectors, part.style, $(this).val(), section.container);
+              cacheStyling(part.selectors, part.style, $(this).val(), section.container);
+            });
+            break;
+        }
+    }
 
-      $("<div>")
-          .append($table)
-          .appendTo($accordion);
+    $("<div>")
+        .append($table)
+        .appendTo($accordion);
 
-      $table.append($("<tr>"));
+    $table.append($("<tr>"));
   }
 
   $accordion.accordion({

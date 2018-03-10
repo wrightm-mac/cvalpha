@@ -49,9 +49,20 @@ module.exports = {
             return hasher.getHash("HEX");
         },
         //image: "/images/headergraphic.png",
+        showMenuAlways: false,  // Show sub-menu even when not logged in.
+        showMenuEmpty: true,    // Show sub-menu bar even when there are no items.
         map: [{
             name: "you",
             path: "/index.html",
+            menu: [
+              {
+                name: "about",
+                selector: "blurbEditor"
+              }, {
+                name: "cv",
+                selector: "cvEditor"
+              }
+            ],
             children: [
                 "/",
                 /stuff\/*/
@@ -62,11 +73,11 @@ module.exports = {
         }, {
             name: "us",
             path: "/us.html"
-        }, {
-            name: "admin",
-            path: "/admin.html",
-            roles: ["admin"],
-            class: "headerAdminNavLink"
+        // }, {
+        //     name: "admin",
+        //     path: "/admin.html",
+        //     roles: ["admin"],
+        //     class: "headerAdminNavLink"
         }]
     },
     mongo: {

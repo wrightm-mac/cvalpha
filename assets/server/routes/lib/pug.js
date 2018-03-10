@@ -32,6 +32,10 @@
 
 ----------------------------------------------------------------------------- */
 
+function isLoggedIn(req) {
+  return req.session && req.session.user;
+}
+
 function isMapLink(path, map) {
     if (path === map.path) {
         return true;
@@ -138,9 +142,10 @@ const dateFormat = {
 };
 
 module.exports = {
-    nameFromPath,
-    isMapLink,
-    isMapItemVisible,
-    id: new Id(),
-    dateFormat
+  isLoggedIn,
+  nameFromPath,
+  isMapLink,
+  isMapItemVisible,
+  id: new Id(),
+  dateFormat
 };

@@ -5,7 +5,10 @@ mixin header
   div#header
     div#headertext= site.title
 
-    div#headerNavigation
+    // Navigation...
+
+    - let currentItem;
+    div.headerNavigation
       span
         each item in site.map
           - let isCurrentPage = isMapLink(req.path, item);
@@ -15,8 +18,27 @@ mixin header
             if item.class
               - linkClass += " " + item.class;
             a(href=linkPath, class= linkClass, disabled= isCurrentPage) #{item.name}
+
+          if isCurrentPage
+            - currentItem = item;
+
+    if ((currentItem && currentItem.menu) || site.showMenuEmpty) && (site.showMenuAlways || isLoggedIn(req))
+      div.headerNavigationMenu
+        span
+          if currentItem && currentItem.menu
+            each menuItem, index in currentItem.menu
+              - let menuItemClass = index === 0 ? "headerNavMenuSelected" : "headerNavMenuUnselected";
+              a(class=menuItemClass, data-index=index)= menuItem.name
+          else
+            | &nbsp;
+
+
+  // Banner image (if any)...
+
   if site.image
     img#headerPicture(src=site.image)
+
+  // Login/Logout...
 
   div#loginBubble
     div#loginBubbleText

@@ -54,15 +54,13 @@ module.exports = {
         map: [{
             name: "you",
             path: "/index.html",
-            menu: [
-              {
+            menu: [{
                 name: "about",
-                selector: "blurbEditor"
+                selector: "#blurb"
               }, {
                 name: "cv",
-                selector: "cvEditor"
-              }
-            ],
+                selector: "#editor"
+              }],
             children: [
                 "/",
                 /stuff\/*/

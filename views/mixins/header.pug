@@ -27,10 +27,34 @@ mixin header
         span
           if currentItem && currentItem.menu
             each menuItem, index in currentItem.menu
-              - let menuItemClass = index === 0 ? "headerNavMenuSelected" : "headerNavMenuUnselected";
-              a(class=menuItemClass, data-index=index)= menuItem.name
+              a.headerNavMenuUnselected(data-index=index, data-selector=menuItem.selector)= menuItem.name
           else
             | &nbsp;
+
+      script.
+        $(function() {
+          function selectNavMenu(index) {
+            let $selected = $(`.headerNavigationMenu a[data-index=${index}]`);
+            let $unselected = $(`.headerNavigationMenu a:not([data-index=${index}])`);
+            $selected.removeClass("headerNavMenuUnselected").addClass("headerNavMenuSelected");
+            $unselected.removeClass("headerNavMenuSelected").addClass("headerNavMenuUnselected");
+
+            $unselected.each(function() {
+              let selector = $(this).attr("data-selector");
+              $(selector).hide();
+            })
+
+            $($selected.attr("data-selector")).show();
+          }
+
+          $(".headerNavigationMenu a").click(function() {
+            selectNavMenu($(this).attr("data-index"));
+          });
+
+          if (! $(".headerNavigationMenu a.headerNavMenuSelected").exists()) {
+            selectNavMenu(0);
+          }
+        });
 
 
   // Banner image (if any)...

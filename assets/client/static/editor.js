@@ -184,13 +184,7 @@ $(function() {
       else {
         $edit = $("<input>")
           .attr("type", "text")
-          .addClass("editorControl editorText")
-          .keypress(function (event) {
-            if (event.which === 13) {
-              endEdit();
-              return false;
-            }
-          });
+          .addClass("editorControl editorText");
       }
 
       $edit
@@ -284,6 +278,8 @@ $(function() {
     let $row = $(this).parent();
     let id = $row.attr("data-id");
     $(`[data-id='${id}']`, $row.parent()).remove();
+
+    setDirty();
   }
 
 
@@ -330,6 +326,8 @@ $(function() {
       }
 
       insertedRows.push($row);
+
+      setDirty();
     }
 
     if (info.insert === "last") {
@@ -360,6 +358,14 @@ $(function() {
   function isDirty() {
     return ! $("#editorSaveButton").hasClass("standardButtonDisabled");
   }
+
+  $.events.subscribe("setdirty.editor", function() {
+    setDirty();
+  });
+
+  $.events.subscribe("cleardirty.editor", function() {
+    clearDirty();
+  });
 
   function getSectionContents(sectionName) {
     let $table = $(`table[data-section=${sectionName}]`);
@@ -454,6 +460,12 @@ $(function() {
   $cv.on("click", "td", passClick);
   $cv.on("click", ".editorAdd", addSectionItem);
   $cv.on("click", ".editorDelete", deleteSectionItem);
+  $cv.on("keypress", "input", function(event) {
+    if (event.which === 13) {
+      endEdit();
+      return false;
+    }
+  });
   $("body").click(endEdit);
 
   $(document).keyup(function(event) {

@@ -156,6 +156,16 @@ $.extend({
 
         return "#" + hex.join("").toUpperCase();
       }
+    },
+
+    events: {
+      publish: function(name, args) {
+        $("body").trigger(name, args);
+      },
+
+      subscribe: function(name, callback) {
+        $("body").on(name, callback);
+      }
     }
 });
 
@@ -252,7 +262,7 @@ $.fn.extend({
           config.change.call($control, value);
         }
     }
-      
+
       $this.val = function() {
         return $control.data("val");
       }

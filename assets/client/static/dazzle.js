@@ -161,13 +161,13 @@ function populateSections(config, colors, fonts) {
         let $name = $("<td>", { class: "dazzleOptionName" })
                     .text(part.name)
                     .appendTo($row);
-        
+
         if (part.description) {
           $name.tooltip({
             content: part.description
           });
         }
-            
+
         if (part.badge) {
           $("<img>", { src: part.badge, class: "dazzleOptionBadge" })
             .appendTo($name);
@@ -217,7 +217,9 @@ function populateSections(config, colors, fonts) {
           case "float":
             let multiplier = part.multiplier || 1;
             let currentValue = (part.type === "number") ? Number.parseInt(value) : parseFloat(value);
-            let $numDiv = $("<div>").slider({
+            let $numDiv = $("<div>")
+                .addClass("dazzleNumber")
+                .slider({
                 value: currentValue * multiplier,
                 animate: "fast",
                 min: part.min * multiplier,
@@ -244,9 +246,11 @@ function populateSections(config, colors, fonts) {
               setDirty();
             });
             break;
-          
+
           case "toggle":
-            $type.toggleSwitch({
+            $type
+              .addClass("dazzleToggle")
+              .toggleSwitch({
               value: value,
               change: function() {
                 setDirty();
@@ -271,7 +275,7 @@ function populateSections(config, colors, fonts) {
 }
 
 function setDirty() {
-  $("#editorSaveButton").removeClass("standardButtonDisabled");
+  $.events.publish("setdirty.editor");
 }
 
 

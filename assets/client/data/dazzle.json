@@ -17,7 +17,7 @@
         "name": "Page Margin",
         "type": "number",
         "min": 2,
-        "max": 180,
+        "max": 240,
         "mulitplier": 3,
         "selectors": "#content",
         "style": "padding",
@@ -60,7 +60,7 @@
       }]
     }, {
       "title": "Titles",
-      "container": "#editor",
+      "container": "#cvPersonal",
       "parts": [{
         "name": "Color",
         "type": "color",
@@ -115,7 +115,7 @@
       }]
     }, {
       "title": "Section",
-      "container": "#editor",
+      "container": "#cvPersonal",
       "parts": [{
         "name": "Text Color",
         "type": "color",
@@ -166,7 +166,7 @@
       }]
     }, {
       "title": "Items",
-      "container": "#editor",
+      "container": "#cvPersonal",
       "parts": [{
         "name": "Background",
         "type": "color",

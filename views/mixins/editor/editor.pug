@@ -1,4 +1,5 @@
 include ../styling
+include ./editBlurb
 include ./editPersonal
 include ./editEducation
 include ./editEmployment
@@ -7,8 +8,12 @@ mixin editor
   script(src="/scripts/editor.js")
   +styling
 
-  div#editor
-    div#cvPersonal(data-id=cv._id, data-user=cv.email, data-hash=cv.hash)
+  div#cvPersonal(data-id=cv._id, data-user=cv.email, data-hash=cv.hash)
+
+    div#blurb
+      +editBlurb
+
+    div#editor
       +editPersonal
 
       div.cvSpacer

@@ -1,0 +1,21 @@
+mixin editBlurb
+  div.cvSection
+    table#cvSectionBlurb(data-record=cv.blurb._id, data-section='blurb')
+      tr.editorSectionTitleRow
+        th.editorColumnVisible.editorAdd
+          img(src='/images/badge_plus.png')
+        th.editorSectionTitle
+        th.editorDelete
+      each item in cv.blurb.items
+        tr.editorTableRow(data-record=item._id,data-id=id.next())
+          td.editorColumnVisible
+            input(id='visible_' + id.prev(), type='checkbox', checked=item.visible)
+          td.editorColumn.editorColumnBlurbHeader
+            span.editorClickable(data-id='header')= item.header
+          td.editorDelete
+            img(src='/images/badge_minus.png')
+        tr.editorTableRow(data-id=id.prev())
+          td.editorColumnVisible
+            input(id='description_' + id.prev(), type='checkbox', checked=item.visible)
+          td.editorColumn.editorColumnBlurbContent
+            span.editorClickable(data-id='content', data-edit='large')= item.content

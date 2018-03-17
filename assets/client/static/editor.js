@@ -90,6 +90,18 @@ $(function() {
   // section's table's `data-section` attribute, so use:
   //     `let sectionInfo = `sections[$table.attr('data-section')]`
   const sections = {
+    blurb: {
+      insert: "last",
+      rows: [[{
+        name: "header",
+        css: "editorColumnBlurbHeader"
+      }], [{
+        name: "content",
+        css: "editorColumnBlurbContent",
+        edit: "large"
+      }]]
+    },
+
     personal: {
       insert: "last",
       rows: [[{
@@ -433,6 +445,7 @@ $(function() {
       _id: id,
       email: email,
       hash: hash,
+      blurb: getSectionContents("blurb"),
       personal: getSectionContents("personal"),
       education: getSectionContents("education"),
       employment: getSectionContents("employment"),

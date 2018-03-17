@@ -49,6 +49,9 @@ router.get(["/", "/:page.html"], function(req, res) {
       data = data || new cv.model({
         email: email,
         hash: helper.id(),
+        blurb: {
+          items: []
+        },
         personal: {
           title: "Personal",
           items: []
@@ -63,6 +66,11 @@ router.get(["/", "/:page.html"], function(req, res) {
         },
         styling: []
       });
+
+      data.blurb = data.blurb || { items: [{ header: "Yada", content: "Blah blah blah!" }] };
+      data.personal = data.personal || { title: "Personal", items: [] };
+      data.education = data.education || { title: "Education", items: [] };
+      data.employment = data.employment || { title: "Employment", items: [] };
 
       res.render(page, {
         cv: data

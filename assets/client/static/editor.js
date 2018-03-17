@@ -179,8 +179,7 @@ $(function() {
       else if ($text.attr("data-edit") === "large") {
         $edit = $("<textarea>")
                   .attr("rows", 20)
-                  .addClass("editorControl editorText")
-                  .click(() => false);
+                  .addClass("editorControl editorText");
       }
       else {
         $edit = $("<input>")
@@ -292,7 +291,7 @@ $(function() {
   // Called when the '+' is clicked for a section...
   //
   function addSectionItem() {
-    let $table = $(this).parent().parent().parent();
+    let $table = $(this).closest("table");
 
     let info = sections[$table.attr("data-section")];
     let id = (Date.now() * Math.random() * 100000);
@@ -307,8 +306,7 @@ $(function() {
 
       for (let column of row) {
         let $cell = $("<td>", { class: column.css } )
-          .attr("colspan", column.colspan)
-          .click(passClick);
+          .attr("colspan", column.colspan);
 
         let $span = $("<span>", { class: "editorClickable" })
                     .attr("data-id", column.name)
@@ -317,9 +315,6 @@ $(function() {
                     .attr("data-locked", column.locked)
                     .addClass(column.locked ? "" : "editorModified")
                     .text(column.content)
-                    .click(function() {
-                      startEdit(this.target);
-                    })
                     .appendTo($cell);
 
         column.format && doFormat($span);
@@ -331,8 +326,7 @@ $(function() {
 
       if (! insertedRows.length) {
         $deleteCell
-        .append($("<img>", { src: "/images/badge_minus.png" }))
-        .click(deleteSectionItem);
+        .append($("<img>", { src: "/images/badge_minus.png" }));
       }
 
       insertedRows.push($row);
@@ -456,9 +450,12 @@ $(function() {
   // Hook up the events...
   //
 
+  let $cv = $("div#cvPersonal");
+  $cv.on("click", "td", passClick);
+  $cv.on("click", ".editorAdd", addSectionItem);
+  $cv.on("click", ".editorDelete", deleteSectionItem);
   $("body").click(endEdit);
-  $("div#cvPersonal .editorClickable").click(startEdit);
-  $("td").click(passClick);
+
   $(document).keyup(function(event) {
     if (event.keyCode === 27) {
       endEdit();
@@ -474,8 +471,6 @@ $(function() {
     }
   });
 
-  $(".editorAdd").click(addSectionItem);
-  $(".editorDelete").click(deleteSectionItem);
   $("#editorSaveButton").click(function() {
     if (isDirty()) {
       save();

@@ -1,10 +1,6 @@
 mixin editBlurb
   div.cvSection
     table#cvSectionBlurb(data-record=cv.blurb._id, data-section='blurb')
-      tr.editorSectionTitleRow
-        th.editorColumnVisible.editorAdd
-        th.editorSectionTitle
-        th.editorDelete
       each item in cv.blurb.items
         tr.editorTableRow(data-record=item._id,data-id=id.next())
           td.editorColumnVisible

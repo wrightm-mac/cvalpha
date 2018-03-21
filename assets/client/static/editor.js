@@ -471,6 +471,12 @@ $(function() {
   //
 
   let $cv = $("div#cvPersonal");
+  $cv.on("mouseenter", "tr", function() {
+    $("td.editorDelete img", $(this)).show();
+  });
+  $cv.on("mouseleave", "tr", function() {
+    $("td.editorDelete img", $(this)).hide();
+  });
   $cv.on("click", "td", passClick);
   $cv.on("click", ".editorAdd", addSectionItem);
   $cv.on("click", ".editorDelete", deleteSectionItem);

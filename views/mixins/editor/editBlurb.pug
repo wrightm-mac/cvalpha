@@ -3,7 +3,6 @@ mixin editBlurb
     table#cvSectionBlurb(data-record=cv.blurb._id, data-section='blurb')
       tr.editorSectionTitleRow
         th.editorColumnVisible.editorAdd
-          img(src='/images/badge_plus.png')
         th.editorSectionTitle
         th.editorDelete
       each item in cv.blurb.items
@@ -19,3 +18,7 @@ mixin editBlurb
             input(id='description_' + id.prev(), type='checkbox', checked=item.visible)
           td.editorColumn.editorColumnBlurbContent
             span.editorClickable(data-id='content', data-edit='large')= item.content
+      tfoot
+        tr
+          td.editorAdd(colspan=3)
+            img(src='/images/badge_plus.png')

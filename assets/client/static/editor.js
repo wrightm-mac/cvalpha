@@ -306,7 +306,7 @@ $(function() {
     let insertedRows = [];
 
     for (let row of info.rows) {
-      let $row = $("<tr>")
+      let $row = $("<tr>", { class: "editorTableRow" })
         .attr("data-id", id);
       $("<td>", { class: "editorColumnVisible" })
         .append($("<input>", { name: `visible_${id}`, type: "checkbox", checked: true }))
@@ -314,6 +314,7 @@ $(function() {
 
       for (let column of row) {
         let $cell = $("<td>", { class: column.css } )
+          .addClass("editorColumn")
           .attr("colspan", column.colspan);
 
         let $span = $("<span>", { class: "editorClickable" })

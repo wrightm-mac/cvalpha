@@ -3,7 +3,6 @@ mixin editEmployment
     table#cvSectionEmployment(data-record=cv.employment._id, data-section='employment')
       tr.editorSectionTitleRow
         th.editorColumnVisible.editorAdd
-          img(src='/images/badge_plus.png')
         th.editorSectionTitle(colspan=3)
           div.editorSectionTitleUnderline= cv.employment.title
         th.editorDelete
@@ -32,3 +31,7 @@ mixin editEmployment
             input(id='description_' + id.prev(), type='checkbox', checked=item.visible)
           td.editorColumn(colspan=3).editorEmploymentColumnDescription
             span.editorClickable(data-id='description', data-edit='large')= item.description
+      tfoot
+        tr
+          td.editorAdd(colspan=3)
+            img(src='/images/badge_plus.png')

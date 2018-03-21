@@ -3,7 +3,6 @@ mixin editEducation
     table#cvSectionEducation(data-record=cv.education._id, data-section='education')
       tr.editorSectionTitleRow
         th.editorColumnVisible.editorAdd
-          img(src='/images/badge_plus.png')
         th.editorSectionTitle(colspan=3)
           div.editorSectionTitleUnderline= cv.education.title
         th.editorDelete
@@ -19,3 +18,7 @@ mixin editEducation
             span.editorClickable(data-id='graduation', data-edit='date', data-format='longMonthYear', data-raw=item.graduation)
           td.editorDelete
             img(src='/images/badge_minus.png')
+      tfoot
+        tr
+          td.editorAdd(colspan=3)
+            img(src='/images/badge_plus.png')

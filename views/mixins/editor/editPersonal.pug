@@ -3,7 +3,6 @@ mixin editPersonal
     table#cvSectionPersonal(data-record=cv.personal._id, data-section='personal')
       tr.editorSectionTitleRow
         th.editorColumnVisible.editorAdd
-          img(src='/images/badge_plus.png')
         th.editorSectionTitle(colspan=2)
           div.editorSectionTitleUnderline= cv.personal.title
         th.editorDelete
@@ -17,3 +16,7 @@ mixin editPersonal
             span.editorClickable(data-id='value')= item.value
           td.editorDelete
             img(src='/images/badge_minus.png')
+      tfoot
+        tr
+          td.editorAdd(colspan=3)
+            img(src='/images/badge_plus.png')

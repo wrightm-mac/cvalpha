@@ -56,10 +56,10 @@ module.exports = {
             path: "/index.html",
             menu: [{
                 name: "about",
-                selector: "#blurb"
+                selector: ".tabBlurb"
               }, {
                 name: "cv",
-                selector: "#editor"
+                selector: ".tabEditor"
               }],
             children: [
                 "/",

@@ -380,51 +380,48 @@ $(function() {
     clearDirty();
   });
 
-  function getSectionContents(sectionName) {
-    let $table = $(`table[data-section=${sectionName}]`);
-    if ($table.exists()) {
-      let section = {
-        title: $("th.editorSectionTitle", $table).text(),
-        items: []
-      };
+  function getSectionContents($table) {
+    let section = {
+      title: $("th.editorSectionTitle", $table).text(),
+      items: []
+    };
 
-      let currentDataId;
-      let currentItem;
-      $("tr[data-id]", $table).each(function() {
-        let $row = $(this);
+    let currentDataId;
+    let currentItem;
+    $("tr[data-id]", $table).each(function() {
+      let $row = $(this);
 
-        let dataId = $row.attr("data-id");
-        if (dataId !== currentDataId) {
-          currentDataId = dataId;
+      let dataId = $row.attr("data-id");
+      if (dataId !== currentDataId) {
+        currentDataId = dataId;
 
-          if (currentItem) {
-            section.items.push(currentItem);
-          }
-
-          currentItem = {
-            _id: $row.attr("data-record"),
-            visible: true
-          };
+        if (currentItem) {
+          section.items.push(currentItem);
         }
 
-        $("span[data-id]", $row).each(function() {
-          let $span = $(this);
-          let text = ($span.attr("data-edit") === "large") ? fromDisplayList($span) : $span.text();
-
-          if ($span.attr("data-raw")) {
-            text = $span.attr("data-raw");
-          }
-
-          currentItem[$span.attr("data-id")] = text;
-        });
-      });
-
-      if (currentItem) {
-        section.items.push(currentItem);
+        currentItem = {
+          _id: $row.attr("data-record"),
+          visible: true
+        };
       }
 
-      return section;
+      $("span[data-id]", $row).each(function() {
+        let $span = $(this);
+        let text = ($span.attr("data-edit") === "large") ? fromDisplayList($span) : $span.text();
+
+        if ($span.attr("data-raw")) {
+          text = $span.attr("data-raw");
+        }
+
+        currentItem[$span.attr("data-id")] = text;
+      });
+    });
+
+    if (currentItem) {
+      section.items.push(currentItem);
     }
+
+    return section;
   }
 
   function save() {
@@ -446,12 +443,13 @@ $(function() {
       _id: id,
       email: email,
       hash: hash,
-      blurb: getSectionContents("blurb"),
-      personal: getSectionContents("personal"),
-      education: getSectionContents("education"),
-      employment: getSectionContents("employment"),
       styling: styling
     };
+
+    $("table[data-section]").each(function() {
+      const $table = $(this);
+      cv[$table.attr("data-section")] = getSectionContents($table);
+    });
 
     $.ajax({
       url: `/${email}`,

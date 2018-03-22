@@ -76,7 +76,16 @@ module.exports = {
         //     path: "/admin.html",
         //     roles: ["admin"],
         //     class: "headerAdminNavLink"
-        }]
+        }],
+        submenus: {
+          viewer: [{
+            name: "about",
+            selector: ".tabBlurb"
+          }, {
+            name: "cv",
+            selector: ".tabEditor"
+          }],
+      }
     },
     mongo: {
         host: process.env.NODE_MONGO_HOST || '127.0.0.1',

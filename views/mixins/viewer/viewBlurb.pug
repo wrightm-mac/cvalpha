@@ -1,0 +1,14 @@
+mixin viewBlurb
+
+  if cv.blurb
+    div.cvSection
+      table#cvSectionBlurb(data-record=cv.blurb._id, data-section='blurb')
+        each item in cv.blurb.items
+          tr.editorTableRow(data-record=item._id)
+            td.editorColumn.editorColumnBlurbHeader
+              span.editorClickable(data-id='header')= item.header
+          tr.editorTableRow
+            td.editorColumn.editorColumnBlurbContent
+              span.editorClickable(data-id='content', data-edit='large')= item.content
+  else
+    //- no blurb defined

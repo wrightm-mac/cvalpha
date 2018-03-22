@@ -1,4 +1,5 @@
 include ../styling
+include ./viewBlurb
 include ./viewPersonal
 include ./viewEducation
 include ./viewEmployment
@@ -6,17 +7,23 @@ include ./viewEmployment
 mixin viewer
   if cv
     +styling
-    div#editor
-      div#cvPersonal(data-id=cv._id, data-user=cv.email, data-hash=cv.hash)
-        +viewPersonal
 
-        div.cvSpacer
+    div#cvPersonal(data-id=cv._id, data-user=cv.email, data-hash=cv.hash)
 
-        +viewEducation
+      div#editor
+        div.tabBlurb
+          +viewBlurb
 
-        div.cvSpacer
+        div.tabEditor
+          +viewPersonal
 
-        +viewEmployment
+          div.cvSpacer
+
+          +viewEducation
+
+          div.cvSpacer
+
+          +viewEmployment
   else
     p
       | nothing to see

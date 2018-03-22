@@ -89,6 +89,7 @@ router.get("/:id", function(req, res) {
 
   cv.model.findOne({ email: lookup }, (err, data) => {
     res.render("view", {
+      submenu: "viewer",
       cv: data
     });
   });

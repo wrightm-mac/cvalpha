@@ -22,11 +22,12 @@ mixin header
           if isCurrentPage
             - currentItem = item;
 
-    if ((currentItem && currentItem.menu) || site.showMenuEmpty) && (site.showMenuAlways || isLoggedIn(req))
+    - let menu = site.submenus[submenu] || (currentItem && currentItem.menu);
+    if (menu || site.showMenuEmpty) && (site.showMenuAlways || isLoggedIn(req))
       div.headerNavigationMenu
         span
-          if currentItem && currentItem.menu
-            each menuItem, index in currentItem.menu
+          if menu
+            each menuItem, index in menu
               a.headerNavMenuUnselected(data-index=index, data-selector=menuItem.selector)= menuItem.name
           else
             | &nbsp;

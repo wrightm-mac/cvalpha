@@ -35,24 +35,40 @@
 var mongoose = require("mongoose");
 
 
+var CvBlurbItemSchema = new mongoose.Schema({
+  header: {
+      type: String,
+      required: true
+  },
+  content: {
+      type: String,
+      required: true
+  },
+  visible: Boolean
+});
+
+var CvBlurbSchema = new mongoose.Schema({
+  items: [CvBlurbItemSchema]
+});
+
 var CvPersonalItemSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true
-    },
-    value: {
-        type: String,
-        required: true
-    },
-    visible: Boolean
+  name: {
+      type: String,
+      required: true
+  },
+  value: {
+      type: String,
+      required: true
+  },
+  visible: Boolean
 });
 
 var CvPersonalSchema = new mongoose.Schema({
-    title: {
-        type: String,
-        required: true
-    },
-    items: [CvPersonalItemSchema]
+  title: {
+      type: String,
+      required: true
+  },
+  items: [CvPersonalItemSchema]
 });
 
 var CvEducationItemSchema = new mongoose.Schema({
@@ -126,6 +142,7 @@ var CvSchema = new mongoose.Schema({
         index: true
     },
     deleted: Boolean,
+    blurb: CvBlurbSchema,
     personal: CvPersonalSchema,
     education: CvEducationSchema,
     employment: CvEmploymentSchema,

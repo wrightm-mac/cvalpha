@@ -9,7 +9,11 @@ mixin viewBlurb
               span.editorClickable(data-id='header')= item.header
           tr.editorTableRow
             td.editorColumn.editorColumnBlurbContent
-              span.editorClickable(data-id='content', data-edit='large')= item.content
+              span.editorClickable(data-id='content', data-edit='large')
+                ul.editorEmploymentList
+                each chunk in item.content.split("\n")
+                  if chunk > ""
+                    li.editorEmploymentListItem= chunk
 
     div.cvSpacer
   else

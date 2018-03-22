@@ -107,6 +107,16 @@ router.put('/:email', (req, res) => {
         data = Object.assign(data, {
           _id: data._id,
           hash: data.hash || helper.id(),
+          blurb: {
+            items: (payload.blurb.items || []).map(item => {
+              return {
+                _id: item._id,
+                header: item.header || "",
+                content: item.content || "",
+                visible: true
+              }
+            })
+          },
           personal: {
             title: payload.personal.title || "Personal",
             items: (payload.personal.items || []).map(item => {

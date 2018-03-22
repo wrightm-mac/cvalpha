@@ -1,28 +1,34 @@
 mixin viewEmployment
-  div.cvSection
-    table#cvSectionEmployment(data-record=cv.employment._id, data-section='employment')
-      tr.editorSectionTitleRow
-        th.editorSectionTitle(colspan=3)
-          div.editorSectionTitleUnderline= cv.employment.title
-      each item in cv.employment.items
-        tr.editorTableRow(data-record=item._id, data-id=id.next())
-          td.editorColumn.editorColumnEmploymentName
-            span.editorClickable(data-id='name')= item.name
-          td.editorColumn.editorColumnBlank
-            span.editorClickable(data-locked=true)
-          td.editorColumn.editorColumnEmploymentTitle
-            span.editorClickable(data-id='title')= item.title
-        tr.editorTableRow(data-id=id.prev())
-          td.editorColumn.editorColumnEmploymentDateFrom
-            span.editorClickable(data-id='from')= dateFormat.longMonthYear(item.from)
-          td.editorColumnBlank
-            span.editorClickable= ' - '
-          td.editorColumn.editorColumnEmploymentDateTo
-            span.editorClickable(data-id='to')= dateFormat.longMonthYear(item.to)
-        tr.editorTableRow(data-id=id.prev())
-          td.editorColumn(colspan=3).editorEmploymentColumnDescription
-            span.editorClickable(data-id='description')
-              ul.editorEmploymentList
-              each chunk in item.description.split("\n")
-                if chunk > ""
-                  li.editorEmploymentListItem= chunk
+
+  if cv.employment && cv.employment.items && cv.employment.items.length
+    div.cvSection
+      table#cvSectionEmployment(data-record=cv.employment._id, data-section='employment')
+        tr.editorSectionTitleRow
+          th.editorSectionTitle(colspan=3)
+            div.editorSectionTitleUnderline= cv.employment.title
+        each item in cv.employment.items
+          tr.editorTableRow(data-record=item._id)
+            td.editorColumn.editorColumnEmploymentName
+              span.editorClickable(data-id='name')= item.name
+            td.editorColumn.editorColumnBlank
+              span.editorClickable(data-locked=true)
+            td.editorColumn.editorColumnEmploymentTitle
+              span.editorClickable(data-id='title')= item.title
+          tr.editorTableRow
+            td.editorColumn.editorColumnEmploymentDateFrom
+              span.editorClickable(data-id='from')= dateFormat.longMonthYear(item.from)
+            td.editorColumnBlank
+              span.editorClickable= ' - '
+            td.editorColumn.editorColumnEmploymentDateTo
+              span.editorClickable(data-id='to')= dateFormat.longMonthYear(item.to)
+          tr.editorTableRow
+            td.editorColumn(colspan=3).editorEmploymentColumnDescription
+              span.editorClickable(data-id='description')
+                ul.editorEmploymentList
+                each chunk in item.description.split("\n")
+                  if chunk > ""
+                    li.editorEmploymentListItem= chunk
+
+    div.cvSpacer
+  else
+    //- no employment section defined

@@ -1,14 +1,20 @@
 mixin viewEducation
-  div.cvSection
-    table#cvSectionEducation(data-record=cv.education._id, data-section='education')
-      tr.editorSectionTitleRow
-        th.editorSectionTitle(colspan=3)
-          div.editorSectionTitleUnderline= cv.education.title
-      each item in cv.education.items
-        tr.editorTableRow(data-record=item._id, data-id=id.next())
-          td.editorColumn.editorColumnEducationName
-            span.editorClickable(data-id='name')= item.school
-          td.editorColumn.editorColumnEducationCourse
-            span.editorClickable(data-id='course')= item.course
-          td.editorColumn.editorColumnEducationGraduation
-            span.editorClickable(data-id='graduation')= dateFormat.longMonthYear(item.graduation)
+
+  if cv.education && cv.education.items && cv.education.items.length
+    div.cvSection
+      table#cvSectionEducation(data-record=cv.education._id, data-section='education')
+        tr.editorSectionTitleRow
+          th.editorSectionTitle(colspan=3)
+            div.editorSectionTitleUnderline= cv.education.title
+        each item in cv.education.items
+          tr.editorTableRow(data-record=item._id)
+            td.editorColumn.editorColumnEducationName
+              span.editorClickable(data-id='name')= item.school
+            td.editorColumn.editorColumnEducationCourse
+              span.editorClickable(data-id='course')= item.course
+            td.editorColumn.editorColumnEducationGraduation
+              span.editorClickable(data-id='graduation')= dateFormat.longMonthYear(item.graduation)
+
+    div.cvSpacer
+  else
+    //- no education section defined

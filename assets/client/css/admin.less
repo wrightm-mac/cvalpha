@@ -32,67 +32,87 @@
 
 ----------------------------------------------------------------------------- */
 
-const sha = require('./hash/sha');
+
+@adminblockcolor: @titlecolor;
+@adminblocktextcolor: @blockcolor;
 
 
-module.exports = {
-    site: {
-        title: "cv alpha",
-        id: {
-            name: "cvalpha.com",
-            version: 0.4,
-        },
-        get hash() {
-            let hasher = new sha("SHA-1", "TEXT");
-            hasher.update(`${this.id.name}+${this.id.version}`);
+dl.adminSection dt {
+  cursor: pointer;
+  background-color: @adminblockcolor;
+  color: @adminblocktextcolor;
 
-            return hasher.getHash("HEX");
-        },
-        //image: "/images/headergraphic.png",
-        showMenuAlways: false,  // Show sub-menu even when not logged in.
-        showMenuEmpty: true,    // Show sub-menu bar even when there are no items.
-        map: [{
-            name: "you",
-            path: "/index.html",
-            menu: [{
-                name: "about",
-                selector: ".tabBlurb"
-              }, {
-                name: "cv",
-                selector: ".tabEditor"
-              }],
-            children: [
-                "/",
-                /stuff\/*/
-            ]
-        }, {
-            name: "them",
-            path: "/them.html"
-        }, {
-            name: "us",
-            path: "/us.html"
-        }, {
-            name: "admin",
-            path: "/admin.html",
-            roles: ["admin"],
-            class: "headerAdminNavLink"
-        }],
-        submenus: {
-          viewer: [{
-            name: "about",
-            selector: ".tabBlurb"
-          }, {
-            name: "cv",
-            selector: ".tabEditor"
-          }],
-      }
-    },
-    mongo: {
-        host: process.env.NODE_MONGO_HOST || '127.0.0.1',
-        port: process.env.NODE_MONGO_PORT || '27017',
-        db: "cvalpha",
-        get url() {
-            return `mongodb://${this.host}:${this.port}/${this.db}`;
-        }
-    }
-};
+  width: 100%;
+  font-weight: bold;
+
+  border-radius: @standardradius;
+
+  margin: 0 0 12px 0;
+  padding: 0 12px 0 12px;
+}
+
+dl.adminSection dt:first-child {
+  margin-top: @contentbelowheader;
+}
+
+dl.adminSection dd {
+  display: none;
+  margin: 0 0 32px 12px;
+  padding: 0;
+}
+
+dl.adminSection dt table {
+  width: 100%;
+}
+
+
+// ------------------------------------------------------------------------ //
+
+
+table.adminTable {
+  width: 100%;
+}
+
+table.adminTable th {
+  background-color: darkgrey;
+  color: @adminblocktextcolor;
+
+  border-radius: @standardradius;
+
+  padding: 0 12px 0 12px;
+}
+
+table.adminTable td {
+  vertical-align: top;
+}
+
+table.adminTable td ul {
+  list-style-type: square;
+  margin: 18px;
+  padding: 0;
+  vertical-align: top;
+}
+
+table.adminTable td li {
+  margin: 0;
+  padding: 0;
+}
+
+
+// ------------------------------------------------------------------------ //
+
+
+td.adminTableUsersId {
+  width: 20%;
+  color: darkgrey;
+  font-size: 50%;
+  text-align: center;
+}
+
+td.adminTableUsersEmail {
+  width: 40%;
+}
+
+td.adminTableUsersRoles {
+  width: 15%;
+}

@@ -51,6 +51,7 @@ const fragments = require('./routes/fragments');
 const index = require('./routes/index');
 const login = require('./routes/login');
 
+const apiDocuments = require('./routes/api/documents');
 const apiUsers = require('./routes/api/users');
 
 const app = express();
@@ -110,6 +111,7 @@ app.use('/', index);
 app.use('/login', login);
 
 // The application's API handlers...
+app.use('/api/documents', apiDocuments);
 app.use('/api/users', apiUsers);
 
 // The application's fragments...

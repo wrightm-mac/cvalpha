@@ -1,6 +1,7 @@
 extends layout
 
 block content
+  script(src="/scripts/admin.js")
 
   dl.adminSection
     dt(data-section='users') Users
@@ -11,67 +12,13 @@ block content
             th.adminTableHeader ID
             th.adminTableHeader Email
             th.adminTableHeader Roles
+            th.adminTableHeaderBlank
 
     dt(data-section='documents') Documents
     dd(data-section='documents')
-      | hello, world!
-
-  script.
-    $(function() {
-      function getSectionData(endpoint, callback) {
-          $.ajax({
-            url: `/api/${endpoint}`
-          })
-          .then(function(data) {
-            callback(data);
-          })
-          .catch(function(error) {
-          });
-      }
-
-      const sectiondata = {
-        users: function($panel) {
-          getSectionData("users", function(users) {
-            const $table = $("table", $panel);
-            //$panel.text(JSON.stringify(data));
-
-            for (let user of users) {
-              const $row = $("<tr>").appendTo($table);
-              $("<td>", { class: "adminTableUsersId" })
-                .text(user._id)
-                .appendTo($row);
-              $("<td>", { class: "adminTableUsersEmail" })
-                .text(user.email)
-                .appendTo($row);
-              const $roles = $("<td>", { class: "adminTableUsersRoles" }).appendTo($row);
-              const $roleList = $("<ul>").appendTo($roles);
-              for (role of user.roles) {
-                $("<li>")
-                  .text(role)
-                  .appendTo($roleList);
-              }
-            }
-          });
-        },
-
-        documents: function() {
-
-        }
-      };
-
-      $("dl.adminSection").on("click", "dt[data-section]", function() {
-        const $this = $(this);
-        const section = $this.attr("data-section");
-        const $panel = $(`dd[data-section='${section}']`, $this.parent());
-        if ($panel.hidden()) {
-          if (!$panel.data("loaded") && sectiondata[section]) {
-            sectiondata[section].call($panel, $panel, section);
-            $panel.data("loaded", true);
-          }
-          $panel.show();
-        }
-        else {
-          $panel.hide();
-        }
-      });
-    });
+      table.adminTable
+        thead
+          tr
+            th.adminTableHeader ID
+            th.adminTableHeader Email
+            th.adminTableHeaderBlank
